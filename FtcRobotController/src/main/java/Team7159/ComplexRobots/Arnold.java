@@ -1,7 +1,5 @@
 package Team7159.ComplexRobots;
 
-
-
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;

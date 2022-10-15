@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package LegacyOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
