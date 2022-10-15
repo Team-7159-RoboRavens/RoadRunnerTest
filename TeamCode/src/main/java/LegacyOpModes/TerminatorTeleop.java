@@ -2,7 +2,7 @@ package LegacyOpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import Team7159.LegacyRobots.Arnold;
+import Team7159.ComplexRobots.Arnold;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Freight Frenzy Teleop")
 public class TerminatorTeleop extends LinearOpMode {
