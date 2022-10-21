@@ -17,15 +17,19 @@ public class BasicHolonomic {
     //  LBMotor = new Motor(Map, "BLDrive");
         // RFMotor = new Motor(Map, "FRDrive");
    //   RBMotor = new Motor(Map, "BRDrive");
-        LFMotor = Map.dcMotor.get("FLDrive");
-        LBMotor = Map.dcMotor.get("BLDrive");
-        RFMotor = Map.dcMotor.get("FRDrive");
-        RBMotor = Map.dcMotor.get("BRDrive");
+        LFMotor = Map.Motor.get("FLDrive");
+        LBMotor = Map.Motor.get("BLDrive");
+        RFMotor = Map.Motor.get("FRDrive");
+        RBMotor = Map.Motor.get("BRDrive");
 
-        RFMotor.set(0.0);
-        RBMotor.set(0.0);
-        LFMotor.set(0.0);
-        LBMotor.set(0.0);
+       //RFMotor.set(0.0);
+        //RBMotor.set(0.0);
+        //LFMotor.set(0.0);
+        //LBMotor.set(0.0);
+        LFMotor.setPower(0.0);
+        LBMotor.setPower(0.0);  
+        RFMotor.setPower(0.0);
+        RBMotor.setPower(0.0);
 
         LFMotor.setRunMode(Motor.RunMode.RawPower);
         RFMotor.setRunMode(Motor.RunMode.RawPower);
