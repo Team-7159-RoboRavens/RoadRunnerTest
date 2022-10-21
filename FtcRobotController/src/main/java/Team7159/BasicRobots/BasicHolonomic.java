@@ -27,7 +27,7 @@ public class BasicHolonomic {
         //LFMotor.set(0.0);
         //LBMotor.set(0.0);
         LFMotor.setPower(0.0);
-        LBMotor.setPower(0.0);  
+        LBMotor.setPower(0.0);
         RFMotor.setPower(0.0);
         RBMotor.setPower(0.0);
 
