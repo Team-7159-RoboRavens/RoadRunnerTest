@@ -13,10 +13,14 @@ public class BasicHolonomic {
 
     public void init(HardwareMap Map){
 
-        LFMotor = new Motor(Map, "FLDrive");
-        LBMotor = new Motor(Map, "BLDrive");
-        RFMotor = new Motor(Map, "FRDrive");
-        RBMotor = new Motor(Map, "BRDrive");
+`   //  LFMotor = new Motor(Map, "FLDrive");
+    //  LBMotor = new Motor(Map, "BLDrive");
+        // RFMotor = new Motor(Map, "FRDrive");
+   //   RBMotor = new Motor(Map, "BRDrive");
+        LFMotor = Map.dcMotor.get("FLDrive");
+        LBMotor = Map.dcMotor.get("BLDrive");
+        RFMotor = Map.dcMotor.get("FRDrive");
+        RBMotor = Map.dcMotor.get("BRDrive");
 
         RFMotor.set(0.0);
         RBMotor.set(0.0);
