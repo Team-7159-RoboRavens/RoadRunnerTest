@@ -1,60 +1,59 @@
 package Team7159.ComplexRobots;
 
-import com.arcrobotics.ftclib.hardware.ServoEx;
-import com.arcrobotics.ftclib.hardware.SimpleServo;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.arcrobotics.ftclib.hardware.motors.*;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.*;
+import com.qualcomm.hardware.motors.*;
 
 import Team7159.BasicRobots.BasicMecanum;
 
 public class Arnold extends BasicMecanum {
 
-    public MotorEx armRotation;
-    public MotorEx carouselMotor;
-    public MotorEx intakeMotorPower;
-    public MotorEx intakeMotorRotation;
+    public DcMotor armRotation;
+    public DcMotor carouselMotor;
+    public DcMotor intakeMotorPower;
+    public DcMotor intakeMotorRotation;
 
-    public ServoEx bucketTiltServo;
+    public Servo bucketTiltServo;
 
     public void init(HardwareMap Map) {
 
         super.init(Map);
 
-        armRotation = new MotorEx(Map, "armRotation");
-        carouselMotor = new MotorEx(Map, "carouselMotor");
+        armRotation = Map.dcMotor.get("armRotation");
+        carouselMotor = Map.dcMotor.get("carouselMotor");
 
-        intakeMotorPower = new MotorEx(Map, "intakeMotorPower");
-        intakeMotorRotation = new MotorEx(Map, "intakeMotorRotation");
+        intakeMotorPower = Map.dcMotor.get("intakeMotorPower");
+        intakeMotorRotation = Map.dcMotor.get("intakeMotorRotation");
 
-        bucketTiltServo = new SimpleServo(Map, "bucketTiltServo", 0, 180);
+        bucketTiltServo = Map.servo.get("bucketTiltServo");
 
-        armRotation.setRunMode(Motor.RunMode.RawPower);
+        armRotation.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //linearSlidesDrive.setVeloCoefficients(0.8, 0, 0);
-        carouselMotor.setRunMode(Motor.RunMode.RawPower);
+        carouselMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //carouselMotor.setVeloCoefficients(0.8, 0, 0);
-        intakeMotorPower.setRunMode(Motor.RunMode.RawPower);
+        intakeMotorPower.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        intakeMotorRotation.setRunMode(MotorEx.RunMode.VelocityControl);
-        intakeMotorRotation.setVeloCoefficients(0.80, 0, 0);
+        intakeMotorRotation.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        intakeMotorRotation.setVeloCoefficients(0.80, 0, 0);
+        armRotation.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        carouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeMotorPower.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        intakeMotorRotation.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        armRotation.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        carouselMotor.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        intakeMotorPower.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        intakeMotorRotation.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        armRotation.setPower(0);
+        armRotation.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        armRotation.set(0);
-        armRotation.resetEncoder();
+        carouselMotor.setPower(0);
+        carouselMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        carouselMotor.set(0);
-        carouselMotor.resetEncoder();
+        intakeMotorPower.setPower(0);
 
-        intakeMotorPower.set(0);
+        intakeMotorRotation.setPower(0);
+        intakeMotorRotation.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        intakeMotorRotation.set(0);
-        intakeMotorRotation.resetEncoder();
-
-        bucketTiltServo.setRange(0, 0.7);
+        bucketTiltServo.scaleRange(0.0, 0.7);
         bucketTiltServo.setPosition(0);
 
     }
