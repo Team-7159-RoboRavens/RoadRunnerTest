@@ -48,21 +48,6 @@ public class NoamChristopherTeleOp extends LinearOpMode {
 
         }
 
-//        Determines ratio of motor powers (by sides) using the right stick
-        double rightRatio;
-        double leftRatio;
-        //Declares the maximum power any side can have
-        double maxRatio = 1;
-
-        //If we're turning left, the right motor should be at maximum power, so it decides the maxRatio. If we're turning right, vice versa.
-//        if (rotate < 0) {
-//            maxRatio = 1 / rightRatio;
-//        } else {
-//            maxRatio = 1 / leftRatio;
-//        }
-
-//        robot.pivotTurn(1, gamepad1.left_bumper, gamepad1.right_bumper);
-
         robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
         telemetry.update();
     }
