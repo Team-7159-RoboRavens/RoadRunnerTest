@@ -36,6 +36,7 @@ public class Christopher extends BasicMecanum {
         armMotor = Map.dcMotor.get("armMotor");
         servoClaw = Map.servo.get("servoClaw");
 
+
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setPower(0);
