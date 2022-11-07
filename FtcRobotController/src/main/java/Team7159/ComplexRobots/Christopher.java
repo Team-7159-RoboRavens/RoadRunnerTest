@@ -26,18 +26,20 @@ import Team7159.BasicRobots.BasicMecanum;
 
 public class Christopher extends BasicMecanum {
 
-    public Servo armServo;
+    public DcMotor armMotor;
     public Servo servoClaw;
 
     public void init(HardwareMap Map) {
 
         super.init(Map);
 
-        armServo = Map.servo.get("armServo");
+        armMotor = Map.dcMotor.get("armMotor");
         servoClaw = Map.servo.get("servoClaw");
 
-        armServo.scaleRange(0, 0.7);
-        armServo.setPosition(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armMotor.setPower(0);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         servoClaw.scaleRange(0, 0.7);
         servoClaw.setPosition(0);

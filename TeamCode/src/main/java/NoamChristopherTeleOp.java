@@ -27,28 +27,43 @@ public class NoamChristopherTeleOp extends LinearOpMode {
         waitForStart();
 
         double slowPower = 0.25;
+        double regPower = 1.0;
 
-        if(gamepad1.x) {
-            robot.moveLeft(slowPower);
-        }
-        if(gamepad1.y) {
-            robot.moveStraight(slowPower);
-        }
-        if(gamepad1.a) {
-            robot.moveBackwards(slowPower);
-        }
-        if(gamepad1.b) {
-            robot.moveRight(slowPower);
-        }
+        double accel;
+        double rotate;
+        double powR;
+        double powL;
 
-        if(gamepad1.right_bumper) {
+        while (opModeIsActive()) {
+
+            telemetry.addData("Claw pos: ", robot.servoClaw.getPosition());
+            telemetry.addData("Arm velocity: ", robot.armMotor.getCurrentPosition());
+
+            if (gamepad1.x) {
+                robot.moveLeft(slowPower);
+            }
+            else if (gamepad1.y) {
+                robot.moveStraight(slowPower);
+            }
+            else if (gamepad1.a) {
+                robot.moveBackwards(slowPower);
+            }
+            else if (gamepad1.b) {
+                robot.moveRight(slowPower);
+            }
+
+            if(gamepad1.right_trigger > 0.1) {
+                robot.moveStraight(regPower);
+            }
+            else if(gamepad1.left_trigger > 0.1) {
+                robot.moveBackwards(regPower);
+            }
+
+            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
+
+            robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+            telemetry.update();
 
         }
-        if(gamepad1.left_bumper) {
-
-        }
-
-        robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
-        telemetry.update();
     }
 }
