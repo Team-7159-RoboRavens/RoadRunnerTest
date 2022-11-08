@@ -236,6 +236,29 @@ public class BasicMecanum {
         RBMotor.setPower(power);
     }
 
+//    Adding this for now
+
+    public void moveLeft(double power) {
+        LFMotor.setPower(-power);
+        RFMotor.setPower(power);
+        LBMotor.setPower(power);
+        RBMotor.setPower(-power);
+    }
+
+    public void moveRight(double power) {
+        LFMotor.setPower(power);
+        RFMotor.setPower(-power);
+        LBMotor.setPower(-power);
+        RBMotor.setPower(power);
+    }
+
+    public void moveBackwards(double power) {
+        LFMotor.setPower(-power);
+        RFMotor.setPower(-power);
+        LBMotor.setPower(-power);
+        RBMotor.setPower(-power);
+    }
+
     //public void pivotTurnLeft(boolean on, double accel) {
     //    if(on) {
     //        LFMotor.set(10);
