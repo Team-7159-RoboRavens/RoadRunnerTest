@@ -300,6 +300,7 @@ public class BasicMecanum {
         }
     }
 
+
     public void pivotTurn(double power, boolean rightBumper, boolean leftBumper) {
         power = power*2;
         if(rightBumper && leftBumper) {
@@ -318,8 +319,6 @@ public class BasicMecanum {
             RBMotor.setPower(power);
             LBMotor.setPower(-power);
         }
-
-
     }
 
     public void octoStrafe(boolean up, boolean down, boolean left, boolean right) {
