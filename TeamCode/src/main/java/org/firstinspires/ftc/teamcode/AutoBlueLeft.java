@@ -15,7 +15,7 @@ public class AutoBlueLeft extends LinearOpMode {
 
     private Christopher robot = new Christopher();
 
-    // strafe(Direction direction, double power, double time (seconds))
+    // strafe(Direction direction, double power, double tiles)
 
     SleeveDetection sleeveDetection = new SleeveDetection();
     OpenCvCamera camera;
@@ -23,10 +23,10 @@ public class AutoBlueLeft extends LinearOpMode {
     public int location = 1;
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
 
-        waitForStart();
+        robot.servoClaw.setPosition(0);
 
         // Signal Sleeve
         // Rotate Left 45 degrees
@@ -74,7 +74,21 @@ public class AutoBlueLeft extends LinearOpMode {
 
         waitForStart();
 
-        
 
+        robot.rotate(Direction.LEFT, 45);
+        robot.armPos(robot.armPosGround, robot.servoPosGround);
+        robot.servoClaw.setPosition(0.7);
+        robot.rotate(Direction.RIGHT, 45);
+        robot.strafe(Direction.RIGHT, 0.5, 1.0);
+        robot.rotate(Direction.RIGHT, 135);
+        robot.servoClaw.setPosition(0);
+        robot.rotate(Direction.LEFT, 135);
+
+        if(location == 1) {
+            robot.strafe(Direction.LEFT, 0.5, 2);
+            robot.strafe(Direction.FORWARDS, 0.5, 1.5);
+            robot.rotate(Direction.RIGHT, 90);
+            robot.armPos(robot.armPosMid, robot.servoPosMid);
+        }
     }
 }
