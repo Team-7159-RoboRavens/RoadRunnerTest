@@ -1,8 +1,10 @@
+package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Power Play TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="org.firstinspires.ftc.teamcode.NoamGautamChristopherTeleOp")
 public class NoamGautamChristopherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left
@@ -35,7 +37,8 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             telemetry.addData("Claw pos: ", robot.servoClaw.getPosition());
-            telemetry.addData("Arm velocity: ", robot.armMotor.getCurrentPosition());
+            telemetry.addData("Arm 2 pos: ", robot.servoArm2.getPosition());
+            telemetry.addData("Arm pos: ", robot.armMotor.getCurrentPosition());
             //Noam driving teleop \/
             if (gamepad1.x) {
                 robot.moveLeft(slowPower);
@@ -49,6 +52,9 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             else if (gamepad1.b) {
                 robot.moveRight(slowPower);
             }
+            else {
+                robot.stop();
+            }
 
             if(gamepad1.right_trigger > 0.1) {
                 robot.moveStraight(regPower);
@@ -56,10 +62,10 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             else if(gamepad1.left_trigger > 0.1) {
                 robot.moveBackwards(regPower);
             }
+            else {
+                robot.stop();
+            }
 
-            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
-
-            robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
             //Noam TeleOp /\
             //Gautam Teleop \/
             if(gamepad2.right_bumper) {
@@ -81,6 +87,9 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
                 robot.armMotor.setPower(0);
             }
             //Gautam Teleop /\
+            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
+            robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+
             telemetry.update();
 
         }
