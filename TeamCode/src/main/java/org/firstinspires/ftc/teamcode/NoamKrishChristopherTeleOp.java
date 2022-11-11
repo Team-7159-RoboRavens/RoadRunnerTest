@@ -30,16 +30,6 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
         double slowPower = 0.25;
         double regPower = 1.0;
 
-        int armPosHigh = 10;
-        int armPosMid = 5;
-        int armPosLow = 1;
-        int armPosGround = 0;
-
-        int servoPosHigh;
-        int servoPosMid;
-        int servoPosLow;
-        int servoPosGround;
-
         boolean armToggle = false;
         boolean previousRB = false;
 
@@ -82,28 +72,28 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
             if (gamepad2.x) {
                 robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(armPosMid);
+                robot.armMotor.setTargetPosition(robot.armPosMid);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 //                robot.servoArm2.setPosition(servoPosMid);
             }
             else if (gamepad2.y) {
                 robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(armPosHigh);
+                robot.armMotor.setTargetPosition(robot.armPosHigh);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 //                robot.servoArm2.setPosition(servoPosMid);
             }
             else if (gamepad2.a) {
                 robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(armPosGround);
+                robot.armMotor.setTargetPosition(robot.armPosGround);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 //                robot.servoArm2.setPosition(servoPosMid);
             }
             else if (gamepad2.b) {
                 robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(armPosLow);
+                robot.armMotor.setTargetPosition(robot.armPosLow);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 //                robot.servoArm2.setPosition(servoPosMid);
@@ -117,7 +107,7 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
                 armToggle = false;
             }
             if (armToggle) {
-                robot.servoClaw.setPosition(1);
+                robot.servoClaw.setPosition(0.7);
             } else {
                 robot.servoClaw.setPosition(0);
             }

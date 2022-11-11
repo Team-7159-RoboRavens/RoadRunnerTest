@@ -18,6 +18,16 @@ public class Christopher extends BasicMecanum {
     public Servo servoClaw;
     public Servo servoArm2;
 
+    public int armPosHigh = 10;
+    public int armPosMid = 5;
+    public int armPosLow = 1;
+    public int armPosGround = 0;
+
+    public int servoPosHigh;
+    public int servoPosMid;
+    public int servoPosLow;
+    public int servoPosGround;
+
     public void init(HardwareMap Map) {
 
         super.init(Map);
@@ -117,9 +127,16 @@ public class Christopher extends BasicMecanum {
     }
 
     // Rotate angle method
-    public void rotateAngle(Direction direction, int angle) {
+    public void rotate(Direction direction, int angle) {
 
     }
 
+    // Method for arm pos
+    public void armPos(int armPos, int servoArmPos) {
+        armMotor.setPower(0.5);
+        armMotor.setTargetPosition(armPos);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        servoArm2.setPosition(servoArmPos);
+    }
 
 }

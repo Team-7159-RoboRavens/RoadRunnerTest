@@ -69,7 +69,7 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             //Noam TeleOp /\
             //Gautam Teleop \/
             if(gamepad2.right_bumper) {
-                robot.servoClaw.setPosition(1);
+                robot.servoClaw.setPosition(0.7);
             }else if(gamepad2.left_bumper){
                 robot.servoClaw.setPosition(0);
             }
