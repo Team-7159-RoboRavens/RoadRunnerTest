@@ -75,28 +75,31 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
                 robot.armMotor.setTargetPosition(robot.armPosMid);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-//                robot.servoArm2.setPosition(servoPosMid);
+                robot.servoArm2.setPosition(robot.servoPosMid);
             }
             else if (gamepad2.y) {
                 robot.armMotor.setPower(0.5);
                 robot.armMotor.setTargetPosition(robot.armPosHigh);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-//                robot.servoArm2.setPosition(servoPosMid);
+                robot.servoArm2.setPosition(robot.servoPosMid);
             }
             else if (gamepad2.a) {
                 robot.armMotor.setPower(0.5);
                 robot.armMotor.setTargetPosition(robot.armPosGround);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-//                robot.servoArm2.setPosition(servoPosMid);
+                robot.servoArm2.setPosition(robot.servoPosMid);
             }
             else if (gamepad2.b) {
                 robot.armMotor.setPower(0.5);
                 robot.armMotor.setTargetPosition(robot.armPosLow);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-//                robot.servoArm2.setPosition(servoPosMid);
+                robot.servoArm2.setPosition(robot.servoPosMid);
+            }
+            else {
+                robot.armMotor.setPower(0);
             }
 
 //            TODO: Add current position thresholds
@@ -119,6 +122,9 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
             else if(gamepad2.left_trigger > 0.1) {
                 robot.armMotor.setPower(-0.5);
                 robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+            else {
+                robot.armMotor.setPower(0);
             }
 
             robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
