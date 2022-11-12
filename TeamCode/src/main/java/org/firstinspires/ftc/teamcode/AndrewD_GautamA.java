@@ -1,4 +1,5 @@
-package org.firstinspires.ftc.teamcode;/*
+package org.firstinspires.ftc.teamcode;
+/*
     Gamepad 1
         X - Strafe left
         B - Strafe Right
@@ -47,7 +48,6 @@ public class AndrewD_GautamA extends LinearOpMode {
             telemetry.addData("Arm pos: ", robot.armMotor.getCurrentPosition());
 
             //Andrew Code
-
             powRX1 = gamepad1.right_stick_x;
             powRY1 = gamepad1.right_stick_y;
             powLX1= gamepad1.left_stick_x;
@@ -63,11 +63,11 @@ public class AndrewD_GautamA extends LinearOpMode {
                 robot.RFMotor.setPower(motorPower);
                 robot.RBMotor.setPower(motorPower);
             } else if (powLX1 >= 0.1 || powLX1 <= -0.1) {
-                motorPower = (-powLX1) * 0.5;
+                motorPower = (powLX1) * 0.5;
                 robot.RFMotor.setPower(motorPower);
                 robot.RBMotor.setPower(motorPower);
             } else if(powLY1 >= 0.1 || powLY1 <= -0.1) {
-                motorPower = powLY1 * 0.5;
+                motorPower = -powLY1 * 0.5;
                 robot.RFMotor.setPower(motorPower);
                 robot.RBMotor.setPower(motorPower);
             }
