@@ -60,7 +60,7 @@ public class AutoBlueLeft extends LinearOpMode {
 
         while (!isStarted()) {
             if(sleeveDetection.getPosition() == SleeveDetection.ParkingPosition.LEFT) {
-                location = 1;
+
             }
             else if (sleeveDetection.getPosition() == SleeveDetection.ParkingPosition.CENTER) {
                 location = 2;
@@ -75,20 +75,35 @@ public class AutoBlueLeft extends LinearOpMode {
         waitForStart();
 
 
-        robot.rotate(Direction.LEFT, 45);
+        robot.rotate(Direction.LEFT, 1, 45);
         robot.armPos(robot.armPosGround, robot.servoPosGround);
         robot.servoClaw.setPosition(0.7);
-        robot.rotate(Direction.RIGHT, 45);
-        robot.strafe(Direction.RIGHT, 0.5, 1.0);
-        robot.rotate(Direction.RIGHT, 135);
+        robot.rotate(Direction.RIGHT, 1, 45);
+        robot.strafe(Direction.RIGHT, 1, 1.0);
+        robot.rotate(Direction.RIGHT, 1, 135);
         robot.servoClaw.setPosition(0);
-        robot.rotate(Direction.LEFT, 135);
+        robot.rotate(Direction.LEFT, 1, 135);
 
         if(location == 1) {
-            robot.strafe(Direction.LEFT, 0.5, 2);
-            robot.strafe(Direction.FORWARDS, 0.5, 1.5);
-            robot.rotate(Direction.RIGHT, 90);
+            robot.strafe(Direction.LEFT, 1, 2);
+            robot.strafe(Direction.FORWARDS, 1, 1.5);
+            robot.rotate(Direction.RIGHT, 1, 90);
             robot.armPos(robot.armPosMid, robot.servoPosMid);
+            robot.servoClaw.setPosition(0.7);
+        }
+        else if(location == 2) {
+            robot.strafe(Direction.LEFT, 1, 1);
+            robot.strafe(Direction.FORWARDS, 1, 2);
+            robot.rotate(Direction.RIGHT, 1, 45);
+            robot.armPos(robot.armPosHigh, robot.servoPosHigh);
+            robot.servoClaw.setPosition(0.7);
+        }
+        else if(location == 3) {
+            robot.strafe(Direction.LEFT, 1, 2);
+            robot.strafe(Direction.FORWARDS, 1, 1.5);
+            robot.rotate(Direction.RIGHT, 1, 90);
+            robot.armPos(robot.armPosMid, robot.servoPosMid);
+            robot.servoClaw.setPosition(0.7);
         }
     }
 }

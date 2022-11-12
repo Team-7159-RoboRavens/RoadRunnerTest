@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.hardware.motors.*;
 
 
-
-
 import Team7159.BasicRobots.BasicMecanum;
 import Team7159.Enums.Direction;
 
@@ -95,14 +93,14 @@ public class Christopher extends BasicMecanum {
             RFMotor.setPower(power);
             LBMotor.setPower(power);
             RBMotor.setPower(-power);
-            wait((int)tiles * tileTime);
+            Thread.sleep((long)tiles * tileTime);
             stop();
         }else if(direction == Direction.RIGHT){
             LFMotor.setPower(power);
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
             RBMotor.setPower(power);
-            wait((int)tiles * tileTime);
+            Thread.sleep((long)tiles * tileTime);
             stop();
         }
         else if(direction == Direction.FORWARDS) {
@@ -110,7 +108,7 @@ public class Christopher extends BasicMecanum {
             RFMotor.setPower(power);
             LBMotor.setPower(power);
             RBMotor.setPower(power);
-            wait((int) tiles * tileTime);
+            Thread.sleep((long) tiles * tileTime);
             stop();
         }
         else if(direction == Direction.BACKWARDS) {
@@ -118,7 +116,7 @@ public class Christopher extends BasicMecanum {
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
             RBMotor.setPower(-power);
-            wait((int) tiles * tileTime);
+            Thread.sleep((long) tiles * tileTime);
             stop();
         }
         else{
@@ -127,8 +125,23 @@ public class Christopher extends BasicMecanum {
     }
 
     // Rotate angle method
-    public void rotate(Direction direction, int angle) {
+    public void rotate(Direction direction, double power, double inputAngle) throws InterruptedException {
+        double time90 = 1000;
+        double angleTime = (inputAngle/90) * time90;
 
+        if(direction == Direction.LEFT) {
+            RFMotor.setPower(-power);
+            LFMotor.setPower(power);
+            RBMotor.setPower(-power);
+            LBMotor.setPower(power);
+            Thread.sleep((long) angleTime);
+        } else if(direction == Direction.RIGHT) {
+            RFMotor.setPower(power);
+            LFMotor.setPower(-power);
+            RBMotor.setPower(power);
+            LBMotor.setPower(-power);
+            Thread.sleep((long) angleTime);
+        }
     }
 
     // Method for arm pos
