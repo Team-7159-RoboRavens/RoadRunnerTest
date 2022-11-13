@@ -21,10 +21,10 @@ public class Christopher extends BasicMecanum {
     public int armPosLow = 1;
     public int armPosGround = 0;
 
-    public int servoPosHigh;
-    public int servoPosMid;
-    public int servoPosLow;
-    public int servoPosGround;
+    public int servoPosHigh = 10;
+    public int servoPosMid = 5;
+    public int servoPosLow = 1;
+    public int servoPosGround = 0;
 
     public void init(HardwareMap Map) {
 
