@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import Team7159.ComplexRobots.Christopher;
 import Team7159.Enums.Direction;
@@ -18,7 +19,7 @@ public class AutoBlueLeft extends LinearOpMode {
     // strafe(Direction direction, double power, double tiles)
 
     SleeveDetection sleeveDetection = new SleeveDetection();
-    OpenCvCamera camera;
+    OpenCvCamera phoneCam;
     String webcamName = "Webcam 1";
     public int location = 1;
 
@@ -42,16 +43,16 @@ public class AutoBlueLeft extends LinearOpMode {
         // Location 3: reverse location 2
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, webcamName), cameraMonitorViewId);
+        phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
         sleeveDetection = new SleeveDetection();
-        camera.setPipeline(sleeveDetection);
+        phoneCam.setPipeline(sleeveDetection);
 
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
             public void onOpened()
             {
-                camera.startStreaming(320,240, OpenCvCameraRotation.SIDEWAYS_LEFT);
+                phoneCam.startStreaming(320,240);
             }
 
             @Override
@@ -60,7 +61,7 @@ public class AutoBlueLeft extends LinearOpMode {
 
         while (!isStarted()) {
             if(sleeveDetection.getPosition() == SleeveDetection.ParkingPosition.LEFT) {
-
+                location = 1;
             }
             else if (sleeveDetection.getPosition() == SleeveDetection.ParkingPosition.CENTER) {
                 location = 2;
