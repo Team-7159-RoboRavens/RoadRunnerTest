@@ -39,7 +39,7 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             telemetry.addData("Claw pos: ", robot.servoClaw.getPosition());
-            telemetry.addData("Arm velocity: ", robot.armMotor.getCurrentPosition());
+            telemetry.addData("Arm pos: ", robot.armMotor.getCurrentPosition());
 
             // Noam Drive
             if (gamepad1.x) {
@@ -102,18 +102,24 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
                 robot.armMotor.setPower(0);
             }
 
-//            TODO: Add current position thresholds
-            if (!armToggle && gamepad2.right_bumper) {
-                armToggle = true;
-            }
-            if (armToggle && gamepad2.right_bumper) {
-                armToggle = false;
-            }
-            if (armToggle) {
+            if(gamepad2.right_bumper) {
                 robot.servoClaw.setPosition(0.7);
-            } else {
+            }else if(gamepad2.left_bumper){
                 robot.servoClaw.setPosition(0);
             }
+
+//            TODO: Add current position thresholds
+//            if (!armToggle && gamepad2.right_bumper) {
+//                armToggle = true;
+//            }
+//            if (armToggle && gamepad2.right_bumper) {
+//                armToggle = false;
+//            }
+//            if (armToggle) {
+//                robot.servoClaw.setPosition(0.7);
+//            } else {
+//                robot.servoClaw.setPosition(0);
+//            }
 
             if(gamepad2.right_trigger > 0.1) {
                 robot.armMotor.setPower(0.5);
