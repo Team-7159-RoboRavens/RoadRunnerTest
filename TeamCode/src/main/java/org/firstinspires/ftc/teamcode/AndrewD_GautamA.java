@@ -68,8 +68,6 @@ public class AndrewD_GautamA extends LinearOpMode {
                 robot.RBMotor.setPower(motorPower);
             }
 
-            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
-
 
             // Gautam code
 
@@ -94,7 +92,7 @@ public class AndrewD_GautamA extends LinearOpMode {
                 robot.servoClaw.setPosition(robot.servoClawGrab);
             }
 
-
+            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
             telemetry.update();
         }
 
