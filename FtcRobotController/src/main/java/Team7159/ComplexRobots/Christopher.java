@@ -26,64 +26,68 @@ public class Christopher extends BasicMecanum {
     public int servoPosLow = 1;
     public int servoPosGround = 0;
 
+    public int servoClawOpen;
+    public int servoClawGrab;
+    public int servoClawClose;
+
     public void init(HardwareMap Map) {
 
         super.init(Map);
 
         armMotor = Map.dcMotor.get("armMotor");
-//        servoClaw = Map.servo.get("servoClaw");
-//        servoArm2 = Map.servo.get("servoArm2");
+        servoClaw = Map.servo.get("servoClaw");
+        servoArm2 = Map.servo.get("servoArm2");
 
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setPower(0);
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-//        servoClaw.scaleRange(0, 0.7);
-//        servoClaw.setPosition(0);
-//
-//        servoArm2.scaleRange(0, 0.7);
-//        servoArm2.setPosition(0);
+        servoClaw.scaleRange(0, 0.7);
+        servoClaw.setPosition(0);
+
+        servoArm2.scaleRange(0, 0.7);
+        servoArm2.setPosition(0);
 
     }
 
     // For Autos
-//    public void strafe(Direction direction, double power, double time) throws InterruptedException{
-//        if(direction == Direction.LEFT){
-//            LFMotor.setPower(-power);
-//            RFMotor.setPower(power);
-//            LBMotor.setPower(power);
-//            RBMotor.setPower(-power);
-//            wait((int)time * 1000);
-//            stop();
-//        }else if(direction == Direction.RIGHT){
-//            LFMotor.setPower(power);
-//            RFMotor.setPower(-power);
-//            LBMotor.setPower(-power);
-//            RBMotor.setPower(power);
-//            wait((int)time * 1000);
-//            stop();
-//        }
-//        else if(direction == Direction.FORWARDS) {
-//            LFMotor.setPower(power);
-//            RFMotor.setPower(power);
-//            LBMotor.setPower(power);
-//            RBMotor.setPower(power);
-//            wait((int) time * 1000);
-//            stop();
-//        }
-//        else if(direction == Direction.BACKWARDS) {
-//            LFMotor.setPower(-power);
-//            RFMotor.setPower(-power);
-//            LBMotor.setPower(-power);
-//            RBMotor.setPower(-power);
-//            wait((int) time * 1000);
-//            stop();
-//        }
-//        else{
-//            //Throw an exception
-//        }
-//    }
+    public void strafeBruh(Direction direction, double power, double time) throws InterruptedException{
+        if(direction == Direction.LEFT){
+            LFMotor.setPower(-power);
+            RFMotor.setPower(power);
+            LBMotor.setPower(power);
+            RBMotor.setPower(-power);
+            wait((int)time * 1000);
+            stop();
+        }else if(direction == Direction.RIGHT){
+            LFMotor.setPower(power);
+            RFMotor.setPower(-power);
+            LBMotor.setPower(-power);
+            RBMotor.setPower(power);
+            wait((int)time * 1000);
+            stop();
+        }
+        else if(direction == Direction.FORWARDS) {
+            LFMotor.setPower(power);
+            RFMotor.setPower(power);
+            LBMotor.setPower(power);
+            RBMotor.setPower(power);
+            wait((int) time * 1000);
+            stop();
+        }
+        else if(direction == Direction.BACKWARDS) {
+            LFMotor.setPower(-power);
+            RFMotor.setPower(-power);
+            LBMotor.setPower(-power);
+            RBMotor.setPower(-power);
+            wait((int) time * 1000);
+            stop();
+        }
+        else{
+            //Throw an exception
+        }
+    }
 
     // Tile Version
     public void strafe(Direction direction, double power, double tiles) throws InterruptedException{
@@ -141,6 +145,23 @@ public class Christopher extends BasicMecanum {
             RBMotor.setPower(power);
             LBMotor.setPower(-power);
             Thread.sleep((long) angleTime);
+        }
+    }
+
+    public void rotateBruh(Direction direction, double power, double time) throws InterruptedException {
+
+        if(direction == Direction.LEFT) {
+            RFMotor.setPower(-power);
+            LFMotor.setPower(power);
+            RBMotor.setPower(-power);
+            LBMotor.setPower(power);
+            Thread.sleep((long) time);
+        } else if(direction == Direction.RIGHT) {
+            RFMotor.setPower(power);
+            LFMotor.setPower(-power);
+            RBMotor.setPower(power);
+            LBMotor.setPower(-power);
+            Thread.sleep((long) time);
         }
     }
 

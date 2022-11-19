@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="org.firstinspires.ftc.teamcode.NoamGautamChristopherTeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam Gautam TeleOp")
 public class NoamGautamChristopherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left
@@ -29,17 +29,20 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
         double slowPower = 0.25;
         double regPower = 1.0;
 
-        double accel;
-        double rotate;
-        double powR;
-        double powL;
+        double powRX2;
+        double powRY2;
+        double powLX2;
+        double powLY2;
+
+        double armPower;
 
         while (opModeIsActive()) {
 
-            telemetry.addData("Claw pos: ", robot.servoClaw.getPosition());
-            telemetry.addData("Arm 2 pos: ", robot.servoArm2.getPosition());
-            telemetry.addData("Arm pos: ", robot.armMotor.getCurrentPosition());
+            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
+            telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
+            telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
             //Noam driving teleop \/
+            // Noam Drive
             if (gamepad1.x) {
                 robot.moveLeft(slowPower);
             }
@@ -67,12 +70,10 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             }
 
             //Noam TeleOp /\
+
             //Gautam Teleop \/
-            if(gamepad2.right_bumper) {
-                robot.servoClaw.setPosition(0.7);
-            }else if(gamepad2.left_bumper){
-                robot.servoClaw.setPosition(0);
-            }
+
+            //Use triggers tp determine
             //arm up
             //TODO: figure out which direction is positive and change the multiplication
             if(gamepad2.left_stick_x > 0.1 || gamepad2.left_stick_x < 0.1 || gamepad2.left_stick_y > 0.1 || gamepad2.left_stick_y < 0.1){
@@ -83,9 +84,16 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             //arm down
             if(gamepad2.right_stick_x > 0.1 || gamepad2.right_stick_x < 0.1 || gamepad2.right_stick_y > 0.1 || gamepad2.right_stick_y < 0.1) {
                 robot.armMotor.setPower(Math.max(Math.abs(gamepad2.right_stick_x), Math.abs(gamepad2.right_stick_y)) * 0.5);
-            }else{
+            }else {
                 robot.armMotor.setPower(0);
             }
+
+            if(gamepad2.right_bumper) {
+                robot.servoClaw.setPosition(robot.servoClawOpen);
+            }else if(gamepad2.left_bumper){
+                robot.servoClaw.setPosition(robot.servoClawGrab);
+            }
+
             //Gautam Teleop /\
             robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
             robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);

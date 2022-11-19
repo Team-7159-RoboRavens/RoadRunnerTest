@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="org.firstinspires.ftc.teamcode.NoamKrishChristopherTeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam Krish TeleOp")
 public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left
@@ -30,16 +30,10 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
         double slowPower = 0.25;
         double regPower = 1.0;
 
-        boolean armToggle = false;
-        boolean previousRB = false;
-
-        int[] motorArmIntervals = new int[]{};
-        int[] servoArmIntervals = new int[]{};
-
         while (opModeIsActive()) {
-
-            telemetry.addData("Claw pos: ", robot.servoClaw.getPosition());
-            telemetry.addData("Arm pos: ", robot.armMotor.getCurrentPosition());
+            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
+            telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
+            telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
 
             // Noam Drive
             if (gamepad1.x) {
@@ -71,30 +65,78 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
             // Krish Arm
 
             if (gamepad2.x) {
-                robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(robot.armPosMid);
-                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                robot.armMotor.setPower(0.5);
+//                robot.armMotor.setTargetPosition(robot.armPosMid);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.armMotor.getCurrentPosition() < robot.armPosMid) {
+                    while (robot.armMotor.getCurrentPosition() <= robot.armPosMid) {
+                        robot.armMotor.setPower(1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
+                else {
+                    while (robot.armMotor.getCurrentPosition() >= robot.armPosMid) {
+                        robot.armMotor.setPower(-1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
 
                 robot.servoArm2.setPosition(robot.servoPosMid);
             }
             else if (gamepad2.y) {
-                robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(robot.armPosHigh);
-                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                robot.armMotor.setPower(0.5);
+//                robot.armMotor.setTargetPosition(robot.armPosHigh);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.armMotor.getCurrentPosition() < robot.armPosHigh) {
+                    while (robot.armMotor.getCurrentPosition() <= robot.armPosHigh) {
+                        robot.armMotor.setPower(1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
+                else {
+                    while (robot.armMotor.getCurrentPosition() >= robot.armPosHigh) {
+                        robot.armMotor.setPower(-1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
 
                 robot.servoArm2.setPosition(robot.servoPosMid);
             }
             else if (gamepad2.a) {
-                robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(robot.armPosGround);
-                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                robot.armMotor.setPower(0.5);
+//                robot.armMotor.setTargetPosition(robot.armPosGround);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.armMotor.getCurrentPosition() < robot.armPosGround) {
+                    while (robot.armMotor.getCurrentPosition() <= robot.armPosGround) {
+                        robot.armMotor.setPower(1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
+                else {
+                    while (robot.armMotor.getCurrentPosition() >= robot.armPosGround) {
+                        robot.armMotor.setPower(-1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
 
                 robot.servoArm2.setPosition(robot.servoPosMid);
             }
             else if (gamepad2.b) {
-                robot.armMotor.setPower(0.5);
-                robot.armMotor.setTargetPosition(robot.armPosLow);
-                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//                robot.armMotor.setPower(0.5);
+//                robot.armMotor.setTargetPosition(robot.armPosLow);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                if(robot.armMotor.getCurrentPosition() < robot.armPosLow) {
+                    while (robot.armMotor.getCurrentPosition() <= robot.armPosLow) {
+                        robot.armMotor.setPower(1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
+                else {
+                    while (robot.armMotor.getCurrentPosition() >= robot.armPosLow) {
+                        robot.armMotor.setPower(-1);
+                    }
+                    robot.armMotor.setPower(0);
+                }
 
                 robot.servoArm2.setPosition(robot.servoPosMid);
             }
@@ -103,35 +145,22 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
             }
 
             if(gamepad2.right_bumper) {
-                robot.servoClaw.setPosition(0.7);
+                robot.servoClaw.setPosition(robot.servoClawOpen);
             }else if(gamepad2.left_bumper){
-                robot.servoClaw.setPosition(0);
+                robot.servoClaw.setPosition(robot.servoClawGrab);
             }
 
-//            TODO: Add current position thresholds
-//            if (!armToggle && gamepad2.right_bumper) {
-//                armToggle = true;
+//            if(gamepad2.right_trigger > 0.1) {
+//                robot.armMotor.setPower(0.5);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            }
-//            if (armToggle && gamepad2.right_bumper) {
-//                armToggle = false;
+//            else if(gamepad2.left_trigger > 0.1) {
+//                robot.armMotor.setPower(-0.5);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 //            }
-//            if (armToggle) {
-//                robot.servoClaw.setPosition(0.7);
-//            } else {
-//                robot.servoClaw.setPosition(0);
+//            else {
+//                robot.armMotor.setPower(0);
 //            }
-
-            if(gamepad2.right_trigger > 0.1) {
-                robot.armMotor.setPower(0.5);
-                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-            else if(gamepad2.left_trigger > 0.1) {
-                robot.armMotor.setPower(-0.5);
-                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-            else {
-                robot.armMotor.setPower(0);
-            }
 
             robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
 

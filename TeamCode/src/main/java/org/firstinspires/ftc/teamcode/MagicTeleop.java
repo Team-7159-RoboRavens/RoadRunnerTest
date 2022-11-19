@@ -18,72 +18,93 @@ public class MagicTeleop extends LinearOpMode {
         waitForStart();
         double slowPower = 0.25;
 
-        while (opModeIsActive()) {
+//        while(robot.armMotor.getCurrentPosition() <= 60  && opModeIsActive()) {
+//            robot.armMotor.setPower(1);
+//            telemetry.addData("Motor Arm Pos: ", robot.armMotor.getCurrentPosition());
+//            telemetry.update();
+//        }
+//        robot.armMotor.setPower(0);
 
-//            telemetry.addData("Claw Servo Pos: ", robot.servoClaw.getPosition());
-//            telemetry.addData("Servo Arm 2 Pos: ", robot.servoArm2.getPosition());
+        while (opModeIsActive()) {
             telemetry.addData("Motor Arm Pos: ", robot.armMotor.getCurrentPosition());
+//            telemetry.addData("Claw Servo Pos: ", robot.servoClaw.getPosition());
+
+//            addData("Servo Arm 2 Pos: ", robot.servoArm2.getPosition());
+
 
 //            robot.moveStraight(0.5);
 //            sleep(1000);
 //            robot.stop();
-            robot.armMotor.setPower(0.3);
+//
+
+//            if(gamepad1.right_trigger > 0.1) {
+//                robot.armMotor.setPower(0.2);
+//            }
+//            else {
+//                robot.armMotor.setPower(0);
+//            }
+
+//            telemetry.addData("Motor Arm Pos: ", robot.armMotor.getCurrentPosition());
+//
+//            sleep(2000);
+//
+//            sleep(2000);
+            robot.servoArm2.setPosition(0.5);
+            telemetry.addData("Servo Arm Pos: ", robot.servoArm2.getPosition());
             sleep(2000);
-            robot.armMotor.setPower(0);
-//            robot.armMotor.setTargetPosition(-175);
-//            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+
+
+//            sleep(2000);
+//
+//            robot.armMotor.setPower(1);
+//            sleep(2000);
+//            robot.armMotor.setPower(0);
+
+            //robot.armMotor.setPower(0.2);
+
 //
 //            sleep(2000);
 //
-//            robot.armMotor.setPower(0.5);
-//            robot.armMotor.setTargetPosition(0);
-//            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//            sleep(2000);
-//
-//            robot.armMotor.setPower(0.5);
-//            robot.armMotor.setTargetPosition(122);
-//            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//
-//            sleep(2000);
-//
-//            robot.armMotor.setPower(0.5);
+//            robot.armMotor.setPower(0.2);
 //            robot.armMotor.setTargetPosition(370);
 //            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
 //            sleep(2000);
 //
-//            robot.armMotor.setPower(0.5);
+//            robot.armMotor.setPower(0.2);
 //            robot.armMotor.setTargetPosition(528);
 //            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
 //            sleep(2000);
 //
-//            robot.armMotor.setPower(0.5);
+//            robot.armMotor.setPower(0.2);
 //            robot.armMotor.setTargetPosition(723);
 //            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //
 //            sleep(2000);
 //
-//            robot.armMotor.setPower(0.5);
+//            robot.armMotor.setPower(0.2);
 //            robot.armMotor.setTargetPosition(0);
 //            robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            if (gamepad1.x) {
-                robot.moveLeft(slowPower);
-            }
-            else if (gamepad1.y) {
-                robot.moveStraight(slowPower);
-            }
-            else if (gamepad1.a) {
-                robot.moveBackwards(slowPower);
-            }
-            else if (gamepad1.b) {
-                robot.moveRight(slowPower);
-            }
-            else {
-                robot.stop();
-            }
+//            if (gamepad1.x) {
+//                robot.moveLeft(slowPower);
+//            }
+//            else if (gamepad1.y) {
+//                robot.moveStraight(slowPower);
+//            }
+//            else if (gamepad1.a) {
+//                robot.moveBackwards(slowPower);
+//            }
+//            else if (gamepad1.b) {
+//                robot.moveRight(slowPower);
+//            }
+//            else {
+//                robot.stop();
+//            }
 
             telemetry.update();
 
