@@ -2,17 +2,15 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import Team7159.ComplexRobots.Christopher;
 import Team7159.Enums.Direction;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "org.firstinspires.ftc.teamcode.AutoBlueLeft")
-public class AutoBlueLeft extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoLeft")
+public class AutoLeft extends LinearOpMode {
 
     private Christopher robot = new Christopher();
 
@@ -72,17 +70,18 @@ public class AutoBlueLeft extends LinearOpMode {
             telemetry.addData("ROTATION: ", sleeveDetection.getPosition());
             telemetry.update();
         }
+        robot.servoClaw.setPosition(robot.servoClawGrab);
 
         waitForStart();
 
-
+        robot.rotate(Direction.LEFT, 1, 180);
         robot.rotate(Direction.LEFT, 1, 45);
         robot.armPos(robot.armPosGround, robot.servoPosGround);
-        robot.servoClaw.setPosition(0.7);
+        robot.servoClaw.setPosition(robot.servoClawOpen);
         robot.rotate(Direction.RIGHT, 1, 45);
         robot.strafe(Direction.RIGHT, 1, 1.0);
         robot.rotate(Direction.RIGHT, 1, 135);
-        robot.servoClaw.setPosition(0);
+        robot.servoClaw.setPosition(robot.servoClawGrab);
         robot.rotate(Direction.LEFT, 1, 135);
 
         if(location == 1) {
@@ -90,21 +89,21 @@ public class AutoBlueLeft extends LinearOpMode {
             robot.strafe(Direction.FORWARDS, 1, 1.5);
             robot.rotate(Direction.RIGHT, 1, 90);
             robot.armPos(robot.armPosMid, robot.servoPosMid);
-            robot.servoClaw.setPosition(0.7);
+            robot.servoClaw.setPosition(robot.servoClawOpen);
         }
         else if(location == 2) {
             robot.strafe(Direction.LEFT, 1, 1);
             robot.strafe(Direction.FORWARDS, 1, 2);
             robot.rotate(Direction.RIGHT, 1, 45);
             robot.armPos(robot.armPosHigh, robot.servoPosHigh);
-            robot.servoClaw.setPosition(0.7);
+            robot.servoClaw.setPosition(robot.servoClawOpen);
         }
         else if(location == 3) {
             robot.strafe(Direction.LEFT, 1, 2);
             robot.strafe(Direction.FORWARDS, 1, 1.5);
             robot.rotate(Direction.RIGHT, 1, 90);
             robot.armPos(robot.armPosMid, robot.servoPosMid);
-            robot.servoClaw.setPosition(0.7);
+            robot.servoClaw.setPosition(robot.servoClawOpen);
         }
     }
 }

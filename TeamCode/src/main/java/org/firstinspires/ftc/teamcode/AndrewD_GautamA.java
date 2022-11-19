@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Andrew(D)-Gautam(A) PowerPlay TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Andrew Gautam TeleOp")
 public class AndrewD_GautamA extends LinearOpMode {
 
     private final Christopher robot = new Christopher();
@@ -30,22 +30,18 @@ public class AndrewD_GautamA extends LinearOpMode {
         waitForStart();
 
         double motorPower;
-        double armPower;
 
         double powRX1;
         double powRY1;
         double powLX1;
         double powLY1;
 
-        double powRX2;
-        double powRY2;
-        double powLX2;
-        double powLY2;
 
         while (opModeIsActive()) {
             //General Telemetry
-            telemetry.addData("Claw pos: ", robot.servoClaw.getPosition());
-            telemetry.addData("Arm pos: ", robot.armMotor.getCurrentPosition());
+            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
+            telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
+            telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
 
             //Andrew Code
             powRX1 = gamepad1.right_stick_x;
@@ -72,32 +68,31 @@ public class AndrewD_GautamA extends LinearOpMode {
                 robot.RBMotor.setPower(motorPower);
             }
 
-            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
-
 
             // Gautam code
 
-            powRX2 = gamepad2.right_stick_x;
-            powRY2 = gamepad2.right_stick_y;
-            powLX2 = gamepad2.left_stick_x;
-            powLY2 = gamepad2.left_stick_y;
-
             //Use triggers tp determine
-            if(powRX2 >= 0.1 || powRX2 <= -0.1 || powRY2 >= 0.1 || powRY2 <= -0.1) {
-                armPower = -1;
-                robot.armMotor.setPower(armPower);
-            } else if(powLX2 >= 0.1 || powLX2 <= -0.1 || powLY2 >= 0.1 || powLY2 <= -0.1) {
-                armPower = 1;
-                robot.armMotor.setPower(armPower);
+            //arm up
+            //TODO: figure out which direction is positive and change the multiplication
+            if(gamepad2.left_stick_x > 0.1 || gamepad2.left_stick_x < 0.1 || gamepad2.left_stick_y > 0.1 || gamepad2.left_stick_y < 0.1){
+                robot.armMotor.setPower(Math.max(Math.abs(gamepad2.left_stick_x), Math.abs(gamepad2.left_stick_y))*-0.5);
+            }else{
+                robot.armMotor.setPower(0);
+            }
+            //arm down
+            if(gamepad2.right_stick_x > 0.1 || gamepad2.right_stick_x < 0.1 || gamepad2.right_stick_y > 0.1 || gamepad2.right_stick_y < 0.1) {
+                robot.armMotor.setPower(Math.max(Math.abs(gamepad2.right_stick_x), Math.abs(gamepad2.right_stick_y)) * 0.5);
+            }else {
+                robot.armMotor.setPower(0);
             }
 
-            if(gamepad2.right_bumper){
-                robot.servoClaw.setPosition(0.7);
-            }
-            if(gamepad2.left_bumper){
-                robot.servoClaw.setPosition(0);
+            if(gamepad2.right_bumper) {
+                robot.servoClaw.setPosition(robot.servoClawOpen);
+            }else if(gamepad2.left_bumper){
+                robot.servoClaw.setPosition(robot.servoClawGrab);
             }
 
+            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
             telemetry.update();
         }
 

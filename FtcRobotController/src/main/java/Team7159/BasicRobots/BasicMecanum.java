@@ -200,10 +200,10 @@ public class BasicMecanum {
 //        LFMotor.set(0.0);
 //        LBMotor.set(0.0);
 
-        LFMotor = Map.dcMotor.get("FLDrive");
-        LBMotor = Map.dcMotor.get("BLDrive");
-        RFMotor = Map.dcMotor.get("FRDrive");
-        RBMotor = Map.dcMotor.get("BRDrive");
+        LFMotor = Map.dcMotor.get("LFMotor");
+        LBMotor = Map.dcMotor.get("LBMotor");
+        RFMotor = Map.dcMotor.get("RFMotor");
+        RBMotor = Map.dcMotor.get("RBMotor");
 
         LFMotor.setPower(0.0);
         LBMotor.setPower(0.0);
