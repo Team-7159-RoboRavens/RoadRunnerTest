@@ -49,7 +49,21 @@ public class MagicTeleop extends LinearOpMode {
 //            sleep(2000);
 //
 //            sleep(2000);
-            robot.moveStraight(1.0);
+            if(gamepad1.y) {
+                robot.LFMotor.setPower(1.0);
+            }
+            else if(gamepad1.b) {
+                robot.RFMotor.setPower(1.0);
+            }
+            else if(gamepad1.x) {
+                robot.LBMotor.setPower(1.0);
+            }
+            else if(gamepad1.a) {
+                robot.RBMotor.setPower(1.0);
+            }
+            else {
+                robot.stop();
+            }
 
 
 

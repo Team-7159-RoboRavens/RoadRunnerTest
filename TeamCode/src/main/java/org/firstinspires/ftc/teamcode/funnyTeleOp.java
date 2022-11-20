@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.r   obotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -25,7 +24,8 @@ public class funnyTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot = new Christopher();
         robot.init(hardwareMap);
-        robot.armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
         telemetry.addData("Arm Motor Power", () -> robot.armMotor.getPower());
         telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());

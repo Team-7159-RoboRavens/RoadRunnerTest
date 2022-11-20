@@ -26,52 +26,18 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
 
         waitForStart();
 
-        double slowPower = 1.0;
-        double regPower = 1.0;
+        double slowPower = 0.25;
+        double regPower = 0.5;
 
-        double powRX2;
-        double powRY2;
-        double powLX2;
-        double powLY2;
-
-        double armPower;
+        boolean isPressed;
 
         while (opModeIsActive()) {
 
             telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
             telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
             telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
-            //Noam driving teleop \/
-            // Noam Drive
-            if (gamepad1.x) {
-                robot.moveLeft(slowPower);
-            }
-            else if (gamepad1.y) {
-                robot.moveStraight(slowPower);
-            }
-            else if (gamepad1.a) {
-                robot.moveBackwards(slowPower);
-            }
-            else if (gamepad1.b) {
-                robot.moveRight(slowPower);
-            }
-            else {
-                robot.stop();
-            }
 
-            if(gamepad1.right_trigger > 0.1) {
-                robot.moveStraight(regPower);
-            }
-            else if(gamepad1.left_trigger > 0.1) {
-                robot.moveBackwards(regPower);
-            }
-            else {
-                robot.stop();
-            }
-
-            //Noam TeleOp /\
-
-            //Gautam Teleop \/
+            //Gautam Teleop
 
             //Use triggers tp determine
             //arm up
@@ -94,12 +60,55 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
                 robot.servoClaw.setPosition(robot.servoClawGrab);
             }
 
-            //Gautam Teleop /\
+            // Noam Drive
+            //If any of the buttons are pressed, do not stop robot, otherwise, stop it
+            //FIXES JITTER
+            isPressed = false;
+
+            //Trigger, move straight faster
+            if(gamepad1.right_trigger > 0.1) {
+                robot.moveStraight(regPower);
+                isPressed = true;
+            }
+            else if(gamepad1.left_trigger > 0.1) {
+                robot.moveBackwards(regPower);
+                isPressed = true;
+            }
+
+            //Strafe slow with buttons
+            if (gamepad1.x) {
+                robot.moveLeft(slowPower);
+                isPressed = true;
+            }
+            else if (gamepad1.y) {
+                robot.moveStraight(slowPower);
+                isPressed = true;
+            }
+            else if (gamepad1.a) {
+                robot.moveBackwards(slowPower);
+                isPressed = true;
+            }
+            else if (gamepad1.b) {
+                robot.moveRight(slowPower);
+                isPressed = true;
+            }
+
+            //Pivot turn
             robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
+            if(gamepad1.right_bumper || gamepad1.left_bumper) {
+                isPressed = true;
+            }
+
+            //Directional strafing with d pad
             robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+            if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right){
+                isPressed = true;
+            }
 
             telemetry.update();
-
+            if(!isPressed){
+                robot.stop();
+            }
         }
     }
 }

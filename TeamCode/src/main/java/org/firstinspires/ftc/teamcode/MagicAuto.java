@@ -24,8 +24,12 @@ public class MagicAuto extends LinearOpMode {
 
         waitForStart();
 
-        robot.strafeBruh(Direction.FORWARDS, 1.0, 5000);
-        robot.rotateBruh(Direction.LEFT, 1.0, 50000);
+        robot.strafeBruh(Direction.FORWARDS, 0.4);
+        sleep(2000);
+        robot.stop();
+        robot.rotateBruh(Direction.LEFT, 0.4);
+        sleep(2000);
+        robot.stop();
 
     }
 }

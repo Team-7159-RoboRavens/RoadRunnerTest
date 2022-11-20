@@ -17,6 +17,8 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
 
         waitForStart();
 
+        double armPower = 0.5;
+
         double motorPower;
 
         double powRX1;
@@ -47,25 +49,28 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
                 robot.RBMotor.setPower(motorPower);
             } else if (powLX1 >= 0.1 || powLX1 <= -0.1) {
                 motorPower = (powLX1) * 0.5;
-                robot.RFMotor.setPower(motorPower);
+                robot.LFMotor.setPower(motorPower);
                 robot.RBMotor.setPower(motorPower);
             } else if(powLY1 >= 0.1 || powLY1 <= -0.1) {
                 motorPower = -powLY1 * 0.5;
-                robot.RFMotor.setPower(motorPower);
-                robot.RBMotor.setPower(motorPower);
+                robot.LFMotor.setPower(motorPower);
+                robot.LBMotor.setPower(motorPower);
             }
 
             // Krish
+            // Krish Arm
+
+            //Preset heights
             if (gamepad2.x) {
                 if(robot.armMotor.getCurrentPosition() < robot.armPosMid) {
                     while (robot.armMotor.getCurrentPosition() <= robot.armPosMid) {
-                        robot.armMotor.setPower(1);
+                        robot.armMotor.setPower(armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
                 else {
                     while (robot.armMotor.getCurrentPosition() >= robot.armPosMid) {
-                        robot.armMotor.setPower(-1);
+                        robot.armMotor.setPower(-armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
@@ -75,63 +80,77 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
             else if (gamepad2.y) {
                 if(robot.armMotor.getCurrentPosition() < robot.armPosHigh) {
                     while (robot.armMotor.getCurrentPosition() <= robot.armPosHigh) {
-                        robot.armMotor.setPower(1);
+                        robot.armMotor.setPower(armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
                 else {
                     while (robot.armMotor.getCurrentPosition() >= robot.armPosHigh) {
-                        robot.armMotor.setPower(-1);
+                        robot.armMotor.setPower(-armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
 
-                robot.servoArm2.setPosition(robot.servoPosMid);
+                robot.servoArm2.setPosition(robot.servoPosHigh);
             }
             else if (gamepad2.a) {
                 if(robot.armMotor.getCurrentPosition() < robot.armPosGround) {
                     while (robot.armMotor.getCurrentPosition() <= robot.armPosGround) {
-                        robot.armMotor.setPower(1);
+                        robot.armMotor.setPower(armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
                 else {
                     while (robot.armMotor.getCurrentPosition() >= robot.armPosGround) {
-                        robot.armMotor.setPower(-1);
+                        robot.armMotor.setPower(-armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
 
-                robot.servoArm2.setPosition(robot.servoPosMid);
+                robot.servoArm2.setPosition(robot.servoPosGround);
             }
             else if (gamepad2.b) {
                 if(robot.armMotor.getCurrentPosition() < robot.armPosLow) {
                     while (robot.armMotor.getCurrentPosition() <= robot.armPosLow) {
-                        robot.armMotor.setPower(1);
+                        robot.armMotor.setPower(armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
                 else {
                     while (robot.armMotor.getCurrentPosition() >= robot.armPosLow) {
-                        robot.armMotor.setPower(-1);
+                        robot.armMotor.setPower(-armPower);
                     }
                     robot.armMotor.setPower(0);
                 }
 
-                robot.servoArm2.setPosition(robot.servoPosMid);
+                robot.servoArm2.setPosition(robot.servoPosLow);
             }
-            else {
-                robot.armMotor.setPower(0);
-            }
+//            else {
+//                robot.armMotor.setPower(0);
+//            }
 
+            //Set servo claw position
             if(gamepad2.right_bumper) {
                 robot.servoClaw.setPosition(robot.servoClawOpen);
             }else if(gamepad2.left_bumper){
                 robot.servoClaw.setPosition(robot.servoClawGrab);
             }
 
-            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
+            //BACKUP, Just set the power
+//            if(gamepad2.right_trigger > 0.1) {
+//                robot.armMotor.setPower(0.5);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            }
+//            else if(gamepad2.left_trigger > 0.1) {
+//                robot.armMotor.setPower(-0.5);
+//                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            }
+//            else {
+//                robot.armMotor.setPower(0);
+//            }
 
+            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
+            telemetry.update();
         }
     }
 }

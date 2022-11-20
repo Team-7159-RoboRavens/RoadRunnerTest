@@ -4,7 +4,6 @@ package Team7159.ComplexRobots;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.*;
-import com.qualcomm.hardware.motors.*;
 
 
 import Team7159.BasicRobots.BasicMecanum;
@@ -16,21 +15,22 @@ public class Christopher extends BasicMecanum {
     public Servo servoClaw;
     public Servo servoArm2;
 
-    public int armPosHigh = 10;
-    public int armPosMid = 5;
-    public int armPosLow = 1;
-    public int armPosGround = 0;
-    public int armPosBack = 0;
+    public double armPosHigh = 10;
+    public double armPosMid = 5;
+    public double armPosLow = 1;
+    public double armPosGround = 0;
+    public double armPosBack = 0;
 
-    public int servoPosHigh = 10;
-    public int servoPosMid = 5;
-    public int servoPosLow = 1;
-    public int servoPosGround = 0;
-    public int seroPosBack = 0;
+    public double servoPosHigh = 1.0;
+    public double servoPosMid = 0.9;
+    public double servoPosLow = 0.7;
+    public double servoPosGround = 0.5;
+    public double servoPosBack = 1.0;
 
-    public int servoClawOpen;
-    public int servoClawGrab;
-    public int servoClawClose;
+    public double servoClawOpen = 0.95;
+    public double servoClawGrab = 0.55;
+
+    public double motorOffset = 0.3;
 
     public void init(HardwareMap Map) {
 
@@ -40,51 +40,40 @@ public class Christopher extends BasicMecanum {
         servoClaw = Map.servo.get("servoClaw");
         servoArm2 = Map.servo.get("servoArm2");
 
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setPower(0);
-//        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-//        servoClaw.scaleRange(0, 0.7);
-        servoClaw.setPosition(0);
+        servoClaw.setPosition(servoClawGrab);
 
-        servoArm2.scaleRange(0, 0.7);
-        servoArm2.setPosition(0);
-
+        servoArm2.setPosition(servoPosBack);
     }
 
     // For Autos
-    public void strafeBruh(Direction direction, double power, double time) throws InterruptedException{
+    public void strafeBruh(Direction direction, double power) throws InterruptedException{
         if(direction == Direction.LEFT){
             LFMotor.setPower(-power);
             RFMotor.setPower(power);
             LBMotor.setPower(power);
-            RBMotor.setPower(-power);
-            wait((int)time * 1000);
-            stop();
+            RBMotor.setPower(-power - motorOffset);
         }else if(direction == Direction.RIGHT){
             LFMotor.setPower(power);
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
-            RBMotor.setPower(power);
-            wait((int)time * 1000);
-            stop();
+            RBMotor.setPower(power + motorOffset);
         }
         else if(direction == Direction.FORWARDS) {
             LFMotor.setPower(power);
             RFMotor.setPower(power);
             LBMotor.setPower(power);
-            RBMotor.setPower(power);
-            wait((int) time * 1000);
-            stop();
+            RBMotor.setPower(power + motorOffset);
         }
         else if(direction == Direction.BACKWARDS) {
             LFMotor.setPower(-power);
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
-            RBMotor.setPower(-power);
-            wait((int) time * 1000);
-            stop();
+            RBMotor.setPower(-power - motorOffset);
         }
         else{
             //Throw an exception
@@ -98,36 +87,36 @@ public class Christopher extends BasicMecanum {
             LFMotor.setPower(-power);
             RFMotor.setPower(power);
             LBMotor.setPower(power);
-            RBMotor.setPower(-power);
+            RBMotor.setPower(-power - motorOffset);
 //            Thread.sleep((long)tiles * tileTime);
-            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
-            stop();
+//            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
+//            stop();
         }else if(direction == Direction.RIGHT){
             LFMotor.setPower(power);
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
-            RBMotor.setPower(power);
+            RBMotor.setPower(power + motorOffset);
 //            Thread.sleep((long)tiles * tileTime);
-            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
-            stop();
+//            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
+//            stop();
         }
         else if(direction == Direction.FORWARDS) {
             LFMotor.setPower(power);
             RFMotor.setPower(power);
             LBMotor.setPower(power);
-            RBMotor.setPower(power);
+            RBMotor.setPower(power + motorOffset);
 //            Thread.sleep((long) tiles * tileTime);
-            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
-            stop();
+//            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
+//            stop();
         }
         else if(direction == Direction.BACKWARDS) {
             LFMotor.setPower(-power);
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
-            RBMotor.setPower(-power);
+            RBMotor.setPower(-power - motorOffset);
 //            Thread.sleep((long) tiles * tileTime);
-            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
-            stop();
+//            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
+//            stop();
         }
         else{
             //Throw an exception
@@ -140,43 +129,49 @@ public class Christopher extends BasicMecanum {
         double angleTime = (inputAngle/90) * time90;
 
         if(direction == Direction.LEFT) {
-            RFMotor.setPower(-power);
-            LFMotor.setPower(power);
-            RBMotor.setPower(-power);
-            LBMotor.setPower(power);
-            Thread.sleep((long) angleTime);
-        } else if(direction == Direction.RIGHT) {
             RFMotor.setPower(power);
             LFMotor.setPower(-power);
-            RBMotor.setPower(power);
+            RBMotor.setPower(power + motorOffset);
             LBMotor.setPower(-power);
-            Thread.sleep((long) angleTime);
+        } else if(direction == Direction.RIGHT) {
+            RFMotor.setPower(-power);
+            LFMotor.setPower(power);
+            RBMotor.setPower(-power - motorOffset);
+            LBMotor.setPower(power);
         }
     }
 
-    public void rotateBruh(Direction direction, double power, double time) throws InterruptedException {
+    public void rotateBruh(Direction direction, double power) throws InterruptedException {
 
         if(direction == Direction.LEFT) {
             RFMotor.setPower(-power);
             LFMotor.setPower(power);
-            RBMotor.setPower(-power);
+            RBMotor.setPower(-power - motorOffset);
             LBMotor.setPower(power);
-            Thread.sleep((long) time);
         } else if(direction == Direction.RIGHT) {
             RFMotor.setPower(power);
             LFMotor.setPower(-power);
-            RBMotor.setPower(power);
+            RBMotor.setPower(power + motorOffset);
             LBMotor.setPower(-power);
-            Thread.sleep((long) time);
         }
     }
 
     // Method for arm pos
-    public void armPos(int armPos, int servoArmPos) {
-        armMotor.setPower(0.5);
-        armMotor.setTargetPosition(armPos);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        servoArm2.setPosition(servoArmPos);
+    public void armPos(double power, double armPos, double servoArmPos) {
+        if(armMotor.getCurrentPosition() < armPosMid) {
+            while (armMotor.getCurrentPosition() <= armPosMid) {
+                armMotor.setPower(power);
+            }
+            armMotor.setPower(0);
+        }
+        else {
+            while (armMotor.getCurrentPosition() >= armPosMid) {
+                armMotor.setPower(-power);
+            }
+            armMotor.setPower(0);
+        }
+
+        servoArm2.setPosition(servoPosMid);
     }
 
 }

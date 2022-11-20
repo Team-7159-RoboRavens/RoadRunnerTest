@@ -211,10 +211,10 @@ public class BasicMecanum {
         RBMotor.setPower(0.0);
 
         //TODO: Figure out which motors need to be reversed, etc. so that the robot actually goes forward lmao
-        LFMotor.setDirection(DcMotor.Direction.REVERSE);
-        RFMotor.setDirection(DcMotor.Direction.FORWARD);
-        LBMotor.setDirection(DcMotor.Direction.REVERSE);
-        RBMotor.setDirection(DcMotor.Direction.REVERSE);
+        LFMotor.setDirection(DcMotor.Direction.FORWARD);
+        RFMotor.setDirection(DcMotor.Direction.REVERSE);
+        LBMotor.setDirection(DcMotor.Direction.FORWARD);
+        RBMotor.setDirection(DcMotor.Direction.FORWARD);
 
         //for now, we do this (maybe change later-
         LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -233,7 +233,7 @@ public class BasicMecanum {
         LFMotor.setPower(power);
         RFMotor.setPower(power);
         LBMotor.setPower(power);
-        RBMotor.setPower(power);
+        RBMotor.setPower(power + 0.2);
     }
 
 //    Adding this for now
@@ -242,21 +242,21 @@ public class BasicMecanum {
         LFMotor.setPower(-power);
         RFMotor.setPower(power);
         LBMotor.setPower(power);
-        RBMotor.setPower(-power);
+        RBMotor.setPower(-power - 0.2);
     }
 
     public void moveRight(double power) {
         LFMotor.setPower(power);
         RFMotor.setPower(-power);
         LBMotor.setPower(-power);
-        RBMotor.setPower(power);
+        RBMotor.setPower(power + 0.2);
     }
 
     public void moveBackwards(double power) {
         LFMotor.setPower(-power);
         RFMotor.setPower(-power);
         LBMotor.setPower(-power);
-        RBMotor.setPower(-power);
+        RBMotor.setPower(-power - 0.2);
     }
 
     //public void pivotTurnLeft(boolean on, double accel) {
