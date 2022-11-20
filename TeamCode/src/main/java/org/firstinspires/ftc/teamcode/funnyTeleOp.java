@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.r   obotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -61,12 +62,12 @@ public class funnyTeleOp extends LinearOpMode {
 
             if (et.time() - time2 > servoDelay) {
                 if (gamepad1.y) {
-                    robot.servoClaw.setPosition(robot.servoArm2.getPosition() + 0.05);
+                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() + 0.05);
                     time2 = et.time();
 //                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
 //                    telemetry.update();
                 } else if (gamepad1.a) {
-                    robot.servoClaw.setPosition(robot.servoArm2.getPosition() - 0.05);
+                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() - 0.05);
                     time2 = et.time();
 //                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
 //                    telemetry.update();
