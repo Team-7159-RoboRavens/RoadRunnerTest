@@ -26,7 +26,7 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
 
         waitForStart();
 
-        double slowPower = 0.25;
+        double slowPower = 1.0;
         double regPower = 1.0;
 
         double powRX2;

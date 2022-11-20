@@ -212,15 +212,15 @@ public class BasicMecanum {
 
         //TODO: Figure out which motors need to be reversed, etc. so that the robot actually goes forward lmao
         LFMotor.setDirection(DcMotor.Direction.REVERSE);
-        RFMotor.setDirection(DcMotor.Direction.REVERSE);
+        RFMotor.setDirection(DcMotor.Direction.FORWARD);
         LBMotor.setDirection(DcMotor.Direction.REVERSE);
         RBMotor.setDirection(DcMotor.Direction.REVERSE);
 
         //for now, we do this (maybe change later-
-        LFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LBMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RBMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RFMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        RBMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         LFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

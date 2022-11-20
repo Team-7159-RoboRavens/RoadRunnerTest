@@ -26,7 +26,7 @@ public class MagicTeleop extends LinearOpMode {
 //        robot.armMotor.setPower(0);
 
         while (opModeIsActive()) {
-            telemetry.addData("Motor Arm Pos: ", robot.armMotor.getCurrentPosition());
+            //telemetry.addData("Motor Arm Pos: ", robot.armMotor.getCurrentPosition());
 //            telemetry.addData("Claw Servo Pos: ", robot.servoClaw.getPosition());
 
 //            addData("Servo Arm 2 Pos: ", robot.servoArm2.getPosition());
@@ -49,9 +49,7 @@ public class MagicTeleop extends LinearOpMode {
 //            sleep(2000);
 //
 //            sleep(2000);
-            robot.servoArm2.setPosition(0.5);
-            telemetry.addData("Servo Arm Pos: ", robot.servoArm2.getPosition());
-            sleep(2000);
+            robot.moveStraight(1.0);
 
 
 

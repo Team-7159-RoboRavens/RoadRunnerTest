@@ -20,11 +20,13 @@ public class Christopher extends BasicMecanum {
     public int armPosMid = 5;
     public int armPosLow = 1;
     public int armPosGround = 0;
+    public int armPosBack = 0;
 
     public int servoPosHigh = 10;
     public int servoPosMid = 5;
     public int servoPosLow = 1;
     public int servoPosGround = 0;
+    public int seroPosBack = 0;
 
     public int servoClawOpen;
     public int servoClawGrab;
@@ -43,7 +45,7 @@ public class Christopher extends BasicMecanum {
         armMotor.setPower(0);
 //        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        servoClaw.scaleRange(0, 0.7);
+//        servoClaw.scaleRange(0, 0.7);
         servoClaw.setPosition(0);
 
         servoArm2.scaleRange(0, 0.7);
@@ -97,14 +99,16 @@ public class Christopher extends BasicMecanum {
             RFMotor.setPower(power);
             LBMotor.setPower(power);
             RBMotor.setPower(-power);
-            Thread.sleep((long)tiles * tileTime);
+//            Thread.sleep((long)tiles * tileTime);
+            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
             stop();
         }else if(direction == Direction.RIGHT){
             LFMotor.setPower(power);
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
             RBMotor.setPower(power);
-            Thread.sleep((long)tiles * tileTime);
+//            Thread.sleep((long)tiles * tileTime);
+            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
             stop();
         }
         else if(direction == Direction.FORWARDS) {
@@ -112,7 +116,8 @@ public class Christopher extends BasicMecanum {
             RFMotor.setPower(power);
             LBMotor.setPower(power);
             RBMotor.setPower(power);
-            Thread.sleep((long) tiles * tileTime);
+//            Thread.sleep((long) tiles * tileTime);
+            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
             stop();
         }
         else if(direction == Direction.BACKWARDS) {
@@ -120,7 +125,8 @@ public class Christopher extends BasicMecanum {
             RFMotor.setPower(-power);
             LBMotor.setPower(-power);
             RBMotor.setPower(-power);
-            Thread.sleep((long) tiles * tileTime);
+//            Thread.sleep((long) tiles * tileTime);
+            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
             stop();
         }
         else{
