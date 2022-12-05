@@ -149,7 +149,7 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
 //                robot.armMotor.setPower(0);
 //            }
 
-            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
+            robot.octoStrafe(1.0, false, false, gamepad1.x, gamepad1.b);
             telemetry.update();
         }
     }

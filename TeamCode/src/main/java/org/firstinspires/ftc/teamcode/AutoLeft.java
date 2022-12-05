@@ -158,17 +158,17 @@ public class AutoLeft extends LinearOpMode {
         double angleTime = (timeTest/angleMoved) * inputAngle;
 
         if(direction == Direction.LEFT) {
-            robot.RFMotor.setPower(power);
-            robot.LFMotor.setPower(-power);
-            robot.RBMotor.setPower(power + robot.motorOffset);
-            robot.LBMotor.setPower(-power);
-            sleep((long) angleTime);
-            robot.stop();
-        } else if(direction == Direction.RIGHT) {
             robot.RFMotor.setPower(-power);
             robot.LFMotor.setPower(power);
             robot.RBMotor.setPower(-power - robot.motorOffset);
             robot.LBMotor.setPower(power);
+            sleep((long) angleTime);
+            robot.stop();
+        } else if(direction == Direction.RIGHT) {
+            robot.RFMotor.setPower(power);
+            robot.LFMotor.setPower(-power);
+            robot.RBMotor.setPower(power + robot.motorOffset);
+            robot.LBMotor.setPower(-power);
             sleep((long) angleTime);
             robot.stop();
         }

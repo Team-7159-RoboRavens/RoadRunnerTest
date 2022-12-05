@@ -61,6 +61,7 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             }
 
             // Noam Drive
+
             //If any of the buttons are pressed, do not stop robot, otherwise, stop it
             //FIXES JITTER
             isPressed = false;
@@ -100,7 +101,7 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             }
 
             //Directional strafing with d pad
-            robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+            robot.octoStrafe(1.0, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
             if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right){
                 isPressed = true;
             }

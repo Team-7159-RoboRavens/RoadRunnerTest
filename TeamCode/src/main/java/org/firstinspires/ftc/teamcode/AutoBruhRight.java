@@ -21,7 +21,7 @@ public class AutoBruhRight extends LinearOpMode {
     String webcamName = "Internal Camera";
     public int location = 1;
 
-    double power = 0.4;
+    double power = 0.5;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -63,15 +63,19 @@ public class AutoBruhRight extends LinearOpMode {
 
 
         if(location == 1) {
-            robot.strafe(Direction.BACKWARDS, power, 1.5);
-            robot.strafe(Direction.LEFT, power, 1.5);
+            strafe(Direction.BACKWARDS, power, 1.5);
+            rotate(Direction.LEFT, power, 180);
+            strafe(Direction.FORWARDS, power, 1.5);
         }
         else if(location == 2) {
-            robot.strafe(Direction.FORWARDS, power, 1.5);
+            rotate(Direction.LEFT, power, 180);
+            strafe(Direction.FORWARDS, power, 1.5);
+
         }
         else if(location == 3) {
-            robot.strafe(Direction.RIGHT, power, 1.5);
-            robot.strafe(Direction.FORWARDS, power, 1.5);
+            strafe(Direction.FORWARDS, power, 1.5);
+            rotate(Direction.LEFT, power, 180);
+            strafe(Direction.FORWARDS, power, 1.5);
         }
     }
 
@@ -80,7 +84,8 @@ public class AutoBruhRight extends LinearOpMode {
         double tileTimeTest = 2000.0;
         double inchesMoved = 50.0;
 
-        double tileTime = ((24 * tiles) * (tileTimeTest / inchesMoved));
+//        double tileTime = ((24 * tiles) * (tileTimeTest / inchesMoved));
+        double tileTime = 1500;
         if(direction == Direction.LEFT){
             robot.LFMotor.setPower(-power);
             robot.RFMotor.setPower(power);
@@ -125,20 +130,20 @@ public class AutoBruhRight extends LinearOpMode {
     public void rotate(Direction direction, double power, double inputAngle) throws InterruptedException {
         double timeTest = 5000;
         double angleMoved = 510;
-        double angleTime = (timeTest/angleMoved) * inputAngle;
-
+//        double angleTime = (timeTest/angleMoved) * inputAngle;
+        double angleTime = 2000.0;
         if(direction == Direction.LEFT) {
-            robot.RFMotor.setPower(power);
-            robot.LFMotor.setPower(-power);
-            robot.RBMotor.setPower(power + robot.motorOffset);
-            robot.LBMotor.setPower(-power);
-            sleep((long) angleTime);
-            robot.stop();
-        } else if(direction == Direction.RIGHT) {
             robot.RFMotor.setPower(-power);
             robot.LFMotor.setPower(power);
             robot.RBMotor.setPower(-power - robot.motorOffset);
             robot.LBMotor.setPower(power);
+            sleep((long) angleTime);
+            robot.stop();
+        } else if(direction == Direction.RIGHT) {
+            robot.RFMotor.setPower(power);
+            robot.LFMotor.setPower(-power);
+            robot.RBMotor.setPower(power + robot.motorOffset);
+            robot.LBMotor.setPower(-power);
             sleep((long) angleTime);
             robot.stop();
         }
