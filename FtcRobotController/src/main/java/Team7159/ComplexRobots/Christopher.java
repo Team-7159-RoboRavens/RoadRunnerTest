@@ -15,6 +15,7 @@ public class Christopher extends BasicMecanum {
     public Servo servoClaw;
     public Servo servoArm2;
 
+
     public double armPosHigh = 10;
     public double armPosMid = 5;
     public double armPosLow = 1;
@@ -26,6 +27,7 @@ public class Christopher extends BasicMecanum {
     public double servoPosLow = 0.7;
     public double servoPosGround = 0.5;
     public double servoPosBack = 1.0;
+
 
     public double servoClawOpen = 0.95;
     public double servoClawGrab = 0.35;
@@ -43,7 +45,9 @@ public class Christopher extends BasicMecanum {
         armMotor.setPower(0);
 //        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+
         servoClaw.setPosition(servoClawGrab);
+
 
         servoArm2.setPosition(servoPosBack);
     }
@@ -84,37 +88,45 @@ public class Christopher extends BasicMecanum {
         if(direction == Direction.LEFT){
             LFMotor.setPower(-power * mult);
             RFMotor.setPower(power);
+
             LBMotor.setPower(power * mult);
             RBMotor.setPower(-power - motorOffset);
 //            Thread.sleep((long)tiles * tileTime);
 //            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
 //            stop();
+
         }else if(direction == Direction.RIGHT){
             LFMotor.setPower(power * mult);
             RFMotor.setPower(-power);
+
             LBMotor.setPower(-power * mult);
             RBMotor.setPower(power + motorOffset);
 //            Thread.sleep((long)tiles * tileTime);
 //            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
 //            stop();
+
         }
         else if(direction == Direction.FORWARDS) {
             LFMotor.setPower(power * mult);
             RFMotor.setPower(power);
+
             LBMotor.setPower(power * mult);
             RBMotor.setPower(power + motorOffset);
 //            Thread.sleep((long) tiles * tileTime);
 //            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
 //            stop();
+
         }
         else if(direction == Direction.BACKWARDS) {
             LFMotor.setPower(-power * mult);
             RFMotor.setPower(-power);
+
             LBMotor.setPower(-power * mult);
             RBMotor.setPower(-power - motorOffset);
 //            Thread.sleep((long) tiles * tileTime);
 //            Thread.sleep((long)tiles * tileTime * (1 / (long) power));
 //            stop();
+
         }
         else{
             //Throw an exception

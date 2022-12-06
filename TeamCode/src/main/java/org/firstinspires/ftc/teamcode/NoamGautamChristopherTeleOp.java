@@ -26,8 +26,10 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
 
         waitForStart();
 
+
         double slowPower = 0.25;
         double regPower = 0.5;
+
 
         boolean isPressed;
 

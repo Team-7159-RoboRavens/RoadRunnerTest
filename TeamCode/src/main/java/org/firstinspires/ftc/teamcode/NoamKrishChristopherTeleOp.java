@@ -21,6 +21,7 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
     private Christopher robot = new Christopher();
 
+
     double armPower = 0.5;
 
     double slowPower = 0.25;
@@ -38,11 +39,14 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
         robot.init(hardwareMap);
 //        while (robot.armMotor.getCurrentPosition() >= robot.armPosBack) {
+
 //            robot.armMotor.setPower(-1);
 //        }
 //        robot.armMotor.setPower(0);
 //        robot.servoArm2.setPosition(robot.servoPosBack);
 //        robot.servoClaw.setPosition(robot.servoClawGrab);
+
+
 
 
         et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
@@ -56,10 +60,12 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
         waitForStart();
 
+
         while (opModeIsActive()) {
             telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
             telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
             telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
+
 
             // Krish Arm
 
@@ -222,13 +228,18 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
             else if (gamepad1.b) {
                 robot.moveRight(slowPower);
                 isPressed = true;
+
             }
+//            else {
+//                robot.armMotor.setPower(0);
+//            }
 
             //Pivot turn
             robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
             if(gamepad1.right_bumper || gamepad1.left_bumper) {
                 isPressed = true;
             }
+
 
             //Directional strafing with d pad
             robot.octoStrafe(0.8, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
