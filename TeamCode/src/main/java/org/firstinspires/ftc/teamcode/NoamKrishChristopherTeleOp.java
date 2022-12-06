@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import Team7159.ComplexRobots.Christopher;
 
@@ -19,22 +20,46 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
     //LT - Move back
 
     private Christopher robot = new Christopher();
+
+
+    double armPower = 0.5;
+
+    double slowPower = 0.25;
+    double regPower = 0.5;
+
+    ElapsedTime et;
+    double time1;
+    double time2;
+    double time3;
+    final double servoDelay = 100;
     boolean isPressed = false;
+
     @Override
     public void runOpMode() {
 
         robot.init(hardwareMap);
 //        while (robot.armMotor.getCurrentPosition() >= robot.armPosBack) {
-//            robot.armMotor.setPower(1);
+
+//            robot.armMotor.setPower(-1);
 //        }
 //        robot.armMotor.setPower(0);
-//        robot.servoArm2.setPosition(robot.seroPosBack);
-//        robot.servoClaw.setPosition(robot.servoClawClose);
+//        robot.servoArm2.setPosition(robot.servoPosBack);
+//        robot.servoClaw.setPosition(robot.servoClawGrab);
+
+
+
+
+        et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        time1 = 0;
+        time2 = 0;
+        time3 = -1;
+
+        robot.armMotor.setPower(-0.5);
+        sleep(300);
+        robot.armMotor.setPower(0);
 
         waitForStart();
 
-        double slowPower = 1.0;
-        double regPower = 1.0;
 
         while (opModeIsActive()) {
             telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
@@ -42,125 +67,142 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
             telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
 
 
-
-            // Noam Drive
-//            if (gamepad1.x) {
-//                robot.moveLeft(slowPower);
-//            }
-//            else if (gamepad1.y) {
-//                robot.moveStraight(slowPower);
-//            }
-//            else if (gamepad1.a) {
-//                robot.moveBackwards(slowPower);
-//            }
-//            else if (gamepad1.b) {
-//                robot.moveRight(slowPower);
-//            }
-//            else {
-//                robot.stop();
-//            }
-
-
             // Krish Arm
 
-            if (gamepad2.x) {
-//                robot.armMotor.setPower(0.5);
-//                robot.armMotor.setTargetPosition(robot.armPosMid);
-//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.armMotor.getCurrentPosition() < robot.armPosMid) {
-                    while (robot.armMotor.getCurrentPosition() <= robot.armPosMid) {
-                        robot.armMotor.setPower(1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-                else {
-                    while (robot.armMotor.getCurrentPosition() >= robot.armPosMid) {
-                        robot.armMotor.setPower(-1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-
-                robot.servoArm2.setPosition(robot.servoPosMid);
-            }
-            else if (gamepad2.y) {
-//                robot.armMotor.setPower(0.5);
-//                robot.armMotor.setTargetPosition(robot.armPosHigh);
-//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.armMotor.getCurrentPosition() < robot.armPosHigh) {
-                    while (robot.armMotor.getCurrentPosition() <= robot.armPosHigh) {
-                        robot.armMotor.setPower(1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-                else {
-                    while (robot.armMotor.getCurrentPosition() >= robot.armPosHigh) {
-                        robot.armMotor.setPower(-1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-
-                robot.servoArm2.setPosition(robot.servoPosHigh);
-            }
-            else if (gamepad2.a) {
-//                robot.armMotor.setPower(0.5);
-//                robot.armMotor.setTargetPosition(robot.armPosGround);
-//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.armMotor.getCurrentPosition() < robot.armPosGround) {
-                    while (robot.armMotor.getCurrentPosition() <= robot.armPosGround) {
-                        robot.armMotor.setPower(1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-                else {
-                    while (robot.armMotor.getCurrentPosition() >= robot.armPosGround) {
-                        robot.armMotor.setPower(-1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-
-                robot.servoArm2.setPosition(robot.servoPosGround);
-            }
-            else if (gamepad2.b) {
-//                robot.armMotor.setPower(0.5);
-//                robot.armMotor.setTargetPosition(robot.armPosLow);
-//                robot.armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                if(robot.armMotor.getCurrentPosition() < robot.armPosLow) {
-                    while (robot.armMotor.getCurrentPosition() <= robot.armPosLow) {
-                        robot.armMotor.setPower(1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-                else {
-                    while (robot.armMotor.getCurrentPosition() >= robot.armPosLow) {
-                        robot.armMotor.setPower(-1);
-                    }
-                    robot.armMotor.setPower(0);
-                }
-
-                robot.servoArm2.setPosition(robot.servoPosLow);
-            }
-//            else {
-//                robot.armMotor.setPower(0);
+            //Preset heights
+//            if (gamepad2.x) {
+//                if(robot.armMotor.getCurrentPosition() < robot.armPosMid) {
+//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosMid) {
+//                        robot.armMotor.setPower(armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//                else {
+//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosMid) {
+//                        robot.armMotor.setPower(-armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//
+//                robot.servoArm2.setPosition(robot.servoPosMid);
+//            }
+//            else if (gamepad2.y) {
+//                if(robot.armMotor.getCurrentPosition() < robot.armPosHigh) {
+//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosHigh) {
+//                        robot.armMotor.setPower(armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//                else {
+//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosHigh) {
+//                        robot.armMotor.setPower(-armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//
+//                robot.servoArm2.setPosition(robot.servoPosHigh);
+//            }
+//            else if (gamepad2.a) {
+//                if(robot.armMotor.getCurrentPosition() < robot.armPosGround) {
+//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosGround) {
+//                        robot.armMotor.setPower(armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//                else {
+//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosGround) {
+//                        robot.armMotor.setPower(-armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//
+//                robot.servoArm2.setPosition(robot.servoPosGround);
+//            }
+//            else if (gamepad2.b) {
+//                if(robot.armMotor.getCurrentPosition() < robot.armPosLow) {
+//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosLow) {
+//                        robot.armMotor.setPower(armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//                else {
+//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosLow) {
+//                        robot.armMotor.setPower(-armPower);
+//                    }
+//                    robot.armMotor.setPower(0);
+//                }
+//
+//                robot.servoArm2.setPosition(robot.servoPosLow);
+//            }
+////            else {
+////                robot.armMotor.setPower(0);
+////            }
+//
+//            //Set servo claw position
+//            if(gamepad2.right_bumper) {
+//                robot.servoClaw.setPosition(robot.servoClawOpen);
+//            }else if(gamepad2.left_bumper){
+//                robot.servoClaw.setPosition(robot.servoClawGrab);
 //            }
 
-            if(gamepad2.right_bumper) {
-                robot.servoClaw.setPosition(robot.servoClawOpen);
-            }else if(gamepad2.left_bumper){
-                robot.servoClaw.setPosition(robot.servoClawGrab);
-            }
-
+            //BACKUP, Just set the power
 //            if(gamepad2.right_trigger > 0.1) {
-//                robot.armMotor.setPower(0.5);
-//                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                robot.armMotor.setPower(armPower);
 //            }
 //            else if(gamepad2.left_trigger > 0.1) {
-//                robot.armMotor.setPower(-0.5);
-//                robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                robot.armMotor.setPower(-armPower);
 //            }
 //            else {
 //                robot.armMotor.setPower(0);
 //            }
-            isPressed=false;
+
+            if(gamepad2.y) {
+                robot.armMotor.setPower(0.5);
+//                telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
+//                telemetry.update();
+            }
+            else if(gamepad2.x) {
+                robot.armMotor.setPower(-0.5);
+            }
+            else {
+                robot.armMotor.setPower(0);
+            }
+
+            if (et.time() - time1 > servoDelay) {
+                if (gamepad2.dpad_up) {
+                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() + 0.05);
+                    time1 = et.time();
+//                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
+//                    telemetry.update();
+                } else if (gamepad2.dpad_down) {
+                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() - 0.05);
+                    time1 = et.time();
+//                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
+//                    telemetry.update();
+                }
+            }
+
+            if (et.time() - time2 > servoDelay) {
+                if (gamepad2.a) {
+                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() + 0.05);
+                    time2 = et.time();
+//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
+//                    telemetry.update();
+                } else if (gamepad2.b) {
+                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() - 0.05);
+                    time2 = et.time();
+//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
+//                    telemetry.update();
+                }
+            }
+
+            //Noam Drive
+
+            //If any of the buttons are pressed, do not stop robot, otherwise, stop it
+            //FIXES JITTER
+            isPressed = false;
+
+            //Trigger, move straight faster
             if(gamepad1.right_trigger > 0.1) {
                 robot.moveStraight(regPower);
                 isPressed = true;
@@ -170,7 +212,7 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
                 isPressed = true;
             }
 
-
+            //Strafe slow with buttons
             if (gamepad1.x) {
                 robot.moveLeft(slowPower);
                 isPressed = true;
@@ -186,19 +228,25 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
             else if (gamepad1.b) {
                 robot.moveRight(slowPower);
                 isPressed = true;
+
+            }
+//            else {
+//                robot.armMotor.setPower(0);
+//            }
+
+            //Pivot turn
+            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
+            if(gamepad1.right_bumper || gamepad1.left_bumper) {
+                isPressed = true;
             }
 
 
-            //robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
-            telemetry.addData("Motor RF Power: ", robot.RFMotor.getPower());
-            telemetry.addData("Motor RB Power: ", robot.RBMotor.getPower());
-            telemetry.addData("Motor LF Power: ", robot.LFMotor.getPower());
-            telemetry.addData("Motor LB Power: ", robot.LBMotor.getPower());
-
-            robot.octoStrafe(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+            //Directional strafing with d pad
+            robot.octoStrafe(0.8, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
             if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right){
-                isPressed=true;
+                isPressed = true;
             }
+
             telemetry.update();
             if(!isPressed){
                 robot.stop();

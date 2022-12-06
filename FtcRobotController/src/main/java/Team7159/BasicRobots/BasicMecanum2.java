@@ -173,15 +173,12 @@
 
 package Team7159.BasicRobots;
 
-import com.arcrobotics.ftclib.hardware.motors.*;
-
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.*;
-import com.qualcomm.hardware.motors.*;
 
 import Team7159.Enums.Direction;
 
-public class BasicMecanum {
+public class BasicMecanum2 {
 
     public DcMotor RFMotor;
     public DcMotor RBMotor;
@@ -215,10 +212,9 @@ public class BasicMecanum {
         RBMotor.setPower(0.0);
 
         //TODO: Figure out which motors need to be reversed, etc. so that the robot actually goes forward lmao
-
-        LFMotor.setDirection(DcMotor.Direction.FORWARD);
+        LFMotor.setDirection(DcMotor.Direction.REVERSE);
         RFMotor.setDirection(DcMotor.Direction.FORWARD);
-        LBMotor.setDirection(DcMotor.Direction.FORWARD);
+        LBMotor.setDirection(DcMotor.Direction.REVERSE);
         RBMotor.setDirection(DcMotor.Direction.FORWARD);
 
         //for now, we do this (maybe change later-
@@ -238,7 +234,6 @@ public class BasicMecanum {
         LBMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RBMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
         LFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RFMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LBMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -247,32 +242,32 @@ public class BasicMecanum {
     }
 
     public void moveStraight(double power) {
-        LFMotor.setPower(power * mult);
+        LFMotor.setPower(power);
         RFMotor.setPower(power);
-        LBMotor.setPower(power * mult);
+        LBMotor.setPower(power);
         RBMotor.setPower(power);
     }
 
 //    Adding this for now
 
     public void moveLeft(double power) {
-        LFMotor.setPower(-power * mult);
+        LFMotor.setPower(-power);
         RFMotor.setPower(power);
-        LBMotor.setPower(power * mult);
+        LBMotor.setPower(power);
         RBMotor.setPower(-power);
     }
 
     public void moveRight(double power) {
-        LFMotor.setPower(power * mult);
+        LFMotor.setPower(power);
         RFMotor.setPower(-power);
-        LBMotor.setPower(-power * mult);
+        LBMotor.setPower(-power);
         RBMotor.setPower(power);
     }
 
     public void moveBackwards(double power) {
-        LFMotor.setPower(-power * mult);
+        LFMotor.setPower(-power);
         RFMotor.setPower(-power);
-        LBMotor.setPower(-power * mult);
+        LBMotor.setPower(-power);
         RBMotor.setPower(-power);
     }
 
@@ -299,16 +294,16 @@ public class BasicMecanum {
 
     public void strafe(Direction direction, double power, double time) throws InterruptedException{
         if(direction == Direction.LEFT){
-            LFMotor.setPower(-power * mult);
+            LFMotor.setPower(-power);
             RFMotor.setPower(power);
-            LBMotor.setPower(power * mult);
+            LBMotor.setPower(power);
             RBMotor.setPower(-power);
             wait((int)time * 1000);
             stop();
         }else if(direction == Direction.RIGHT){
-            LFMotor.setPower(power * mult);
+            LFMotor.setPower(power);
             RFMotor.setPower(-power);
-            LBMotor.setPower(-power * mult);
+            LBMotor.setPower(-power);
             RBMotor.setPower(power);
             wait((int)time * 1000);
             stop();
@@ -327,14 +322,14 @@ public class BasicMecanum {
             LBMotor.setPower(0);
         } else if(leftBumper) {
             RFMotor.setPower(power);
-            LFMotor.setPower(-power * mult);
+            LFMotor.setPower(-power);
             RBMotor.setPower(power);
-            LBMotor.setPower(-power * mult);
+            LBMotor.setPower(-power);
         } else if(rightBumper) {
             RFMotor.setPower(-power);
-            LFMotor.setPower(power * mult);
+            LFMotor.setPower(power);
             RBMotor.setPower(-power);
-            LBMotor.setPower(power * mult);
+            LBMotor.setPower(power);
         }
     }
 
@@ -344,47 +339,47 @@ public class BasicMecanum {
                 RFMotor.setPower(power);
                 LFMotor.setPower(0);
                 RBMotor.setPower(0);
-                LBMotor.setPower(power * mult);
+                LBMotor.setPower(power);
             } else if (left) {
                 RFMotor.setPower(0);
-                LFMotor.setPower(power * mult);
+                LFMotor.setPower(power);
                 RBMotor.setPower(power);
                 LBMotor.setPower(0);
             } else {
                 RFMotor.setPower(power);
-                LFMotor.setPower(power * mult);
+                LFMotor.setPower(power);
                 RBMotor.setPower(power);
-                LBMotor.setPower(power * mult);
+                LBMotor.setPower(power);
             }
         } else if (down) {
             if (right) {
                 RFMotor.setPower(0);
-                LFMotor.setPower(-power * mult);
+                LFMotor.setPower(-power);
                 RBMotor.setPower(-power);
                 LBMotor.setPower(0);
             } else if (left) {
                 RFMotor.setPower(-power);
                 LFMotor.setPower(0);
                 RBMotor.setPower(0);
-                LBMotor.setPower(-power * mult);
+                LBMotor.setPower(-power);
             } else {
                 RFMotor.setPower(-1);
-                LFMotor.setPower(-power * mult);
+                LFMotor.setPower(-power);
                 RBMotor.setPower(-1);
-                LBMotor.setPower(-power * mult);
+                LBMotor.setPower(-power);
             }
         }
         else {
             if (right) {
                 RFMotor.setPower(-power);
-                LFMotor.setPower(power * mult);
+                LFMotor.setPower(power);
                 RBMotor.setPower(power);
-                LBMotor.setPower(-power * mult);
+                LBMotor.setPower(-power);
             } else if (left) {
                 RFMotor.setPower(power);
-                LFMotor.setPower(-power * mult);
+                LFMotor.setPower(-power);
                 RBMotor.setPower(-power);
-                LBMotor.setPower(power * mult);
+                LBMotor.setPower(power);
             }
         }
     }

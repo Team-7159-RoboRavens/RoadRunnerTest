@@ -25,24 +25,35 @@ public class funnyTeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot = new Christopher();
         robot.init(hardwareMap);
-        robot.armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
         telemetry.addData("Arm Motor Power", () -> robot.armMotor.getPower());
         telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
         telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
+        telemetry.addData("Button: ", () -> gamepad2.y);
         telemetry.addLine("Ready");
         telemetry.update();
         et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         time1 = 0;
         time2 = 0;
         time3 = -1;
+
+        robot.armMotor.setPower(-0.5);
+        sleep(300);
+        robot.armMotor.setPower(0);
         waitForStart();
         while (opModeIsActive()) {
-            if (gamepad1.left_stick_y > 0.1 || gamepad1.left_stick_y < -0.1) {
-                robot.armMotor.setPower(-gamepad1.left_stick_y);
+//            if (gamepad1.left_stick_y > 0.1 || gamepad1.left_stick_y < -0.1) {
+            if(gamepad2.y) {
+                robot.armMotor.setPower(0.5);
 //                telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
 //                telemetry.update();
-            } else {
+            }
+            else if(gamepad2.x) {
+                robot.armMotor.setPower(-0.5);
+            }
+            else {
                 robot.armMotor.setPower(0);
             }
 

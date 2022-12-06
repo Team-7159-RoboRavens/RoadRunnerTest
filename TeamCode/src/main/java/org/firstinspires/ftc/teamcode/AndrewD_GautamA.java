@@ -54,26 +54,30 @@ public class AndrewD_GautamA extends LinearOpMode {
                 motorPower = (-powRX1) * 0.5;
                 robot.RFMotor.setPower(motorPower);
                 robot.RBMotor.setPower(motorPower);
+
             } else if(powRY1 >= 0.1 || powRY1 <= -0.1) {
                 motorPower = powRY1 * 0.5;
                 robot.RFMotor.setPower(motorPower);
                 robot.RBMotor.setPower(motorPower);
+
             } else if (powLX1 >= 0.1 || powLX1 <= -0.1) {
                 motorPower = (powLX1) * 0.5;
-                robot.RFMotor.setPower(motorPower);
+                robot.LFMotor.setPower(motorPower);
                 robot.RBMotor.setPower(motorPower);
+
             } else if(powLY1 >= 0.1 || powLY1 <= -0.1) {
                 motorPower = -powLY1 * 0.5;
-                robot.RFMotor.setPower(motorPower);
-                robot.RBMotor.setPower(motorPower);
+                robot.LFMotor.setPower(motorPower);
+                robot.LBMotor.setPower(motorPower);
+            }
+            else {
+                robot.stop();
             }
 
 
             // Gautam code
 
-            //Use triggers tp determine
             //arm up
-            //TODO: figure out which direction is positive and change the multiplication
             if(gamepad2.left_stick_x > 0.1 || gamepad2.left_stick_x < 0.1 || gamepad2.left_stick_y > 0.1 || gamepad2.left_stick_y < 0.1){
                 robot.armMotor.setPower(Math.max(Math.abs(gamepad2.left_stick_x), Math.abs(gamepad2.left_stick_y))*-0.5);
             }else{
@@ -86,13 +90,16 @@ public class AndrewD_GautamA extends LinearOpMode {
                 robot.armMotor.setPower(0);
             }
 
+            //Servo claw pos
             if(gamepad2.right_bumper) {
                 robot.servoClaw.setPosition(robot.servoClawOpen);
             }else if(gamepad2.left_bumper){
                 robot.servoClaw.setPosition(robot.servoClawGrab);
             }
 
-            robot.octoStrafe(false, false, gamepad1.x, gamepad1.b);
+            //Strafe
+            robot.octoStrafe(1.0, false, false, gamepad1.x, gamepad1.b);
+
             telemetry.update();
         }
 

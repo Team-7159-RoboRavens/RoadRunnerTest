@@ -9,22 +9,23 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import Team7159.ComplexRobots.Christopher;
 import Team7159.Enums.Direction;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoRight")
-public class AutoRight extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoBruhLeft")
+public class AutoBruhLeft extends LinearOpMode {
 
     private Christopher robot = new Christopher();
 
+    // strafe(Direction direction, double power, double tiles)
+
     SleeveDetection sleeveDetection = new SleeveDetection();
     OpenCvCamera phoneCam;
-    String webcamName = "Webcam 1";
+    String webcamName = "Internal Camera";
     public int location = 1;
 
-    double power = 0.4;
+    double power = 0.5;
 
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
@@ -56,40 +57,39 @@ public class AutoRight extends LinearOpMode {
             telemetry.addData("ROTATION: ", sleeveDetection.getPosition());
             telemetry.update();
         }
-        robot.servoClaw.setPosition(robot.servoClawGrab);
+//        robot.servoClaw.setPosition(robot.servoClawGrab);
+        robot.armMotor.setPower(-0.5);
+        sleep(300);
+        robot.armMotor.setPower(0);
 
         waitForStart();
 
-        rotate(Direction.RIGHT, power, 180);
-        rotate(Direction.RIGHT, power, 45);
-        robot.armPos(power, robot.armPosGround, robot.servoPosGround);
-        robot.servoClaw.setPosition(robot.servoClawOpen);
-        rotate(Direction.LEFT, power, 45);
-        strafe(Direction.LEFT, power, 1.0);
-        rotate(Direction.LEFT, power, 135);
-        robot.servoClaw.setPosition(robot.servoClawGrab);
-        rotate(Direction.RIGHT, power, 135);
 
         if(location == 1) {
-            strafe(Direction.RIGHT, power, 2);
-            strafe(Direction.FORWARDS, power, 1.5);
-            rotate(Direction.LEFT, power, 90);
-            robot.armPos(power, robot.armPosMid, robot.servoPosMid);
-            robot.servoClaw.setPosition(robot.servoClawOpen);
+            strafe(Direction.BACKWARDS, power, 1.5);
+            robot.strafe(Direction.LEFT, power, 1);
+            sleep(300);
+            robot.stop();
+            rotate(Direction.RIGHT, power, 180);
+            strafe(Direction.FORWARDS, power, 2.5);
         }
         else if(location == 2) {
-            strafe(Direction.RIGHT, power, 1);
-            strafe(Direction.FORWARDS, power, 2);
-            rotate(Direction.LEFT, power, 45);
-            robot.armPos(power, robot.armPosHigh, robot.servoPosHigh);
-            robot.servoClaw.setPosition(robot.servoClawOpen);
+            robot.strafe(Direction.LEFT, power, 1);
+            sleep(300);
+            robot.stop();
+            robot.strafe(Direction.FORWARDS, power, 1);
+            sleep(200);
+            robot.stop();
+            rotate(Direction.RIGHT, power, 1.5);
+            strafe(Direction.FORWARDS, power, 0.1);
         }
         else if(location == 3) {
-            strafe(Direction.RIGHT, power, 2);
+            robot.strafe(Direction.LEFT, power, 1);
+            sleep(300);
+            robot.stop();
             strafe(Direction.FORWARDS, power, 1.5);
-            rotate(Direction.LEFT, power, 90);
-            robot.armPos(power, robot.armPosMid, robot.servoPosMid);
-            robot.servoClaw.setPosition(robot.servoClawOpen);
+            rotate(Direction.RIGHT, power, 180);
+            strafe(Direction.FORWARDS, power, 1.5);
         }
     }
 
@@ -98,7 +98,8 @@ public class AutoRight extends LinearOpMode {
         double tileTimeTest = 2000.0;
         double inchesMoved = 50.0;
 
-        double tileTime = ((24 * tiles) * (tileTimeTest / inchesMoved));
+//        double tileTime = ((24 * tiles) * (tileTimeTest / inchesMoved));
+        double tileTime = 850;
         if(direction == Direction.LEFT){
             robot.LFMotor.setPower(-power);
             robot.RFMotor.setPower(power);
@@ -111,7 +112,7 @@ public class AutoRight extends LinearOpMode {
             robot.LFMotor.setPower(power);
             robot.RFMotor.setPower(-power);
             robot.LBMotor.setPower(-power);
-            robot. RBMotor.setPower(power +  robot.motorOffset);
+            robot. RBMotor.setPower(power + robot.motorOffset);
             sleep((long) tileTime);
 //            sleep((long)tiles * tileTime * (1 / (long) power));
             robot.stop();
@@ -120,7 +121,7 @@ public class AutoRight extends LinearOpMode {
             robot.LFMotor.setPower(power);
             robot.RFMotor.setPower(power);
             robot.LBMotor.setPower(power);
-            robot.RBMotor.setPower(power +  robot.motorOffset);
+            robot.RBMotor.setPower(power + robot.motorOffset);
             sleep((long) tileTime);
 //            sleep((long)tiles * tileTime * (1 / (long) power));
             robot.stop();
@@ -141,10 +142,10 @@ public class AutoRight extends LinearOpMode {
 
     // Rotate angle method
     public void rotate(Direction direction, double power, double inputAngle) throws InterruptedException {
-        double timeTest = 5000;
-        double angleMoved = 510;
-        double angleTime = (timeTest/angleMoved) * inputAngle;
-
+//        double timeTest = 5000.0;
+//        double angleMoved = 510.0;
+//        double angleTime = (timeTest/angleMoved) * inputAngle;
+        double angleTime = 925;
         if(direction == Direction.LEFT) {
             robot.RFMotor.setPower(-power);
             robot.LFMotor.setPower(power);
@@ -161,4 +162,5 @@ public class AutoRight extends LinearOpMode {
             robot.stop();
         }
     }
+
 }

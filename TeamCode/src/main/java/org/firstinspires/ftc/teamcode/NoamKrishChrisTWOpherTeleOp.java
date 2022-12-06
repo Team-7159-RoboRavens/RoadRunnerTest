@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import Team7159.ComplexRobots.ChrisTWOpher;
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam Gautam TeleOp")
-public class NoamGautamChristopherTeleOp extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="ChrisTWOpher Driving Test (drives like Noam's)")
+public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left
     //x - Slow forward
@@ -17,52 +19,32 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
     //RT - Move Forward
     //LT - Move back
 
-    private Christopher robot = new Christopher();
+    private ChrisTWOpher robot = new ChrisTWOpher();
+
+    double armPower = 0.5;
+
+    double slowPower = 0.25;
+    double regPower = 0.5;
+
+    ElapsedTime et;
+    double time1;
+    double time2;
+    double time3;
+    final double servoDelay = 100;
+    boolean isPressed = false;
 
     @Override
     public void runOpMode() {
-
         robot.init(hardwareMap);
-
+        et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        time1 = 0;
+        time2 = 0;
+        time3 = -1;
         waitForStart();
-
-
-        double slowPower = 0.25;
-        double regPower = 0.5;
-
-
-        boolean isPressed;
 
         while (opModeIsActive()) {
 
-            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
-            telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
-            telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
-
-            //Gautam Teleop
-
-            //Use triggers tp determine
-            //arm up
-            //TODO: figure out which direction is positive and change the multiplication
-            if(gamepad2.left_stick_x > 0.1 || gamepad2.left_stick_x < 0.1 || gamepad2.left_stick_y > 0.1 || gamepad2.left_stick_y < 0.1){
-                robot.armMotor.setPower(Math.max(Math.abs(gamepad2.left_stick_x), Math.abs(gamepad2.left_stick_y))*-0.5);
-            }else{
-                robot.armMotor.setPower(0);
-            }
-            //arm down
-            if(gamepad2.right_stick_x > 0.1 || gamepad2.right_stick_x < 0.1 || gamepad2.right_stick_y > 0.1 || gamepad2.right_stick_y < 0.1) {
-                robot.armMotor.setPower(Math.max(Math.abs(gamepad2.right_stick_x), Math.abs(gamepad2.right_stick_y)) * 0.5);
-            }else {
-                robot.armMotor.setPower(0);
-            }
-
-            if(gamepad2.right_bumper) {
-                robot.servoClaw.setPosition(robot.servoClawOpen);
-            }else if(gamepad2.left_bumper){
-                robot.servoClaw.setPosition(robot.servoClawGrab);
-            }
-
-            // Noam Drive
+            //Noam Drive
 
             //If any of the buttons are pressed, do not stop robot, otherwise, stop it
             //FIXES JITTER
@@ -103,7 +85,7 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
             }
 
             //Directional strafing with d pad
-            robot.octoStrafe(1.0, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+            robot.octoStrafe(0.8, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
             if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right){
                 isPressed = true;
             }
