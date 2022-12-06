@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import Team7159.ComplexRobots.ChrisTWOpher;
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Test TeleOp (drives like Noam's)", group = "ChrisTWOpher Certified OpModes")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="USE THIS WHEN TESTING (drives like Noam's)", group = "ChrisTWOpher Certified OpModes")
 public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left

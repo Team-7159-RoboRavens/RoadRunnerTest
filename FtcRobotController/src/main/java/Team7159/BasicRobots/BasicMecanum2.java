@@ -212,9 +212,9 @@ public class BasicMecanum2 {
         RBMotor.setPower(0.0);
 
         //TODO: Figure out which motors need to be reversed, etc. so that the robot actually goes forward lmao
-        LFMotor.setDirection(DcMotor.Direction.FORWARD);
+        LFMotor.setDirection(DcMotor.Direction.REVERSE);
         RFMotor.setDirection(DcMotor.Direction.FORWARD);
-        LBMotor.setDirection(DcMotor.Direction.FORWARD);
+        LBMotor.setDirection(DcMotor.Direction.REVERSE);
         RBMotor.setDirection(DcMotor.Direction.FORWARD);
 
         //for now, we do this (maybe change later-
