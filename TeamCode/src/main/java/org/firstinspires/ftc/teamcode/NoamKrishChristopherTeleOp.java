@@ -62,7 +62,6 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
 
         while (opModeIsActive()) {
-            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
             telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
             telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
 
@@ -156,31 +155,36 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 //                robot.armMotor.setPower(0);
 //            }
 
-            if(gamepad2.y) {
-                robot.armMotor.setPower(0.5);
+
+            //If any of the buttons are pressed, do not stop robot, otherwise, stop it
+            //FIXES JITTER
+            isPressed = false;
+
+            if(gamepad2.left_trigger > 0.1) {
+                robot.armMotor.setPower(0.5 * gamepad2.left_trigger);
 //                telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
 //                telemetry.update();
             }
-            else if(gamepad2.x) {
-                robot.armMotor.setPower(-0.5);
+            else if(gamepad2.right_trigger > 0.1) {
+                robot.armMotor.setPower(-0.5 * gamepad2.right_trigger);
             }
-            else {
+            else{
                 robot.armMotor.setPower(0);
             }
 
-            if (et.time() - time1 > servoDelay) {
-                if (gamepad2.dpad_up) {
-                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() + 0.05);
-                    time1 = et.time();
-//                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
-//                    telemetry.update();
-                } else if (gamepad2.dpad_down) {
-                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() - 0.05);
-                    time1 = et.time();
-//                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
-//                    telemetry.update();
-                }
-            }
+//            if (et.time() - time1 > servoDelay) {
+//                if (gamepad2.dpad_up) {
+//                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() + 0.05);
+//                    time1 = et.time();
+////                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
+////                    telemetry.update();
+//                } else if (gamepad2.dpad_down) {
+//                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() - 0.05);
+//                    time1 = et.time();
+////                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
+////                    telemetry.update();
+//                }
+//            }
 
             if (et.time() - time2 > servoDelay) {
                 if (gamepad2.a) {
@@ -200,7 +204,7 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
             //If any of the buttons are pressed, do not stop robot, otherwise, stop it
             //FIXES JITTER
-            isPressed = false;
+
 
             //Trigger, move straight faster
             if(gamepad1.right_trigger > 0.1) {

@@ -28,7 +28,7 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
             //General Telemetry
-            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
+//            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
             telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
             telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
 
@@ -75,7 +75,7 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
                     robot.armMotor.setPower(0);
                 }
 
-                robot.servoArm2.setPosition(robot.servoPosMid);
+//                robotk.servoArm2.setPosition(robot.servoPosMid);
             }
             else if (gamepad2.y) {
                 if(robot.armMotor.getCurrentPosition() < robot.armPosHigh) {
@@ -91,7 +91,7 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
                     robot.armMotor.setPower(0);
                 }
 
-                robot.servoArm2.setPosition(robot.servoPosHigh);
+//                robot.servoArm2.setPosition(robot.servoPosHigh);
             }
             else if (gamepad2.a) {
                 if(robot.armMotor.getCurrentPosition() < robot.armPosGround) {
@@ -107,7 +107,7 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
                     robot.armMotor.setPower(0);
                 }
 
-                robot.servoArm2.setPosition(robot.servoPosGround);
+//                robot.servoArm2.setPosition(robot.servoPosGround);
             }
             else if (gamepad2.b) {
                 if(robot.armMotor.getCurrentPosition() < robot.armPosLow) {
@@ -123,7 +123,7 @@ public class AndrewKrishChristopherTeleOp extends LinearOpMode {
                     robot.armMotor.setPower(0);
                 }
 
-                robot.servoArm2.setPosition(robot.servoPosLow);
+//                robot.servoArm2.setPosition(robot.servoPosLow);
             }
 //            else {
 //                robot.armMotor.setPower(0);

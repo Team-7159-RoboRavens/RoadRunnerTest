@@ -129,7 +129,7 @@ public class ChrisTWOpher extends BasicMecanum2 {
         } else if(direction == Direction.RIGHT) {
             RFMotor.setPower(power);
             LFMotor.setPower(-power);
-            RBMotor.setPower(power + motorOffset);
+            RBMotor.setPower(power);
             LBMotor.setPower(-power);
         }
     }
