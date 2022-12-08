@@ -185,9 +185,6 @@ public class BasicMecanum2 {
     public DcMotor LFMotor;
     public DcMotor LBMotor;
 
-    public double motorOffset = 0;
-
-    public double mult = 0.325;
 
     public void init(HardwareMap Map) {
 
@@ -270,20 +267,6 @@ public class BasicMecanum2 {
         LBMotor.setPower(-power);
         RBMotor.setPower(-power);
     }
-
-    //public void pivotTurnLeft(boolean on, double accel) {
-    //    if(on) {
-    //        LFMotor.set(10);
-    //        LBMotor.set(10);
-    //    }
-    //}
-
-    //public void pivotTurnRight(boolean on, double accel) {
-    //    if(on) {
-    //        RFMotor.set(10);
-    //        RBMotor.set(10);
-    //    }
-    //}
 
     public void stop() {
         LFMotor.setPower(0);
