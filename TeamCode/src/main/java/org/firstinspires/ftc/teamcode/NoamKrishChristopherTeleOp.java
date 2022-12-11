@@ -25,7 +25,7 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
     double armPower = 0.5;
 
     double slowPower = 0.25;
-    double regPower = 0.5;
+    double regPower = 0.75;
 
     ElapsedTime et;
     double time1;
@@ -54,7 +54,7 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
         time2 = 0;
         time3 = -1;
 
-        robot.armMotor.setPower(-0.5);
+        robot.armMotor.setPower(-0.3);
         sleep(300);
         robot.armMotor.setPower(0);
 
@@ -68,105 +68,19 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
             // Krish Arm
 
-            //Preset heights
-//            if (gamepad2.x) {
-//                if(robot.armMotor.getCurrentPosition() < robot.armPosMid) {
-//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosMid) {
-//                        robot.armMotor.setPower(armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//                else {
-//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosMid) {
-//                        robot.armMotor.setPower(-armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//
-//                robot.servoArm2.setPosition(robot.servoPosMid);
-//            }
-//            else if (gamepad2.y) {
-//                if(robot.armMotor.getCurrentPosition() < robot.armPosHigh) {
-//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosHigh) {
-//                        robot.armMotor.setPower(armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//                else {
-//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosHigh) {
-//                        robot.armMotor.setPower(-armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//
-//                robot.servoArm2.setPosition(robot.servoPosHigh);
-//            }
-//            else if (gamepad2.a) {
-//                if(robot.armMotor.getCurrentPosition() < robot.armPosGround) {
-//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosGround) {
-//                        robot.armMotor.setPower(armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//                else {
-//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosGround) {
-//                        robot.armMotor.setPower(-armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//
-//                robot.servoArm2.setPosition(robot.servoPosGround);
-//            }
-//            else if (gamepad2.b) {
-//                if(robot.armMotor.getCurrentPosition() < robot.armPosLow) {
-//                    while (robot.armMotor.getCurrentPosition() <= robot.armPosLow) {
-//                        robot.armMotor.setPower(armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//                else {
-//                    while (robot.armMotor.getCurrentPosition() >= robot.armPosLow) {
-//                        robot.armMotor.setPower(-armPower);
-//                    }
-//                    robot.armMotor.setPower(0);
-//                }
-//
-//                robot.servoArm2.setPosition(robot.servoPosLow);
-//            }
-////            else {
-////                robot.armMotor.setPower(0);
-////            }
-//
-//            //Set servo claw position
-//            if(gamepad2.right_bumper) {
-//                robot.servoClaw.setPosition(robot.servoClawOpen);
-//            }else if(gamepad2.left_bumper){
-//                robot.servoClaw.setPosition(robot.servoClawGrab);
-//            }
-
-            //BACKUP, Just set the power
-//            if(gamepad2.right_trigger > 0.1) {
-//                robot.armMotor.setPower(armPower);
-//            }
-//            else if(gamepad2.left_trigger > 0.1) {
-//                robot.armMotor.setPower(-armPower);
-//            }
-//            else {
-//                robot.armMotor.setPower(0);
-//            }
 
 
             //If any of the buttons are pressed, do not stop robot, otherwise, stop it
             //FIXES JITTER
             isPressed = false;
 
-            if(gamepad2.left_trigger > 0.1) {
-                robot.armMotor.setPower(0.5 * gamepad2.left_trigger);
+            if(gamepad2.right_trigger > 0.2) {
+                robot.armMotor.setPower(0.1 * gamepad2.right_trigger);
 //                telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
 //                telemetry.update();
             }
-            else if(gamepad2.right_trigger > 0.1) {
-                robot.armMotor.setPower(-0.5 * gamepad2.right_trigger);
+            else if(gamepad2.left_trigger > 0.2) {
+                robot.armMotor.setPower(-0.1 * gamepad2.left_trigger);
             }
             else{
                 robot.armMotor.setPower(0);
@@ -200,6 +114,13 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
                 }
             }
 
+            if(gamepad2.left_bumper) {
+                robot.servoClaw.setPosition(robot.servoClawOpen);
+            }
+            else if(gamepad2.right_bumper) {
+                robot.servoClaw.setPosition(robot.servoClawGrab);
+            }
+
             //Noam Drive
 
             //If any of the buttons are pressed, do not stop robot, otherwise, stop it
@@ -208,10 +129,12 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
             //Trigger, move straight faster
             if(gamepad1.right_trigger > 0.1) {
+                sleep(50);
                 robot.moveStraight(regPower);
                 isPressed = true;
             }
             else if(gamepad1.left_trigger > 0.1) {
+                sleep(50);
                 robot.moveBackwards(regPower);
                 isPressed = true;
             }

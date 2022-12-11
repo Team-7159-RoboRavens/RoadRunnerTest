@@ -190,7 +190,7 @@ public class BasicMecanum {
 
     public double motorOffset = 0;
 
-    public double mult = 0.325;
+    public double mult = 0.29;
 
     public void init(HardwareMap Map) {
 
@@ -316,7 +316,6 @@ public class BasicMecanum {
             //Throw an exception
         }
     }
-
 
     public void pivotTurn(double power, boolean rightBumper, boolean leftBumper) {
         power = power*0.5;
