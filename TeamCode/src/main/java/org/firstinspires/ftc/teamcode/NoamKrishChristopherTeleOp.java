@@ -54,9 +54,6 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
         time2 = 0;
         time3 = -1;
 
-        robot.armMotor.setPower(-0.3);
-        sleep(300);
-        robot.armMotor.setPower(0);
 
         waitForStart();
 
@@ -75,14 +72,17 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
             isPressed = false;
 
             if(gamepad2.right_trigger > 0.2) {
-                robot.armMotor.setPower(0.1 * gamepad2.right_trigger);
+                sleep(50);
+                robot.armMotor.setPower(0.075 * gamepad2.right_trigger);
 //                telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
 //                telemetry.update();
             }
             else if(gamepad2.left_trigger > 0.2) {
-                robot.armMotor.setPower(-0.1 * gamepad2.left_trigger);
+                sleep(50);
+                robot.armMotor.setPower(-0.075 * gamepad2.left_trigger);
             }
             else{
+                sleep(50);
                 robot.armMotor.setPower(0);
             }
 
