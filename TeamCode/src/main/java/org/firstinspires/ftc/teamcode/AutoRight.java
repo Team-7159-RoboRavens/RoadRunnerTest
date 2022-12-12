@@ -10,8 +10,8 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import Team7159.ComplexRobots.Christopher;
 import Team7159.Enums.Direction;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoLeft")
-public class AutoLeft extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoRight")
+public class AutoRight extends LinearOpMode {
 
     private Christopher robot = new Christopher();
 
@@ -74,18 +74,19 @@ public class AutoLeft extends LinearOpMode {
         strafe(Direction.RIGHT, 1.0, 0.1);
         rotate(Direction.RIGHT, 1.0, 5);
 
+
         if(location == 1) {
             strafe(Direction.FORWARDS, 1.0, 1);
-            rotate(Direction.RIGHT, 1.0, 90);
-            strafe(Direction.FORWARDS, 1.0, 1.3);
+            rotate(Direction.RIGHT, 1.0, 87);
+            strafe(Direction.FORWARDS, 1.0, 1.1);
         }
         else if(location == 2) {
-            rotate(Direction.RIGHT, 1.0, 90);
+            rotate(Direction.RIGHT, 1.0, 87);
             strafe(Direction.FORWARDS, 1.0, 1.2);
         }
         else if(location == 3) {
             strafe(Direction.BACKWARDS, 1.0, 1);
-            rotate(Direction.RIGHT, 1.0, 90);
+            rotate(Direction.RIGHT, 1.0, 87);
             strafe(Direction.FORWARDS, 1.0, 1.3);
         }
     }
