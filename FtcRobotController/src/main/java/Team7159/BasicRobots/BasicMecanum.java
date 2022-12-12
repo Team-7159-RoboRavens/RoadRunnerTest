@@ -253,8 +253,6 @@ public class BasicMecanum {
         RBMotor.setPower(power);
     }
 
-//    Adding this for now
-
     public void moveLeft(double power) {
         LFMotor.setPower(-power * mult);
         RFMotor.setPower(power);
@@ -276,45 +274,11 @@ public class BasicMecanum {
         RBMotor.setPower(-power);
     }
 
-    //public void pivotTurnLeft(boolean on, double accel) {
-    //    if(on) {
-    //        LFMotor.set(10);
-    //        LBMotor.set(10);
-    //    }
-    //}
-
-    //public void pivotTurnRight(boolean on, double accel) {
-    //    if(on) {
-    //        RFMotor.set(10);
-    //        RBMotor.set(10);
-    //    }
-    //}
-
     public void stop() {
         LFMotor.setPower(0);
         RFMotor.setPower(0);
         LBMotor.setPower(0);
         RBMotor.setPower(0);
-    }
-
-    public void strafe(Direction direction, double power, double time) throws InterruptedException{
-        if(direction == Direction.LEFT){
-            LFMotor.setPower(-power * mult);
-            RFMotor.setPower(power);
-            LBMotor.setPower(power * mult);
-            RBMotor.setPower(-power);
-            wait((int)time * 1000);
-            stop();
-        }else if(direction == Direction.RIGHT){
-            LFMotor.setPower(power * mult);
-            RFMotor.setPower(-power);
-            LBMotor.setPower(-power * mult);
-            RBMotor.setPower(power);
-            wait((int)time * 1000);
-            stop();
-        }else{
-            //Throw an exception
-        }
     }
 
     public void pivotTurn(double power, boolean rightBumper, boolean leftBumper) {

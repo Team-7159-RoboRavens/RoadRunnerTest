@@ -13,7 +13,6 @@ public class Christopher extends BasicMecanum {
 
     public DcMotor armMotor;
     public Servo servoClaw;
-    public Servo servoArm2;
 
 
     public double armPosHigh = 10;
@@ -38,7 +37,6 @@ public class Christopher extends BasicMecanum {
 
         armMotor = Map.dcMotor.get("armMotor");
         servoClaw = Map.servo.get("servoClaw");
-//        servoArm2 = Map.servo.get("servoArm2");
 
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -48,8 +46,6 @@ public class Christopher extends BasicMecanum {
 
         servoClaw.setPosition(servoClawGrab);
 
-
-//        servoArm2.setPosition(servoPosBack);
     }
 
 
@@ -67,8 +63,8 @@ public class Christopher extends BasicMecanum {
             }
             armMotor.setPower(0);
         }
-
-        servoArm2.setPosition(servoPosMid);
     }
+
+
 
 }
