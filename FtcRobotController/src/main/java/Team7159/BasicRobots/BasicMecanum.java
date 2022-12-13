@@ -194,16 +194,6 @@ public class BasicMecanum {
 
     public void init(HardwareMap Map) {
 
-//        LFMotor = new Motor(Map, "FLDrive");
-//        LBMotor = new Motor(Map, "BLDrive");
-//        RFMotor = new Motor(Map, "FRDrive");
-//        RBMotor = new Motor(Map, "BRDrive");
-//
-//        RFMotor.set(0.0);
-//        RBMotor.set(0.0);
-//        LFMotor.set(0.0);
-//        LBMotor.set(0.0);
-
         LFMotor = Map.dcMotor.get("LFMotor");
         LBMotor = Map.dcMotor.get("LBMotor");
         RFMotor = Map.dcMotor.get("RFMotor");

@@ -35,7 +35,7 @@ public class NoamGautamChristopherTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
+//             telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
             telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
             telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
 

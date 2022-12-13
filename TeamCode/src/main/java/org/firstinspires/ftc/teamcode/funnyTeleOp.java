@@ -29,7 +29,7 @@ public class funnyTeleOp extends LinearOpMode {
         //robot.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         telemetry.addData("Arm Motor Position", () -> robot.armMotor.getCurrentPosition());
         telemetry.addData("Arm Motor Power", () -> robot.armMotor.getPower());
-        telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
+//        telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
         telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
         telemetry.addData("Button: ", () -> gamepad2.y);
         telemetry.addLine("Ready");
@@ -59,12 +59,12 @@ public class funnyTeleOp extends LinearOpMode {
 
             if (et.time() - time1 > servoDelay) {
                 if (gamepad1.dpad_up) {
-                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() + 0.05);
+//                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() + 0.05);
                     time1 = et.time();
 //                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
 //                    telemetry.update();
                 } else if (gamepad1.dpad_down) {
-                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() - 0.05);
+//                    robot.servoArm2.setPosition(robot.servoArm2.getPosition() - 0.05);
                     time1 = et.time();
 //                    telemetry.addData("Arm Servo Position", () -> robot.servoArm2.getPosition());
 //                    telemetry.update();
