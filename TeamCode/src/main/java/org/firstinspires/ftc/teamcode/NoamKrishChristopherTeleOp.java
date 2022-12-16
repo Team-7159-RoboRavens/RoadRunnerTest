@@ -46,9 +46,6 @@ public class NoamKrishChristopherTeleOp extends LinearOpMode {
 //        robot.servoArm2.setPosition(robot.servoPosBack);
 //        robot.servoClaw.setPosition(robot.servoClawGrab);
 
-
-
-
         et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         time1 = 0;
         time2 = 0;

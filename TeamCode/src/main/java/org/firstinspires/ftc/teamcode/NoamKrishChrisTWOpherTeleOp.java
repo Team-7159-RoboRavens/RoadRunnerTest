@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import Team7159.ComplexRobots.ChrisTWOpher;
+import Team7159.ComplexRobots.Christwopher;
 import Team7159.ComplexRobots.Christopher;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="ChrisTWOpher Driving Test (drives like Noam's)")
@@ -19,9 +19,9 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
     //RT - Move Forward
     //LT - Move back
 
-    private ChrisTWOpher robot = new ChrisTWOpher();
+    private Christwopher robot = new Christwopher();
 
-    double armPower = 0.5;
+    double linearSlidesPower = 1.0;
 
     double slowPower = 0.25;
     double regPower = 0.5;
@@ -43,6 +43,31 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
+            // Slides
+            if(gamepad2.right_trigger > 0.2) {
+//                robot.linearSlidesMotor1.setPower(0.075 * gamepad2.right_trigger);
+                robot.linearSlidesMotor1.setPower(linearSlidesPower);
+                robot.linearSlidesMotor2.setPower(linearSlidesPower);
+            }
+            else if(gamepad2.left_trigger > 0.2) {
+//                robot.armMotor.setPower(-0.075 * gamepad2.left_trigger);
+                robot.linearSlidesMotor1.setPower(-linearSlidesPower);
+                robot.linearSlidesMotor2.setPower(-linearSlidesPower);
+            }
+            else{
+//                robot.armMotor.setPower(0);
+                robot.linearSlidesMotor1.setPower(0);
+                robot.linearSlidesMotor2.setPower(0);
+            }
+
+            // Servo Claw
+            if(gamepad2.left_bumper) {
+                robot.servoClaw.setPosition(robot.servoClawOpen);
+            }
+            else if(gamepad2.right_bumper) {
+                robot.servoClaw.setPosition(robot.servoClawGrab);
+            }
 
             //Noam Drive
 

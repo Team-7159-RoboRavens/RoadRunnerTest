@@ -58,18 +58,24 @@ public class AutoRight extends LinearOpMode {
                 location = 3;
             }
             telemetry.addData("ROTATION: ", sleeveDetection.getPosition());
+            telemetry.addData("Yel percent: ", sleeveDetection.getYellowPercent());
+            telemetry.addData("Cyan percent: ", sleeveDetection.getCyanPercent());
+            telemetry.addData("Magenta percent: ", sleeveDetection.getMagentaPercent());
             telemetry.update();
         }
         robot.servoClaw.setPosition(robot.servoClawGrab);
 
         //Auto
 
+
         waitForStart();
 
-        telemetry.addData("LBMotor Pos: ", robot.LBMotor.getCurrentPosition());
-        telemetry.addData("RBMotor Pos: ", robot.RBMotor.getCurrentPosition());
-        telemetry.addData("LFMotor Pos: ", robot.LFMotor.getCurrentPosition());
-        telemetry.addData("RFMotor Pos: ", robot.RFMotor.getCurrentPosition());
+//        telemetry.addData("LBMotor Pos: ", robot.LBMotor.getCurrentPosition());
+//        telemetry.addData("RBMotor Pos: ", robot.RBMotor.getCurrentPosition());
+//        telemetry.addData("LFMotor Pos: ", robot.LFMotor.getCurrentPosition());
+//        telemetry.addData("RFMotor Pos: ", robot.RFMotor.getCurrentPosition());
+
+
 
         strafe(Direction.RIGHT, 1.0, 0.1);
         rotate(Direction.RIGHT, 1.0, 5);

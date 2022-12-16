@@ -94,6 +94,8 @@ public class SleeveDetection extends OpenCvPipeline {
         cyaPercent = Core.countNonZero(cyaMat);
         magPercent = Core.countNonZero(magMat);
 
+
+
         // Calculates the highest amount of pixels being covered on each side
         double maxPercent = Math.max(yelPercent, Math.max(cyaPercent, magPercent));
 
@@ -135,6 +137,16 @@ public class SleeveDetection extends OpenCvPipeline {
         magMat.release();
 
         return input;
+    }
+
+    public int getYellowPercent() {
+        return Core.countNonZero(yelMat);
+    }
+    public int getCyanPercent() {
+        return Core.countNonZero(cyaMat);
+    }
+    public int getMagentaPercent() {
+        return Core.countNonZero(magMat);
     }
 
     // Returns an enum being the current position where the robot will park
