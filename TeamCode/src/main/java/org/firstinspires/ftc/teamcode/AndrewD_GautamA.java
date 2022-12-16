@@ -39,7 +39,7 @@ public class AndrewD_GautamA extends LinearOpMode {
 
         while (opModeIsActive()) {
             //General Telemetry
-            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
+//            telemetry.addData("Servo Arm 2 pos: ", robot.servoArm2.getPosition());
             telemetry.addData("Servo Claw pos: ", robot.servoClaw.getPosition());
             telemetry.addData("Arm Motor pos: ", robot.armMotor.getCurrentPosition());
 
