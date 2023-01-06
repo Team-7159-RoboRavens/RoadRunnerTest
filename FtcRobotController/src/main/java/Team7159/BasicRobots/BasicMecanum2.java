@@ -286,84 +286,122 @@ public class BasicMecanum2 {
     }
 
     public void moveTiles(Direction direction, double power, double tiles) {
-        int ticksExperimental = 2000;
-        int inchesMovedExperimental = 10;
+        int ticksExperimental = 1010;
+        int ticksStrafe = 1060;
 
-        int ticks = (int) ((23.5 * tiles) * ((double) ticksExperimental / inchesMovedExperimental));
 
         if(direction == Direction.LEFT){
+            int ticks = (int) (ticksStrafe * tiles);
+            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticksStrafe);
+            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticksStrafe);
+            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticksStrafe);
+            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() - ticksStrafe);
+
             LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticks);
             LFMotor.setPower(-power);
 
             RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
             RFMotor.setPower(power);
 
             LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
             LBMotor.setPower(power);
 
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() - ticks);
             RBMotor.setPower(-power);
 
         }else if(direction == Direction.RIGHT){
+            int ticks = (int) (ticksStrafe * tiles);
+            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticksStrafe);
+            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() - ticksStrafe);
+            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() - ticksStrafe);
+            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticksStrafe);
+
             LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
             LFMotor.setPower(power);
 
             RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() - ticks);
             RFMotor.setPower(-power);
 
             LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() - ticks);
             LBMotor.setPower(-power);
 
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
             RBMotor.setPower(power);
 
         }
         else if(direction == Direction.FORWARDS) {
-            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
-            LFMotor.setPower(power);
+            int ticks = (int) (ticksExperimental * tiles);
+//            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
+//            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
+//            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
+//            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
+//
+//            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            LFMotor.setPower(power);
+//
+//            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RFMotor.setPower(power);
+//
+//            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            LBMotor.setPower(power);
+//
+//            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RBMotor.setPower(power);
 
-            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
-            RFMotor.setPower(power);
+            int lfOrigin = LFMotor.getCurrentPosition() + ticks;
+            int rfOrigin = RFMotor.getCurrentPosition() + ticks;
+            int lbOrigin = LBMotor.getCurrentPosition() + ticks;
+            int rbOrigin = RBMotor.getCurrentPosition() + ticks;
 
-            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
-            LBMotor.setPower(power);
+//            TODO: Test slow stop
+            int minusTicks = 100;
+            while(power >= .1 && LFMotor.getCurrentPosition() < lfOrigin) {
+                if (LFMotor.getCurrentPosition() >= (lfOrigin - minusTicks) && RFMotor.getCurrentPosition() >= (rfOrigin - minusTicks) && LBMotor.getCurrentPosition() >= (lbOrigin - minusTicks) && RBMotor.getCurrentPosition() >= (rbOrigin - minusTicks)) {
+                    power = power * 0.5;
 
-            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
-            RBMotor.setPower(power);
+                    LFMotor.setPower(power);
+                    RFMotor.setPower(power);
+                    LBMotor.setPower(power);
+                    RBMotor.setPower(power);
+
+                    minusTicks -= 20;
+                }
+                else {
+                    LFMotor.setPower(power);
+                    RFMotor.setPower(power);
+                    LBMotor.setPower(power);
+                    RBMotor.setPower(power);
+                }
+            }
+            LFMotor.setPower(0);
+            RFMotor.setPower(0);
+            LBMotor.setPower(0);
+            RBMotor.setPower(0);
 
         }
         else if(direction == Direction.BACKWARDS) {
-            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            int ticks = (int) (ticksExperimental * tiles);
             LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticks);
+            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() - ticks);
+            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() - ticks);
+            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() - ticks);
+
+            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LFMotor.setPower(-power);
 
             RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() - ticks);
             RFMotor.setPower(-power);
 
             LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() - ticks);
             LBMotor.setPower(-power);
 
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() - ticks);
             RBMotor.setPower(-power);
         }
         else{
             //Throw an exception
         }
+
     }
 
     public void octoStrafe(double power, boolean up, boolean down, boolean left, boolean right) {
@@ -416,4 +454,9 @@ public class BasicMecanum2 {
             }
         }
     }
+
+    private void slowStop() {
+
+    }
 }
+

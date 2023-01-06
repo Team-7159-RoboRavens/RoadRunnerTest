@@ -18,9 +18,9 @@ public class MagicTeleop2 extends LinearOpMode {
     public void runOpMode() {
 
         robot.init(hardwareMap);
-        telemetry.addData("LS Motor 1 Pos:", () -> robot.linearSlidesMotor1.getCurrentPosition());
-        telemetry.addData("LS Motor 2 Pos:", () -> robot.linearSlidesMotor2.getCurrentPosition());
-        telemetry.addData("Servo Claw Pos:", () -> robot.servoClaw.getPosition());
+//        telemetry.addData("LS Motor 1 Pos:", () -> robot.linearSlidesMotor1.getCurrentPosition());
+//        telemetry.addData("LS Motor 2 Pos:", () -> robot.linearSlidesMotor2.getCurrentPosition());
+//        telemetry.addData("Servo Claw Pos:", () -> robot.servoClaw.getPosition());
 
         waitForStart();
         double slowPower = 0.25;
@@ -34,28 +34,28 @@ public class MagicTeleop2 extends LinearOpMode {
 
         while (opModeIsActive()) {
             if(gamepad1.left_trigger > 0.1){
-                robot.linearSlidesMotor1.setPower(-gamepad1.left_trigger);
-                robot.linearSlidesMotor2.setPower(-gamepad1.left_trigger);
+                robot.linearSlidesMotor1.setPower(0.3);
+//                robot.linearSlidesMotor2.setPower(-gamepad1.left_trigger);
             }else if(gamepad1.right_trigger > 0.1){
-                robot.linearSlidesMotor1.setPower(gamepad1.right_trigger);
-                robot.linearSlidesMotor2.setPower(gamepad1.right_trigger);
+                robot.linearSlidesMotor1.setPower(-0.5);
+//                robot.linearSlidesMotor2.setPower(gamepad1.right_trigger);
             }else{
-                robot.linearSlidesMotor1.setPower(0);
-                robot.linearSlidesMotor2.setPower(0);
+                robot.linearSlidesMotor1.setPower(-0.1);
+//                robot.linearSlidesMotor2.setPower(0);
             }
-            if (et.time() - timeServo > servoDelay) {
-                if (gamepad2.a) {
-                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() + 0.05);
-                    timeServo = et.time();
-//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
-//                    telemetry.update();
-                } else if (gamepad2.b) {
-                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() - 0.05);
-                    timeServo = et.time();
-//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
-//                    telemetry.update();
-                }
-            }
+//            if (et.time() - timeServo > servoDelay) {
+//                if (gamepad2.a) {
+//                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() + 0.05);
+//                    timeServo = et.time();
+////                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
+////                    telemetry.update();
+//                } else if (gamepad2.b) {
+//                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() - 0.05);
+//                    timeServo = et.time();
+////                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
+////                    telemetry.update();
+//                }
+//            }
             telemetry.update();
         }
     }

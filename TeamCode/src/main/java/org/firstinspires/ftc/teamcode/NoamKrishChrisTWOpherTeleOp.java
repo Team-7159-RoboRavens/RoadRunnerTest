@@ -45,29 +45,29 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Slides
-            if(gamepad2.right_trigger > 0.2) {
-//                robot.linearSlidesMotor1.setPower(0.075 * gamepad2.right_trigger);
-                robot.linearSlidesMotor1.setPower(linearSlidesPower);
-                robot.linearSlidesMotor2.setPower(linearSlidesPower);
-            }
-            else if(gamepad2.left_trigger > 0.2) {
-//                robot.armMotor.setPower(-0.075 * gamepad2.left_trigger);
-                robot.linearSlidesMotor1.setPower(-linearSlidesPower);
-                robot.linearSlidesMotor2.setPower(-linearSlidesPower);
-            }
-            else{
-//                robot.armMotor.setPower(0);
-                robot.linearSlidesMotor1.setPower(0);
-                robot.linearSlidesMotor2.setPower(0);
-            }
-
-            // Servo Claw
-            if(gamepad2.left_bumper) {
-                robot.servoClaw.setPosition(robot.servoClawOpen);
-            }
-            else if(gamepad2.right_bumper) {
-                robot.servoClaw.setPosition(robot.servoClawGrab);
-            }
+//            if(gamepad2.right_trigger > 0.2) {
+////                robot.linearSlidesMotor1.setPower(0.075 * gamepad2.right_trigger);
+//                robot.linearSlidesMotor1.setPower(linearSlidesPower);
+//                robot.linearSlidesMotor2.setPower(linearSlidesPower);
+//            }
+//            else if(gamepad2.left_trigger > 0.2) {
+////                robot.armMotor.setPower(-0.075 * gamepad2.left_trigger);
+//                robot.linearSlidesMotor1.setPower(-linearSlidesPower);
+//                robot.linearSlidesMotor2.setPower(-linearSlidesPower);
+//            }
+//            else{
+////                robot.armMotor.setPower(0);
+//                robot.linearSlidesMotor1.setPower(0);
+//                robot.linearSlidesMotor2.setPower(0);
+//            }
+//
+//            // Servo Claw
+//            if(gamepad2.left_bumper) {
+//                robot.servoClaw.setPosition(robot.servoClawOpen);
+//            }
+//            else if(gamepad2.right_bumper) {
+//                robot.servoClaw.setPosition(robot.servoClawGrab);
+//            }
 
             //Noam Drive
 
@@ -104,7 +104,7 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
             }
 
             //Pivot turn
-            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
+            robot.pivotTurn(0.9, gamepad1.right_bumper, gamepad1.left_bumper);
             if(gamepad1.right_bumper || gamepad1.left_bumper) {
                 isPressed = true;
             }
