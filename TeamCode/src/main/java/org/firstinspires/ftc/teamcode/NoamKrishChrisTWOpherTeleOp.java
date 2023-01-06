@@ -104,7 +104,7 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
             }
 
             //Pivot turn
-            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
+            robot.pivotTurn(0.9, gamepad1.right_bumper, gamepad1.left_bumper);
             if(gamepad1.right_bumper || gamepad1.left_bumper) {
                 isPressed = true;
             }

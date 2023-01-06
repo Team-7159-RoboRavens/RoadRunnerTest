@@ -15,7 +15,7 @@ import Team7159.Enums.Direction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "MagicAuto")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "MagicAuto")
 public class MagicAuto extends LinearOpMode {
 
     private Christwopher robot = new Christwopher();
@@ -52,19 +52,31 @@ public class MagicAuto extends LinearOpMode {
 //        robot.LFMotor.setPower(0.5);
 //        robot.RFMotor.setPower(0.5);
 
-        robot.moveTiles(Direction.FORWARDS, 0.5, 2);
+        robot.moveTiles(Direction.FORWARDS, 0.5, 3);
         sleep(20);
         while(robot.LBMotor.isBusy() && opModeIsActive()){
             sleep(50);
             telemetry.update();
         }
-        robot.moveTiles(Direction.LEFT, 0.5, 1);
-
-        sleep(10);
         while(opModeIsActive()){
-            sleep(50);
-            telemetry.update();
+            if(gamepad1.x){
+                robot.moveTiles(Direction.LEFT, 0.5, 1);
+            }else if(gamepad1.b) {
+                robot.moveTiles(Direction.RIGHT, 0.5, 1);
+            }else if(gamepad1.y){
+                robot.moveTiles(Direction.FORWARDS, 0.5, 1);
+            }else if(gamepad1.a){
+                robot.moveTiles(Direction.BACKWARDS, 0.5, 1);
+            }
+
         }
+//        robot.moveTiles(Direction.LEFT, 0.5, 1);
+//
+//        sleep(10);
+//        while(opModeIsActive()){
+//            sleep(50);
+//            telemetry.update();
+//        }
 //        telemetry.update();
 //        sleep(30000);
 //        telemetry.addData("LBMotor End Pos: ", robot.LBMotor.getCurrentPosition());
