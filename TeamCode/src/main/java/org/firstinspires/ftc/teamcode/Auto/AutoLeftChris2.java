@@ -70,21 +70,25 @@ public class AutoLeftChris2 extends LinearOpMode {
                 else
                 {
                     if(detections.size() > 1){
+                        //warning, it will take the highest detected tag number
                         telemetry.addLine("--Multiple Tags Detected--");
                     }
                     for(AprilTagDetection detection : detections)
                     {
                         int id = detection.id;
+                        //ignore if the tag isn't one on our sleev
                         if(id != 17 && id != 18 && id != 19) {
                             telemetry.addData("INVALID Tag Detected", id);
                             continue;
                         }else{
+                            //it is one on our sleeve, set last tag if we lose it
                             lastTag = detection.id;
                             telemetry.addData("Tag Detected", id);
                         }
                     }
                 }
                 telemetry.addData("Last Tag ID", lastTag);
+                //setting parking pos for compatibility
                 if(lastTag == 18){
                     location = 2;
                     telemetry.addData("Parking Position", "CENTER");
@@ -100,7 +104,7 @@ public class AutoLeftChris2 extends LinearOpMode {
             sleep(20);
         }
 
-        //Auto
+        //Actual Auto
 
         waitForStart();
 
@@ -109,7 +113,7 @@ public class AutoLeftChris2 extends LinearOpMode {
         telemetry.addData("LFMotor Pos: ", robot.LFMotor.getCurrentPosition());
         telemetry.addData("RFMotor Pos: ", robot.RFMotor.getCurrentPosition());
 
-
+        telemetry.update();
 
         if(location == 1) {
 
