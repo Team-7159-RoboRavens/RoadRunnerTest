@@ -34,14 +34,20 @@ public class MagicTeleop2 extends LinearOpMode {
 
         while (opModeIsActive()) {
             if(gamepad1.left_trigger > 0.1){
-                robot.linearSlidesMotor1.setPower(0.3);
+                robot.linearSlidesMotor1.setPower(0.2);
 //                robot.linearSlidesMotor2.setPower(-gamepad1.left_trigger);
             }else if(gamepad1.right_trigger > 0.1){
-                robot.linearSlidesMotor1.setPower(-0.5);
+                robot.linearSlidesMotor1.setPower(-0.5 * gamepad1.right_trigger);
 //                robot.linearSlidesMotor2.setPower(gamepad1.right_trigger);
             }else{
-                robot.linearSlidesMotor1.setPower(-0.1);
+                robot.linearSlidesMotor1.setPower(0.1);
 //                robot.linearSlidesMotor2.setPower(0);
+            }
+
+            if(gamepad1.right_bumper){
+                robot.linearSlidesMotor1.setPower(0);
+            } else if(gamepad1.left_bumper){
+                robot.linearSlidesMotor1.setPower(0.05);
             }
 //            if (et.time() - timeServo > servoDelay) {
 //                if (gamepad2.a) {
