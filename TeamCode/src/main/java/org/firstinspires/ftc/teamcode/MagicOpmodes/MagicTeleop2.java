@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.MagicOpmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import Team7159.ComplexRobots.Christwopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Chris2 Magic Teleop")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Chris2 Magic Teleop", group="ChrisTWOpher")
 public class MagicTeleop2 extends LinearOpMode {
 
     private Christwopher robot = new Christwopher();

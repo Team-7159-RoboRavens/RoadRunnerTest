@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.MagicOpmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -15,7 +16,7 @@ import Team7159.Enums.Direction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "MagicAuto")
+@Autonomous(name = "MagicAuto", group="ChrisTWOpher")
 public class MagicAuto extends LinearOpMode {
 
     private Christwopher robot = new Christwopher();
@@ -59,15 +60,7 @@ public class MagicAuto extends LinearOpMode {
             telemetry.update();
         }
         while(opModeIsActive()){
-            if(gamepad1.x){
-                robot.moveTiles(Direction.LEFT, 0.5, 1);
-            }else if(gamepad1.b) {
-                robot.moveTiles(Direction.RIGHT, 0.5, 1);
-            }else if(gamepad1.y){
-                robot.moveTiles(Direction.FORWARDS, 0.5, 1);
-            }else if(gamepad1.a){
-                robot.moveTiles(Direction.BACKWARDS, 0.5, 1);
-            }
+            telemetry.update();
 
         }
 //        robot.moveTiles(Direction.LEFT, 0.5, 1);

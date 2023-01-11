@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 /*
     Gamepad 1
         X - Strafe left
@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Andrew Gautam TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Andrew Gautam TeleOp (Legacy)", group="Christopher")
 public class AndrewD_GautamA extends LinearOpMode {
 
     private final Christopher robot = new Christopher();

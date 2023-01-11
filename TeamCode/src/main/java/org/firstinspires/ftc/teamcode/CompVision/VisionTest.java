@@ -4,7 +4,7 @@
 //import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 //
 //import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-//import org.firstinspires.ftc.teamcode.SleeveDetection;
+//import org.firstinspires.ftc.teamcode.AprilTag.SleeveDetection;
 //import org.openftc.easyopencv.OpenCvCamera;
 //import org.openftc.easyopencv.OpenCvCameraFactory;
 //import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -48,22 +48,17 @@
 //    }
 //}
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.CompVision;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
-@Autonomous(name = "Signal Sleeve Test")
+@Autonomous(name = "Signal Sleeve Test", group="CV Tests")
 public class VisionTest extends LinearOpMode {
 
     SleeveDetection sleeveDetection = new SleeveDetection();

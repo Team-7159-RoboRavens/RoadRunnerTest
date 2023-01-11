@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.CompVision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvInternalCamera;
@@ -10,7 +10,7 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 import Team7159.ComplexRobots.Christopher;
 import Team7159.Enums.Direction;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoLeft")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "AutoLeft (Christopher)", group="Christopher")
 public class AutoLeft extends LinearOpMode {
 
     private Christopher robot = new Christopher();

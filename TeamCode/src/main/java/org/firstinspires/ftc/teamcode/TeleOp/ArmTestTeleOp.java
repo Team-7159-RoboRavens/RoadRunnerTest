@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import Team7159.ComplexRobots.Christopher;
 
-@TeleOp(name = "ArmTest TeleOp")
+@TeleOp(name = "ArmTest TeleOp", group="Christopher Tests")
 
 public class ArmTestTeleOp  extends LinearOpMode {
     private Christopher robot = new Christopher();
