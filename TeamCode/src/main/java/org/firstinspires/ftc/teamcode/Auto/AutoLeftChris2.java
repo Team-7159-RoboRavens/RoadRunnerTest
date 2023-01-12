@@ -124,7 +124,7 @@ public class AutoLeftChris2 extends LinearOpMode {
             robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
         }
         else if(location == 3) {
-            robot.moveTiles(Direction., 0.5, 1);
+            robot.moveTiles(Direction.LEFT, 0.5, 1);
             while(robot.LBMotor.isBusy()) sleep(20);
             robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
         }
