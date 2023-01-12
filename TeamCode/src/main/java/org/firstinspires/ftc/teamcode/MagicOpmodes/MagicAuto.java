@@ -9,6 +9,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
+import Team7159.BasicRobots.BasicMecanum2;
 import Team7159.ComplexRobots.Christopher;
 import Team7159.ComplexRobots.Christwopher;
 import Team7159.Enums.Direction;
@@ -20,6 +21,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class MagicAuto extends LinearOpMode {
 
     private Christwopher robot = new Christwopher();
+    private BasicMecanum2 bm2 =  new BasicMecanum2();
     // strafe(Direction direction, double power, double tiles)
 
     @Override
@@ -29,11 +31,6 @@ public class MagicAuto extends LinearOpMode {
         robot.RFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.LBMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RBMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        telemetry.addData("LBMotor Start Pos: ", () -> robot.LBMotor.getCurrentPosition());
-        telemetry.addData("RBMotor Start Pos: ", () -> robot.RBMotor.getCurrentPosition());
-        telemetry.addData("LFMotor Start Pos: ", () -> robot.LFMotor.getCurrentPosition());
-        telemetry.addData("RFMotor Start Pos: ", () -> robot.RFMotor.getCurrentPosition());
-        telemetry.update();
         waitForStart();
 
 
@@ -60,6 +57,13 @@ public class MagicAuto extends LinearOpMode {
             telemetry.update();
         }
         while(opModeIsActive()){
+            telemetry.update();
+
+            telemetry.addData("LBMotor Start Pos: ", () -> robot.LBMotor.getCurrentPosition());
+            telemetry.addData("RBMotor Start Pos: ", () -> robot.RBMotor.getCurrentPosition());
+            telemetry.addData("LFMotor Start Pos: ", () -> robot.LFMotor.getCurrentPosition());
+            telemetry.addData("RFMotor Start Pos: ", () -> robot.RFMotor.getCurrentPosition());
+            telemetry.addData("Power: ", () -> bm2.publicPower);
             telemetry.update();
 
         }
