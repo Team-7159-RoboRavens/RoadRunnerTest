@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import Team7159.ComplexRobots.Christwopher;
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="ChrisTWOpher Driving Test (drives like Noam's)")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="ChrisTWOpher Driving TL", group="ChrisTWOpher")
 public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left

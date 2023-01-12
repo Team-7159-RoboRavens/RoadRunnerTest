@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.MagicOpmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Magic Teleop")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Magic Teleop (Christopher)", group="Christopher")
 public class MagicTeleop extends LinearOpMode {
 
     private Christopher robot = new Christopher();

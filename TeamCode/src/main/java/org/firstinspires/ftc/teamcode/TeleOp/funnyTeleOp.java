@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import Team7159.ComplexRobots.Christopher;
 
-@TeleOp(name = "funnyTeleOp")
+@TeleOp(name = "funnyTeleOp", group="Christopher Tests")
 
 //This teleop is ~~copyrighted by the 7159 Robotics Team~~ for getting magic numbers for the arm, if we still need those
 public class funnyTeleOp extends LinearOpMode {

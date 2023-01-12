@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Andrew Krish TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Andrew Krish TeleOp (Legacy)", group="Christopher")
 public class AndrewKrishChristopherTeleOp extends LinearOpMode {
     private Christopher robot = new Christopher();
 

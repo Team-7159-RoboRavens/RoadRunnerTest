@@ -333,22 +333,6 @@ public class BasicMecanum2 {
         }
         else if(direction == Direction.FORWARDS) {
             int ticks = (int) (ticksExperimental * tiles);
-            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
-            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
-            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
-            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
-
-            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LFMotor.setPower(power);
-
-            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RFMotor.setPower(power);
-
-            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LBMotor.setPower(power);
-
-            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RBMotor.setPower(power);
 
             int lfOrigin = LFMotor.getCurrentPosition();
             int rfOrigin = RFMotor.getCurrentPosition();
@@ -359,7 +343,10 @@ public class BasicMecanum2 {
             int rfEnd = RFMotor.getCurrentPosition() + ticks;
             int lbEnd = LBMotor.getCurrentPosition() + ticks;
             int rbEnd = RBMotor.getCurrentPosition() + ticks;
-
+            LFMotor.setPower(power);
+            RFMotor.setPower(power);
+            LBMotor.setPower(power);
+            RBMotor.setPower(power);
 //            TODO: Test slow stop
 //            int minusTicks = 100;
 //            while(power >= .1 && LFMotor.getCurrentPosition() < lfOrigin) {
@@ -396,7 +383,9 @@ public class BasicMecanum2 {
 
 
                     // double z = (9928 - ((Math.floor(avgCurr / w)) * 1010));
-                    power = (slope * (avgCurr-stupidMe)) + b;
+
+                    power = b*(Math.sin(Math.PI * ((avgCurr-stupidMe)/(lfEnd-stupidMe))));
+
 
                     if(power > b) power = b;
                     if(power < 0.1) {

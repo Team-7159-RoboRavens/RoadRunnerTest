@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam Gautam TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam Gautam TeleOp (Legacy)", group="Christopher")
 public class NoamGautamChristopherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left

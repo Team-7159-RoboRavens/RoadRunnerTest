@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam Krish TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam Krish TeleOp (Christopher)", group="Christopher")
 public class NoamKrishChristopherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left
