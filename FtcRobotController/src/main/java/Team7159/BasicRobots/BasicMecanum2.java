@@ -396,7 +396,7 @@ public class BasicMecanum2 {
 
 
                     // double z = (9928 - ((Math.floor(avgCurr / w)) * 1010));
-                    power = (slope * (avgCurr-stupidMe)) + b;
+                    power = Math.sin(Math.PI * ((avgCurr-stupidMe)/(lfEnd-stupidMe)));
 
                     if(power > b) power = b;
                     if(power < 0.1) {

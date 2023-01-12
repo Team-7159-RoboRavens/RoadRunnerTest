@@ -24,18 +24,20 @@ public class Christwopher extends BasicMecanum2 {
         super.init(Map);
 
         linearSlidesMotor1 = Map.dcMotor.get("linearSlidesMotor1");
-//        linearSlidesMotor2 = Map.dcMotor.get("linearSlidesMotor2");
+        linearSlidesMotor2 = Map.dcMotor.get("linearSlidesMotor2");
 //
 //        servoClaw = Map.servo.get("servoClaw");
 
+        linearSlidesMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linearSlidesMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         linearSlidesMotor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        linearSlidesMotor1.setTargetPosition(0);
 //        linearSlidesMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        linearSlidesMotor1.setPower(0);
 //
-//        linearSlidesMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        linearSlidesMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linearSlidesMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        linearSlidesMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 //        linearSlidesMotor2.setTargetPosition(0);
 //        linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        linearSlidesMotor2.setPower(0);
@@ -49,9 +51,9 @@ public class Christwopher extends BasicMecanum2 {
         linearSlidesMotor1.setTargetPosition(position);
         linearSlidesMotor1.setPower(power);
 //
-//        linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        linearSlidesMotor2.setTargetPosition(position);
-//        linearSlidesMotor2.setPower(power);
+        linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        linearSlidesMotor2.setTargetPosition(position);
+        linearSlidesMotor2.setPower(power);
     }
 
 }
