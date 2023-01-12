@@ -81,7 +81,7 @@ public class MagicTeleop2 extends LinearOpMode {
                     buttonR = true;
                 }
             }
-
+                telemetry.update();
             }
 
 //            if (et.time() - timeServo > servoDelay) {
@@ -97,6 +97,6 @@ public class MagicTeleop2 extends LinearOpMode {
 ////                    telemetry.update();
 //                }
 //            }
-            telemetry.update();
+
         }
     }
