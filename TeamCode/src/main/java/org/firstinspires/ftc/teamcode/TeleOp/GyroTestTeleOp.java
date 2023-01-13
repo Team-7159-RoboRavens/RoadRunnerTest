@@ -47,10 +47,10 @@ public class GyroTestTeleOp extends LinearOpMode {
 
 
         while (opModeIsActive()) {
-            Orientation o =  imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-            telemetry.addData("x", o.firstAngle);
+            Orientation o =  imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            telemetry.addData("z", o.firstAngle);
             telemetry.addData("y", o.secondAngle);
-            telemetry.addData("z", o.thirdAngle);
+            telemetry.addData("x", o.thirdAngle);
             telemetry.update();
             sleep(500);
 
