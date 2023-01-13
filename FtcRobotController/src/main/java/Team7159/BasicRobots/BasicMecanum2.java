@@ -532,7 +532,8 @@ public class BasicMecanum2 {
                 o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 opMode.telemetry.addData("angle", o.firstAngle);
                 opMode.telemetry.update();
-                if(o.firstAngle < lastAngle-20){
+                //crude way to check rollover
+                if(o.firstAngle < 10 && lastAngle > 360){
                     elapsedDegrees += (o.firstAngle + 360)-lastAngle;
                 }else elapsedDegrees += o.firstAngle-lastAngle;
                 if (elapsedDegrees < degrees - 20) {
@@ -547,10 +548,10 @@ public class BasicMecanum2 {
                     LBMotor.setPower(-power);
                 } else {
                     slowPower = ((degrees - elapsedDegrees) / 20) * power;
-                    RFMotor.setPower(slowPower);
-                    LFMotor.setPower(-slowPower);
-                    RBMotor.setPower(slowPower);
-                    LBMotor.setPower(-slowPower);
+                    RFMotor.setPower(-slowPower);
+                    LFMotor.setPower(slowPower);
+                    RBMotor.setPower(-slowPower);
+                    LBMotor.setPower(slowPower);
                 }
                 //tolerance: +-5 deg
                 if (elapsedDegrees > degrees - 5 && elapsedDegrees < degrees + 5) {
@@ -558,28 +559,30 @@ public class BasicMecanum2 {
                 }
             }
         }else if (direction == Direction.COUNTERCLOCKWISE) {
-            RFMotor.setPower(-power);
-            LFMotor.setPower(power);
-            RBMotor.setPower(-power);
-            LBMotor.setPower(power);
+            RFMotor.setPower(power);
+            LFMotor.setPower(-power);
+            RBMotor.setPower(power);
+            LBMotor.setPower(-power);
             while (opMode != null && opMode.opModeIsActive()) {
                 opMode.sleep(20);
                 o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 opMode.telemetry.addData("angle", o.firstAngle);
                 opMode.telemetry.update();
-                if(o.firstAngle < lastAngle-20){
-                    elapsedDegrees += (o.firstAngle + 360)-lastAngle;
-                }else elapsedDegrees += o.firstAngle-lastAngle;
+
+                //crude way to detect if the imu rolled over past 360
+                if(o.firstAngle > 360 && lastAngle < 10){
+                    elapsedDegrees += lastAngle-(o.firstAngle - 360);
+                }else elapsedDegrees += lastAngle-o.firstAngle;
                 if (elapsedDegrees < degrees - 20) {
-                    RFMotor.setPower(-power);
-                    LFMotor.setPower(power);
-                    RBMotor.setPower(-power);
-                    LBMotor.setPower(power);
-                } else if (elapsedDegrees > degrees + 20) {
                     RFMotor.setPower(power);
                     LFMotor.setPower(-power);
                     RBMotor.setPower(power);
                     LBMotor.setPower(-power);
+                } else if (elapsedDegrees > degrees + 20) {
+                    RFMotor.setPower(-power);
+                    LFMotor.setPower(power);
+                    RBMotor.setPower(-power);
+                    LBMotor.setPower(power);
                 } else {
                     slowPower = ((degrees - elapsedDegrees) / 20) * power;
                     RFMotor.setPower(slowPower);
