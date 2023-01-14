@@ -253,8 +253,8 @@ public class BasicMecanum2 {
         RBMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //:crab: william is gone :crab:
         if (opMode != null) {
-            while (!imu.isSystemCalibrated()) {
-                opMode.telemetry.addData("Status", "Waiting on IMU Calibration...");
+            while (!imu.isGyroCalibrated() && opMode.opModeIsActive()) {
+                opMode.telemetry.addData("Status", "Waiting on Gyro Calibration...");
                 opMode.telemetry.update();
                 opMode.sleep(50);
             }
@@ -431,9 +431,11 @@ public class BasicMecanum2 {
 //                System.out.println("Power: " + power);
 //                System.out.println();
 //            }
-            while((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) {
+            while(((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) && opMode.opModeIsActive()) {
                 int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
                 power = (Math.sin(Math.PI * ((avgCurr - lfOrigin) / (lfEnd - lfOrigin))));
+                opMode.telemetry.addData("Power", power);
+                opMode.telemetry.update();
                 LFMotor.setPower(power);
                 RFMotor.setPower(power);
                 LBMotor.setPower(power);
