@@ -373,10 +373,10 @@ public class BasicMecanum2 {
             int rfEnd = RFMotor.getCurrentPosition() + ticks;
             int lbEnd = LBMotor.getCurrentPosition() + ticks;
             int rbEnd = RBMotor.getCurrentPosition() + ticks;
-            LFMotor.setPower(power);
-            RFMotor.setPower(power);
-            LBMotor.setPower(power);
-            RBMotor.setPower(power);
+//            LFMotor.setPower(power);
+//            RFMotor.setPower(power);
+//            LBMotor.setPower(power);
+//            RBMotor.setPower(power);
 //            TODO: Test slow stop
 //            int minusTicks = 100;
 //            while(power >= .1 && LFMotor.getCurrentPosition() < lfOrigin) {
@@ -402,38 +402,42 @@ public class BasicMecanum2 {
 //            LBMotor.setPower(0);
 //            RBMotor.setPower(0);
 
-            double slope = (0 - power) / ((ticksExperimental) - 0);
-            double b = power;
+//            double slope = (0 - power) / ((ticksExperimental) - 0);
             double stupidMe = lfEnd - ticksExperimental;
-
-            while (power >= 0.01 && ((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20))) {
-
+//
+//            while (power >= 0.01 && ((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20))) {
+//
+//                int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
+//                if (avgCurr >= stupidMe) {
+//
+//
+//                    // double z = (9928 - ((Math.floor(avgCurr / w)) * 1010));
+//                    power = (Math.sin(Math.PI * ((avgCurr - stupidMe) / (lfEnd - stupidMe))));
+//
+//
+//                    if (power < 0.1) {
+//                        if (power < 0.01) {
+//                            power = 0;
+//                            publicPower = power;
+//                            return;
+//                        } else power = 0.1;
+//                    }
+//                    publicPower = power;
+//                    LFMotor.setPower(power);
+//                    RFMotor.setPower(power);
+//                    LBMotor.setPower(power);
+//                    RBMotor.setPower(power);
+//                }
+//                System.out.println("Power: " + power);
+//                System.out.println();
+//            }
+            while((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) {
                 int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
-                if (avgCurr >= stupidMe) {
-
-
-                    // double z = (9928 - ((Math.floor(avgCurr / w)) * 1010));
-                    power = b * (Math.sin(Math.PI * ((avgCurr - stupidMe) / (lfEnd - stupidMe))));
-
-
-                    if (power > b) power = b;
-                    if (power < 0.1) {
-                        if (power < 0.01) {
-                            power = 0;
-                            publicPower = power;
-                            return;
-                        } else power = 0.1;
-                    }
-                    publicPower = power;
-                    LFMotor.setPower(power);
-                    RFMotor.setPower(power);
-                    LBMotor.setPower(power);
-                    RBMotor.setPower(power);
-                } else {
-                    power = b;
-                }
-                System.out.println("Power: " + power);
-                System.out.println();
+                power = (Math.sin(Math.PI * ((avgCurr - lfOrigin) / (lfEnd - lfOrigin))));
+                LFMotor.setPower(power);
+                RFMotor.setPower(power);
+                LBMotor.setPower(power);
+                RBMotor.setPower(power);
             }
             LFMotor.setPower(0);
             RFMotor.setPower(0);
