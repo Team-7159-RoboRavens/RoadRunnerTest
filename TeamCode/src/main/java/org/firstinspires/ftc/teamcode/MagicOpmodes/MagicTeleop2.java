@@ -17,6 +17,7 @@ public class MagicTeleop2 extends LinearOpMode {
 
     boolean buttonR = false;
     boolean buttonL = false;
+    boolean slowRev = false;
     @Override
     public void runOpMode() {
 
@@ -36,53 +37,48 @@ public class MagicTeleop2 extends LinearOpMode {
 //        robot.armMotor.setPower(0);
 
         while (opModeIsActive()) {
-            if(gamepad1.left_trigger > 0.1){
-                if(robot.linearSlidesMotor1.getCurrentPosition() < -10){
+            if (gamepad1.left_trigger > 0.1) {
+                if (robot.linearSlidesMotor1.getCurrentPosition() < -10) {
                     telemetry.addData("Direction", "INHIBIT DOWN");
                     robot.linearSlidesMotor1.setPower(0);
                     robot.linearSlidesMotor2.setPower(0);
-                }else {
+                } else {
                     telemetry.addData("Direction", "DOWN");
-                    robot.linearSlidesMotor1.setPower(-0.15);
-                    robot.linearSlidesMotor2.setPower(-0.15);
+                    robot.linearSlidesMotor1.setPower(-0.2);
+                    robot.linearSlidesMotor2.setPower(-0.2);
                 }
 //                robot.linearSlidesMotor2.setPower(-gamepad1.left_trigger);
-            }else if(gamepad1.right_trigger > 0.1) {
+            } else if (gamepad1.right_trigger > 0.1) {
                 telemetry.addData("Direction", "UP");
                 robot.linearSlidesMotor1.setPower(0.5 * gamepad1.right_trigger);
                 robot.linearSlidesMotor2.setPower(0.5 * gamepad1.right_trigger);
 //                robot.linearSlidesMotor2.setPower(gamepad1.right_trigger);
-            }else{
+            } else {
                 //TODO: find the power so that the slides don't slide down
                 telemetry.addData("Direction", "OFF");
-                robot.linearSlidesMotor1.setPower(0.07);
-                robot.linearSlidesMotor2.setPower(0.07);
+                if (slowRev) {
+                    robot.linearSlidesMotor1.setPower(0.07);
+                    robot.linearSlidesMotor2.setPower(0.07);
+                }else{
+                    robot.linearSlidesMotor1.setPower(0);
+                    robot.linearSlidesMotor2.setPower(0);
+                }
             }
 //            }else{
 //                robot.linearSlidesMotor1.setPower(-0.1);
 //                robot.linearSlidesMotor2.setPower(0.1);
 //            }
 
-            if(gamepad1.right_bumper){
-                if(buttonR){
-                    robot.linearSlidesMotor1.setPower(0);
-                    buttonR = false;
-                } else if (!buttonR){
-                    robot.linearSlidesMotor1.setPower(0.05);
-                    buttonR = true;
-                }
+            if (gamepad1.right_bumper) {
+                slowRev = true;
+                telemetry.addLine("switched");
+            } else if (gamepad1.left_bumper) {
+                slowRev = false;
+                telemetry.addLine("switched");
+            }
+            telemetry.addData("slow rev", slowRev);
+            telemetry.update();
 
-            } else if(gamepad1.left_bumper){
-                if(buttonL){
-                    robot.linearSlidesMotor2.setPower(0);
-                    buttonR = false;
-                } else if (!buttonL){
-                    robot.linearSlidesMotor2.setPower(0.05);
-                    buttonR = true;
-                }
-            }
-                telemetry.update();
-            }
 
 //            if (et.time() - timeServo > servoDelay) {
 //                if (gamepad2.a) {
@@ -97,6 +93,6 @@ public class MagicTeleop2 extends LinearOpMode {
 ////                    telemetry.update();
 //                }
 //            }
-
+        }
         }
     }

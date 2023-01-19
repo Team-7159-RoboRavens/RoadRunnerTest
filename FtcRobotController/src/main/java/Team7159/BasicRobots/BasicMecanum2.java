@@ -543,10 +543,12 @@ public class BasicMecanum2 {
                 opMode.telemetry.addData("elapsed angle", elapsedDegrees);
                 opMode.telemetry.update();
                 //crude way to check rollover
-                if (o.firstAngle < 10 && lastAngle > 350) {
-                    elapsedDegrees += (o.firstAngle + 360) - lastAngle;
-                } else {
-                    elapsedDegrees += o.firstAngle - lastAngle;
+
+                if (o.firstAngle > 350 && lastAngle < 10) {
+                    elapsedDegrees += lastAngle - (o.firstAngle - 360);
+                }else {
+
+                    elapsedDegrees += lastAngle - o.firstAngle;
                 }
                 if (elapsedDegrees < degrees - 60) {
                     RFMotor.setPower(-power);
@@ -585,10 +587,10 @@ public class BasicMecanum2 {
                 opMode.telemetry.addData("elapsed angle", elapsedDegrees);
                 opMode.telemetry.update();
                 //crude way to check rollover
-                if (o.firstAngle > 350 && lastAngle < 10) {
-                    elapsedDegrees += lastAngle - (o.firstAngle - 360);
+                if (o.firstAngle < 10 && lastAngle > 350) {
+                    elapsedDegrees += (o.firstAngle + 360) - lastAngle;
                 } else {
-                    elapsedDegrees += lastAngle - o.firstAngle;
+                    elapsedDegrees += o.firstAngle - lastAngle;
                 }
                 if (elapsedDegrees < degrees - 60) {
                     RFMotor.setPower(power);
