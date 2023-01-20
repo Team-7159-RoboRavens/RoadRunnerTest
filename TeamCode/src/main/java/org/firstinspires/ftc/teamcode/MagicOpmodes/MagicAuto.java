@@ -49,8 +49,8 @@ public class MagicAuto extends LinearOpMode {
 //        robot.RBMotor.setPower(0.5);
 //        robot.LFMotor.setPower(0.5);
 //        robot.RFMotor.setPower(0.5);
-
-        robot.moveTiles(Direction.FORWARDS, 0.5, 3);
+        robot.moveTiles(Direction.FORWARDS, 0.5, 1);
+        robot.rotateDegrees(Direction.RIGHT, 90, 1);
         sleep(20);
         while(robot.LBMotor.isBusy() && opModeIsActive()){
             sleep(50);
