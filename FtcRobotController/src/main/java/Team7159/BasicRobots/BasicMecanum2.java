@@ -253,8 +253,8 @@ public class BasicMecanum2 {
         RBMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //:crab: william is gone :crab:
         if (opMode != null) {
-            while (!imu.isSystemCalibrated()) {
-                opMode.telemetry.addData("Status", "Waiting on IMU Calibration...");
+            while (!imu.isGyroCalibrated() && opMode.opModeIsActive()) {
+                opMode.telemetry.addData("Status", "Waiting on Gyro Calibration...");
                 opMode.telemetry.update();
                 opMode.sleep(50);
             }
@@ -431,9 +431,11 @@ public class BasicMecanum2 {
 //                System.out.println("Power: " + power);
 //                System.out.println();
 //            }
-            while((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) {
+            while (((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) && opMode.opModeIsActive()) {
                 int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
                 power = (Math.sin(Math.PI * ((avgCurr - lfOrigin) / (lfEnd - lfOrigin))));
+                opMode.telemetry.addData("Power", power);
+                opMode.telemetry.update();
                 LFMotor.setPower(power);
                 RFMotor.setPower(power);
                 LBMotor.setPower(power);
@@ -519,8 +521,12 @@ public class BasicMecanum2 {
     }
 
     public void turnDegrees(Direction direction, int degrees, double power) {
-        if (degrees > 360) return;
-        double slowPower = power * 0.4 < 0.25 ? 0.25 : power * 0.4;
+        if (degrees < 0) {
+            opMode.telemetry.addLine("ERROR: turnDegrees was given a negative target");
+            opMode.telemetry.update();
+            return;
+        }
+        double slowPower = 0.2;
 
         Orientation o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         int elapsedDegrees = 0;
@@ -534,34 +540,42 @@ public class BasicMecanum2 {
                 opMode.sleep(20);
                 o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 opMode.telemetry.addData("angle", o.firstAngle);
+                opMode.telemetry.addData("elapsed angle", elapsedDegrees);
                 opMode.telemetry.update();
                 //crude way to check rollover
-                if(o.firstAngle < 10 && lastAngle > 360){
-                    elapsedDegrees += (o.firstAngle + 360)-lastAngle;
-                }else elapsedDegrees += o.firstAngle-lastAngle;
-                if (elapsedDegrees < degrees - 20) {
+
+                if (o.firstAngle > 350 && lastAngle < 10) {
+                    elapsedDegrees += lastAngle - (o.firstAngle - 360);
+                }else {
+
+                    elapsedDegrees += lastAngle - o.firstAngle;
+                }
+                if (elapsedDegrees < degrees - 60) {
                     RFMotor.setPower(-power);
                     LFMotor.setPower(power);
                     RBMotor.setPower(-power);
                     LBMotor.setPower(power);
-                } else if (elapsedDegrees > degrees + 20) {
+                } else if (elapsedDegrees > degrees + 60) {
                     RFMotor.setPower(power);
                     LFMotor.setPower(-power);
                     RBMotor.setPower(power);
                     LBMotor.setPower(-power);
                 } else {
-                    slowPower = ((degrees - elapsedDegrees) / 20) * power;
+                    slowPower = ((double) (degrees - elapsedDegrees) / 60) * power;
+                    //prevent from going too slow
+                    if (slowPower < 0.15 && slowPower > 0) slowPower = 0.15;
+                    else if (slowPower > -0.15 && slowPower < 0) slowPower = -0.15;
                     RFMotor.setPower(-slowPower);
                     LFMotor.setPower(slowPower);
                     RBMotor.setPower(-slowPower);
                     LBMotor.setPower(slowPower);
                 }
-                //tolerance: +-5 deg
-                if (elapsedDegrees > degrees - 5 && elapsedDegrees < degrees + 5) {
+                //tolerance: +-3 deg
+                if (elapsedDegrees >= degrees - 3 && elapsedDegrees <= degrees + 3) {
                     return;
                 }
             }
-        }else if (direction == Direction.COUNTERCLOCKWISE) {
+        } else if (direction == Direction.COUNTERCLOCKWISE) {
             RFMotor.setPower(power);
             LFMotor.setPower(-power);
             RBMotor.setPower(power);
@@ -570,31 +584,36 @@ public class BasicMecanum2 {
                 opMode.sleep(20);
                 o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 opMode.telemetry.addData("angle", o.firstAngle);
+                opMode.telemetry.addData("elapsed angle", elapsedDegrees);
                 opMode.telemetry.update();
-
-                //crude way to detect if the imu rolled over past 360
-                if(o.firstAngle > 360 && lastAngle < 10){
-                    elapsedDegrees += lastAngle-(o.firstAngle - 360);
-                }else elapsedDegrees += lastAngle-o.firstAngle;
-                if (elapsedDegrees < degrees - 20) {
+                //crude way to check rollover
+                if (o.firstAngle < 10 && lastAngle > 350) {
+                    elapsedDegrees += (o.firstAngle + 360) - lastAngle;
+                } else {
+                    elapsedDegrees += o.firstAngle - lastAngle;
+                }
+                if (elapsedDegrees < degrees - 60) {
                     RFMotor.setPower(power);
                     LFMotor.setPower(-power);
                     RBMotor.setPower(power);
                     LBMotor.setPower(-power);
-                } else if (elapsedDegrees > degrees + 20) {
+                } else if (elapsedDegrees > degrees + 60) {
                     RFMotor.setPower(-power);
                     LFMotor.setPower(power);
                     RBMotor.setPower(-power);
                     LBMotor.setPower(power);
                 } else {
-                    slowPower = ((degrees - elapsedDegrees) / 20) * power;
+                    slowPower = ((double) (degrees - elapsedDegrees) / 60) * power;
+                    //prevent from going too slow
+                    if (slowPower < 0.15 && slowPower > 0) slowPower = 0.15;
+                    else if (slowPower > -0.15 && slowPower < 0) slowPower = -0.15;
                     RFMotor.setPower(slowPower);
                     LFMotor.setPower(-slowPower);
                     RBMotor.setPower(slowPower);
                     LBMotor.setPower(-slowPower);
                 }
-                //tolerance: +-5 deg
-                if (elapsedDegrees > degrees - 5 && elapsedDegrees < degrees + 5) {
+                //tolerance: +-3 deg
+                if (elapsedDegrees >= degrees - 3 && elapsedDegrees <= degrees + 3) {
                     return;
                 }
             }

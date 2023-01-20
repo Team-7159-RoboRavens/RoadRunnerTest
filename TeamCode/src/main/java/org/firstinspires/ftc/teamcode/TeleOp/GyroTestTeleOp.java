@@ -37,7 +37,7 @@ public class GyroTestTeleOp extends LinearOpMode {
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         params.angleUnit= BNO055IMU.AngleUnit.DEGREES;
         imu.initialize(params);
-        while(opModeIsActive() && !imu.isSystemCalibrated()){
+        while(opModeIsActive() && !imu.isGyroCalibrated()){
             telemetry.addData("Status", "IMU calib");
             telemetry.update();
         }
