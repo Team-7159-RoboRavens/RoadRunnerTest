@@ -46,29 +46,38 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
             //Claw
             if (et.time() - timeServo > servoDelay) {
                 //TODO: find magic numbers for pos
-                if (gamepad2.a) {
+                if (gamepad2.a){
+                    //OPEN
+                    robot.claw.setPosition(robot.servoClawOpen);
+                }else if (gamepad2.b){
+                    //CLOSE
+                    robot.claw.setPosition(robot.servoClawGrab);
+                } else if (gamepad2.y) {
+                    //CLOSE
                     robot.claw.setPosition(robot.claw.getPosition() + 0.05);
                     timeServo = et.time();
-                } else if (gamepad2.b) {
+                } else if (gamepad2.x) {
+                    //OPEN
                     robot.claw.setPosition(robot.claw.getPosition() - 0.05);
                     timeServo = et.time();
                 }
+
             }
             //Linear Slides
             if (gamepad2.left_trigger > 0.1) {
-                if (robot.linearSlidesMotor1.getCurrentPosition() < -10) {
+                if (robot.linearSlidesMotor1.getCurrentPosition() < -5 || robot.linearSlidesMotor2.getCurrentPosition() < -5) {
                     telemetry.addData("LS Direction", "INHIBIT DOWN");
                     robot.linearSlidesMotor1.setPower(0);
                     robot.linearSlidesMotor2.setPower(0);
                 } else {
                     telemetry.addData("LS Direction", "DOWN");
-                    robot.linearSlidesMotor1.setPower(-0.25 * gamepad2.left_trigger);
-                    robot.linearSlidesMotor2.setPower(-0.25 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor1.setPower(-0.3 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor2.setPower(-0.3 * gamepad2.left_trigger);
                 }
             } else if (gamepad2.right_trigger > 0.1) {
                 telemetry.addData("LS Direction", "UP");
-                robot.linearSlidesMotor1.setPower(0.5 * gamepad2.right_trigger);
-                robot.linearSlidesMotor2.setPower(0.5 * gamepad2.right_trigger);
+                robot.linearSlidesMotor1.setPower(0.7 * gamepad2.right_trigger);
+                robot.linearSlidesMotor2.setPower(0.7 * gamepad2.right_trigger);
             } else {
                 telemetry.addData("LS Direction", "OFF");
                 if (slowRev) {

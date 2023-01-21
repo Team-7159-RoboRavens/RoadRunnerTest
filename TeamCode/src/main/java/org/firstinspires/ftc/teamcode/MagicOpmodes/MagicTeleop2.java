@@ -31,16 +31,24 @@ public class MagicTeleop2 extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (et.time() - timeServo > servoDelay) {
-                if (gamepad2.a) {
+                if (gamepad2.a){
+                    //OPEN
+                    robot.claw.setPosition(robot.servoClawOpen);
+                }else if (gamepad2.b){
+                    //CLOSE
+                    robot.claw.setPosition(robot.servoClawGrab);
+                } else if (gamepad2.y) {
+                    //CLOSE
                     robot.claw.setPosition(robot.claw.getPosition() + 0.05);
                     timeServo = et.time();
-                } else if (gamepad2.b) {
+                } else if (gamepad2.x) {
+                    //OPEN
                     robot.claw.setPosition(robot.claw.getPosition() - 0.05);
                     timeServo = et.time();
                 }
             }
             if (gamepad2.left_trigger > 0.1) {
-                if (robot.linearSlidesMotor1.getCurrentPosition() < -10) {
+                if (robot.linearSlidesMotor1.getCurrentPosition() < -5 || robot.linearSlidesMotor2.getCurrentPosition() < -5) {
                     telemetry.addData("Direction", "INHIBIT DOWN");
                     robot.linearSlidesMotor1.setPower(0);
                     robot.linearSlidesMotor2.setPower(0);

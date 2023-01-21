@@ -18,8 +18,8 @@ public class Christwopher extends BasicMecanum2 {
     public Servo claw;
 
     //TODO: find these
-    public double servoClawOpen = 0.85;
-    public double servoClawGrab = 0.6;
+    public double servoClawOpen = 0.35;
+    public double servoClawGrab = 0.65;
 
     //legacy support
     public Christwopher(){
