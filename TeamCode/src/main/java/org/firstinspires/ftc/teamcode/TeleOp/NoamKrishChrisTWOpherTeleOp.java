@@ -43,6 +43,7 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            //Claw
             if (et.time() - timeServo > servoDelay) {
                 //TODO: find magic numbers for pos
                 if (gamepad2.a) {
@@ -53,6 +54,7 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
                     timeServo = et.time();
                 }
             }
+            //Linear Slides
             if (gamepad2.left_trigger > 0.1) {
                 if (robot.linearSlidesMotor1.getCurrentPosition() < -10) {
                     telemetry.addData("LS Direction", "INHIBIT DOWN");
@@ -77,6 +79,7 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
                     robot.linearSlidesMotor2.setPower(0);
                 }
             }
+            //Hold Mode
             if (gamepad2.right_bumper) {
                 slowRev = true;
             } else if (gamepad2.left_bumper) {
@@ -84,6 +87,7 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
             }
             telemetry.addData("LS Hold Mode", slowRev);
             telemetry.update();
+
             //Noam Drive
 
             //If any of the buttons are pressed, do not stop robot, otherwise, stop it
