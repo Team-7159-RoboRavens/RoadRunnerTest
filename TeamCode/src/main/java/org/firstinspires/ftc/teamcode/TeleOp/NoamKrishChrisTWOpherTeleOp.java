@@ -27,48 +27,63 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
     double regPower = 0.5;
 
     ElapsedTime et;
-    double time1;
-    double time2;
-    double time3;
+    double timeServo;
+
     final double servoDelay = 100;
     boolean isPressed = false;
+    boolean slowRev = false;
 
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
         et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
-        time1 = 0;
-        time2 = 0;
-        time3 = -1;
+        timeServo = 0;
+        telemetry.addLine("Robot is Ready");
+        telemetry.update();
         waitForStart();
 
         while (opModeIsActive()) {
-
-            // Slides
-//            if(gamepad2.right_trigger > 0.2) {
-////                robot.linearSlidesMotor1.setPower(0.075 * gamepad2.right_trigger);
-//                robot.linearSlidesMotor1.setPower(linearSlidesPower);
-//                robot.linearSlidesMotor2.setPower(linearSlidesPower);
-//            }
-//            else if(gamepad2.left_trigger > 0.2) {
-////                robot.armMotor.setPower(-0.075 * gamepad2.left_trigger);
-//                robot.linearSlidesMotor1.setPower(-linearSlidesPower);
-//                robot.linearSlidesMotor2.setPower(-linearSlidesPower);
-//            }
-//            else{
-////                robot.armMotor.setPower(0);
-//                robot.linearSlidesMotor1.setPower(0);
-//                robot.linearSlidesMotor2.setPower(0);
-//            }
-//
-//            // Servo Claw
-//            if(gamepad2.left_bumper) {
-//                robot.servoClaw.setPosition(robot.servoClawOpen);
-//            }
-//            else if(gamepad2.right_bumper) {
-//                robot.servoClaw.setPosition(robot.servoClawGrab);
-//            }
-
+            if (et.time() - timeServo > servoDelay) {
+                //TODO: find magic numbers for pos
+                if (gamepad2.a) {
+                    robot.claw.setPosition(robot.claw.getPosition() + 0.05);
+                    timeServo = et.time();
+                } else if (gamepad2.b) {
+                    robot.claw.setPosition(robot.claw.getPosition() - 0.05);
+                    timeServo = et.time();
+                }
+            }
+            if (gamepad2.left_trigger > 0.1) {
+                if (robot.linearSlidesMotor1.getCurrentPosition() < -10) {
+                    telemetry.addData("LS Direction", "INHIBIT DOWN");
+                    robot.linearSlidesMotor1.setPower(0);
+                    robot.linearSlidesMotor2.setPower(0);
+                } else {
+                    telemetry.addData("LS Direction", "DOWN");
+                    robot.linearSlidesMotor1.setPower(-0.25 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor2.setPower(-0.25 * gamepad2.left_trigger);
+                }
+            } else if (gamepad2.right_trigger > 0.1) {
+                telemetry.addData("LS Direction", "UP");
+                robot.linearSlidesMotor1.setPower(0.5 * gamepad2.right_trigger);
+                robot.linearSlidesMotor2.setPower(0.5 * gamepad2.right_trigger);
+            } else {
+                telemetry.addData("LS Direction", "OFF");
+                if (slowRev) {
+                    robot.linearSlidesMotor1.setPower(0.07);
+                    robot.linearSlidesMotor2.setPower(0.07);
+                } else {
+                    robot.linearSlidesMotor1.setPower(0);
+                    robot.linearSlidesMotor2.setPower(0);
+                }
+            }
+            if (gamepad2.right_bumper) {
+                slowRev = true;
+            } else if (gamepad2.left_bumper) {
+                slowRev = false;
+            }
+            telemetry.addData("LS Hold Mode", slowRev);
+            telemetry.update();
             //Noam Drive
 
             //If any of the buttons are pressed, do not stop robot, otherwise, stop it
