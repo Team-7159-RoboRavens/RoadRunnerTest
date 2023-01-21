@@ -18,6 +18,8 @@ public class MagicTeleop2 extends LinearOpMode {
     boolean buttonR = false;
     boolean buttonL = false;
     boolean slowRev = false;
+
+
     @Override
     public void runOpMode() {
 
@@ -25,7 +27,8 @@ public class MagicTeleop2 extends LinearOpMode {
         telemetry.addData("LS Motor 1 Pos:", () -> robot.linearSlidesMotor1.getCurrentPosition());
         telemetry.addData("LS Motor 2 Pos:", () -> robot.linearSlidesMotor2.getCurrentPosition());
 //        telemetry.addData("Servo Claw Pos:", () -> robot.servoClaw.getPosition());
-
+        timeServo = 0;
+        et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         waitForStart();
         double slowPower = 0.25;
 
@@ -37,6 +40,21 @@ public class MagicTeleop2 extends LinearOpMode {
 //        robot.armMotor.setPower(0);
 
         while (opModeIsActive()) {
+            if (et.time() - timeServo > servoDelay) {
+                if (gamepad1.a) {
+                    robot.claw.setPosition(robot.claw.getPosition() + 0.05);
+                    timeServo = et.time();
+//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
+//                    telemetry.update();
+                } else if (gamepad1.b) {
+                    robot.claw.setPosition(robot.claw.getPosition() - 0.05);
+                    timeServo = et.time();
+//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
+//                    telemetry.update();
+                }
+            }
+            telemetry.addData("Servo Pos", robot.claw.getPosition());
+
             if (gamepad1.left_trigger > 0.1) {
                 if (robot.linearSlidesMotor1.getCurrentPosition() < -10) {
                     telemetry.addData("Direction", "INHIBIT DOWN");
@@ -71,10 +89,8 @@ public class MagicTeleop2 extends LinearOpMode {
 
             if (gamepad1.right_bumper) {
                 slowRev = true;
-                telemetry.addLine("switched");
             } else if (gamepad1.left_bumper) {
                 slowRev = false;
-                telemetry.addLine("switched");
             }
             telemetry.addData("slow rev", slowRev);
             telemetry.update();

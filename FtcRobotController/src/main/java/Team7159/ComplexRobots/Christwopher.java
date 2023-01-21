@@ -15,7 +15,7 @@ public class Christwopher extends BasicMecanum2 {
 
     public DcMotor linearSlidesMotor1;
     public DcMotor linearSlidesMotor2;
-    public Servo servoClaw;
+    public Servo claw;
 
     public double servoClawOpen = 0.85;
     public double servoClawGrab = 0.6;
@@ -35,7 +35,7 @@ public class Christwopher extends BasicMecanum2 {
 
         linearSlidesMotor1 = Map.dcMotor.get("linearSlidesMotor1");
         linearSlidesMotor2 = Map.dcMotor.get("linearSlidesMotor2");
-//        servoClaw = Map.servo.get("servoClaw");
+        claw = Map.servo.get("claw");
 
         linearSlidesMotor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linearSlidesMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -52,7 +52,7 @@ public class Christwopher extends BasicMecanum2 {
 //        linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        linearSlidesMotor2.setPower(0);
 
-//        servoClaw.setPosition(servoClawGrab);
+        claw.setPosition(servoClawGrab);
     }
 
     public void setLinearSlidePosition(double power, int position){
