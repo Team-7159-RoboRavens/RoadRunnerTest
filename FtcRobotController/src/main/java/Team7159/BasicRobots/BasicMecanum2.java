@@ -472,7 +472,7 @@ public class BasicMecanum2 {
         }
 
     }
-
+    //Encoder Turn
     public void rotateDegrees(Direction direction, int degrees, double power) {
         int ticksExperimental = 1000;
         int ticks = degrees * (int) ((double) ticksExperimental / 90);
@@ -560,7 +560,7 @@ public class BasicMecanum2 {
             }
         }
     }
-
+    //IMU Turn, currently doesn't work
     public void turnDegrees(Direction direction, int degrees, double power) {
         if (degrees < 0) {
             opMode.telemetry.addLine("ERROR: turnDegrees was given a negative target");

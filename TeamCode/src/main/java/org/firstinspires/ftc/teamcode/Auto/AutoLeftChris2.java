@@ -111,7 +111,7 @@ public class AutoLeftChris2 extends LinearOpMode {
         //Actual Auto
 
         waitForStart();
-
+        camera.closeCameraDevice();
         telemetry.addData("LBMotor Pos: ", robot.LBMotor.getCurrentPosition());
         telemetry.addData("RBMotor Pos: ", robot.RBMotor.getCurrentPosition());
         telemetry.addData("LFMotor Pos: ", robot.LFMotor.getCurrentPosition());
@@ -137,29 +137,4 @@ public class AutoLeftChris2 extends LinearOpMode {
     }
 
 
-//    // Rotate angle method
-//    public void rotate(Direction direction, double power, double inputAngle) throws InterruptedException {
-////        double timeTest = 5000;
-////        double angleMoved = 510;
-//        //time for 90:
-//        double angleTime = 750.0;
-//        double time = inputAngle * (angleTime / 90.0);
-//
-//        if(direction == Direction.LEFT) {
-//
-//            robot.RFMotor.setPower(power);
-//            robot.LFMotor.setPower(-power * mult2);
-//            robot.RBMotor.setPower(power);
-//            robot.LBMotor.setPower(-power * mult2);
-//            sleep((long) time);
-//            robot.stop();
-//        } else if(direction == Direction.RIGHT) {
-//            robot.RFMotor.setPower(-power);
-//            robot.LFMotor.setPower(power * mult2);
-//            robot.RBMotor.setPower(-power);
-//            robot.LBMotor.setPower(power * mult2);
-//            sleep((long) time);
-//            robot.stop();
-//        }
-//    }
 }
