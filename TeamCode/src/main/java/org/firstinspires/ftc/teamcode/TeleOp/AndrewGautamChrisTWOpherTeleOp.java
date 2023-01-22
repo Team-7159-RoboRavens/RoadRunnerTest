@@ -4,10 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import Team7159.ComplexRobots.Christwopher;
-import Team7159.ComplexRobots.Christopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Noam/Krish Chris2 TL", group="ChrisTWOpher")
-public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Andrew/Gautam Chris2 TL", group="ChrisTWOpher")
+public class AndrewGautamChrisTWOpherTeleOp extends LinearOpMode {
 
     //y - Slow strafe left
     //x - Slow forward
@@ -23,8 +22,11 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
 
     double linearSlidesPower = 1.0;
 
-    double slowPower = 0.25;
-    double regPower = 0.5;
+    double powRX1;
+    double powRY1;
+    double powLX1;
+    double powLY1;
+    double motorPower;
 
     ElapsedTime et;
     double timeServo;
@@ -97,49 +99,47 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
             telemetry.addData("LS Hold Mode", slowRev);
             telemetry.update();
 
-            //Noam Drive
 
-            //If any of the buttons are pressed, do not stop robot, otherwise, stop it
-            //FIXES JITTER
-            isPressed = false;
+            //DRIVE
+            isPressed=false;
+            powRX1 = gamepad1.right_stick_x;
+            powRY1 = gamepad1.right_stick_y;
+            powLX1= gamepad1.left_stick_x;
+            powLY1 = gamepad1.left_stick_y;
 
-            //Trigger, move straight faster
-            if(gamepad1.right_trigger > 0.1) {
-                robot.moveStraight(regPower);
+            //Use triggers tp determine
+            if(powRY1 >= 0.1 || powRY1 <= -0.1) {
                 isPressed = true;
-            }
-            else if(gamepad1.left_trigger > 0.1) {
-                robot.moveBackwards(regPower);
-                isPressed = true;
+                motorPower = -powRY1 * 0.5;
+                robot.RFMotor.setPower(motorPower);
+                robot.RBMotor.setPower(motorPower);
+            }if(powLY1 >= 0.1 || powLY1 <= -0.1) {
+                isPressed=true;
+                motorPower = -powLY1 * 0.5;
+                robot.LFMotor.setPower(motorPower);
+                robot.LBMotor.setPower(motorPower);
             }
 
-            //Strafe slow with buttons
+            //Directional strafing with x y a b
             if (gamepad1.x) {
-                robot.moveLeft(slowPower);
+                robot.moveLeft(0.4);
                 isPressed = true;
             }
             else if (gamepad1.y) {
-                robot.moveStraight(slowPower);
+                robot.moveStraight(0.4);
                 isPressed = true;
             }
             else if (gamepad1.a) {
-                robot.moveBackwards(slowPower);
+                robot.moveBackwards(0.4);
                 isPressed = true;
             }
             else if (gamepad1.b) {
-                robot.moveRight(slowPower);
+                robot.moveRight(0.4);
                 isPressed = true;
             }
 
-            //Pivot turn
             robot.pivotTurn(0.9, gamepad1.right_bumper, gamepad1.left_bumper);
             if(gamepad1.right_bumper || gamepad1.left_bumper) {
-                isPressed = true;
-            }
-
-            //Directional strafing with d pad
-            robot.octoStrafe(0.8, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
-            if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right){
                 isPressed = true;
             }
 

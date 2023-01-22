@@ -119,7 +119,9 @@ public class AutoLeftChris2 extends LinearOpMode {
 
         telemetry.update();
         //NOTE: DIRECTIONS INVERTED
-        robot.turnDegrees(Direction.CLOCKWISE, 90, 0.5);
+        robot.moveTiles(Direction.FORWARDS, 0.5, 1);
+        robot.rotateDegrees(Direction.CLOCKWISE, 90, 0.5);
+
 //        if(location == 1) {
 //            robot.moveTiles(Direction.RIGHT, 0.5, 1);
 //            while(robot.LBMotor.isBusy()) sleep(20);
