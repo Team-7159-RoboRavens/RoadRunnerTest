@@ -20,8 +20,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "MagicAuto", group="ChrisTWOpher")
 public class MagicAuto extends LinearOpMode {
 
-    private Christwopher robot = new Christwopher();
-    private BasicMecanum2 bm2 =  new BasicMecanum2();
+    private Christwopher robot = new Christwopher(this);
+//    private BasicMecanum2 bm2 =  new BasicMecanum2();
     // strafe(Direction direction, double power, double tiles)
 
     @Override
@@ -49,8 +49,8 @@ public class MagicAuto extends LinearOpMode {
 //        robot.RBMotor.setPower(0.5);
 //        robot.LFMotor.setPower(0.5);
 //        robot.RFMotor.setPower(0.5);
-
-        robot.moveTiles(Direction.FORWARDS, 0.5, 3);
+        robot.moveTiles(Direction.FORWARDS, 0.5, 1);
+        robot.rotateDegrees(Direction.RIGHT, 90, 0.7);
         sleep(20);
         while(robot.LBMotor.isBusy() && opModeIsActive()){
             sleep(50);
@@ -63,7 +63,7 @@ public class MagicAuto extends LinearOpMode {
             telemetry.addData("RBMotor Start Pos: ", () -> robot.RBMotor.getCurrentPosition());
             telemetry.addData("LFMotor Start Pos: ", () -> robot.LFMotor.getCurrentPosition());
             telemetry.addData("RFMotor Start Pos: ", () -> robot.RFMotor.getCurrentPosition());
-            telemetry.addData("Power: ", () -> bm2.publicPower);
+//            telemetry.addData("Power: ", () -> bm2.publicPower);
             telemetry.update();
 
         }
