@@ -71,13 +71,13 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
                     robot.linearSlidesMotor2.setPower(0);
                 } else {
                     telemetry.addData("LS Direction", "DOWN");
-                    robot.linearSlidesMotor1.setPower(-0.3 * gamepad2.left_trigger);
-                    robot.linearSlidesMotor2.setPower(-0.3 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor1.setPower(-0.25 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor2.setPower(-0.25 * gamepad2.left_trigger);
                 }
             } else if (gamepad2.right_trigger > 0.1) {
                 telemetry.addData("LS Direction", "UP");
-                robot.linearSlidesMotor1.setPower(0.7 * gamepad2.right_trigger);
-                robot.linearSlidesMotor2.setPower(0.7 * gamepad2.right_trigger);
+                robot.linearSlidesMotor1.setPower(0.55 * gamepad2.right_trigger);
+                robot.linearSlidesMotor2.setPower(0.55 * gamepad2.right_trigger);
             } else {
                 telemetry.addData("LS Direction", "OFF");
                 if (slowRev) {
