@@ -322,6 +322,8 @@ public class BasicMecanum2 {
         int ticksExperimental = 1015;
         int ticksStrafe = 1060;
 
+        double topPower = power;
+        double dynamicPower = 0;
 
         if (direction == Direction.LEFT) {
             int ticks = (int) (ticksStrafe * tiles);
@@ -372,25 +374,51 @@ public class BasicMecanum2 {
         } else if (direction == Direction.FORWARDS) {
             int ticks = (int) (ticksExperimental * tiles);
             
-            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
-            int target = LFMotor.getCurrentPosition() + ticks;
-            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
-            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
-            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
+//            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
+//            int target = LFMotor.getCurrentPosition() + ticks;
+//            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
+//            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
+//            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
+//
+//            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            RFMotor.setPower(power);
+//            LFMotor.setPower(power);
+//            RBMotor.setPower(power);
+//            LBMotor.setPower(power);
+//            opMode.sleep(20);
+//            while(!(LFMotor.getCurrentPosition() > target-10 && LFMotor.getCurrentPosition() < target+10) && opMode.opModeIsActive()){
+//                opMode.sleep(20);
+//            }
 
-            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            int lfOrigin = LFMotor.getCurrentPosition();
+            int rfOrigin = RFMotor.getCurrentPosition();
+            int lbOrigin = LBMotor.getCurrentPosition();
+            int rbOrigin = RBMotor.getCurrentPosition();
 
-            RFMotor.setPower(power);
-            LFMotor.setPower(power);
-            RBMotor.setPower(power);
-            LBMotor.setPower(power);
-            opMode.sleep(20);
-            while(!(LFMotor.getCurrentPosition() > target-10 && LFMotor.getCurrentPosition() < target+10) && opMode.opModeIsActive()){
-                opMode.sleep(20);
+            int lfEnd = LFMotor.getCurrentPosition() + ticks;
+            int rfEnd = RFMotor.getCurrentPosition() + ticks;
+            int lbEnd = LBMotor.getCurrentPosition() + ticks;
+            int rbEnd = RBMotor.getCurrentPosition() + ticks;
+
+            while (power > 0.1 && ((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) && opMode.opModeIsActive()) {
+                int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
+                dynamicPower = topPower * (Math.sin(Math.PI * ((avgCurr - lfOrigin) / (lfEnd - lfOrigin))));
+                opMode.telemetry.addData("avgCurr", avgCurr);
+                opMode.telemetry.addData("Power", dynamicPower);
+                opMode.telemetry.update();
+                LFMotor.setPower(dynamicPower);
+                RFMotor.setPower(dynamicPower);
+                LBMotor.setPower(dynamicPower);
+                RBMotor.setPower(dynamicPower);
             }
+            LFMotor.setPower(0);
+            RFMotor.setPower(0);
+            LBMotor.setPower(0);
+            RBMotor.setPower(0);
         } else if (direction == Direction.BACKWARDS) {
             int ticks = (int) (ticksExperimental * tiles);
             LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticks);
