@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import Team7159.ComplexRobots.Christwopher;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Chris2 Magic Teleop", group="ChrisTWOpher")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Chris2 Magic Teleop", group = "ChrisTWOpher")
 public class MagicTeleop2 extends LinearOpMode {
 
     private Christwopher robot = new Christwopher();
@@ -15,100 +15,69 @@ public class MagicTeleop2 extends LinearOpMode {
 
     final double servoDelay = 100;
 
-    boolean buttonR = false;
-    boolean buttonL = false;
     boolean slowRev = false;
-
 
     @Override
     public void runOpMode() {
-
         robot.init(hardwareMap);
         telemetry.addData("LS Motor 1 Pos:", () -> robot.linearSlidesMotor1.getCurrentPosition());
         telemetry.addData("LS Motor 2 Pos:", () -> robot.linearSlidesMotor2.getCurrentPosition());
-//        telemetry.addData("Servo Claw Pos:", () -> robot.servoClaw.getPosition());
+        telemetry.addData("Servo Claw Pos:", () -> robot.claw.getPosition());
         timeServo = 0;
         et = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
+        telemetry.addLine("Robot is Ready");
+        telemetry.update();
         waitForStart();
-        double slowPower = 0.25;
-
-//        while(robot.armMotor.getCurrentPosition() <= 60  && opModeIsActive()) {
-//            robot.armMotor.setPower(1);
-//            telemetry.addData("Motor Arm Pos: ", robot.armMotor.getCurrentPosition());
-//            telemetry.update();
-//        }
-//        robot.armMotor.setPower(0);
 
         while (opModeIsActive()) {
             if (et.time() - timeServo > servoDelay) {
-                if (gamepad1.a) {
+                if (gamepad2.a){
+                    //OPEN
+                    robot.claw.setPosition(robot.servoClawOpen);
+                }else if (gamepad2.b){
+                    //CLOSE
+                    robot.claw.setPosition(robot.servoClawGrab);
+                } else if (gamepad2.y) {
+                    //CLOSE
                     robot.claw.setPosition(robot.claw.getPosition() + 0.05);
                     timeServo = et.time();
-//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
-//                    telemetry.update();
-                } else if (gamepad1.b) {
+                } else if (gamepad2.x) {
+                    //OPEN
                     robot.claw.setPosition(robot.claw.getPosition() - 0.05);
                     timeServo = et.time();
-//                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
-//                    telemetry.update();
                 }
             }
-            telemetry.addData("Servo Pos", robot.claw.getPosition());
-
-            if (gamepad1.left_trigger > 0.1) {
-                if (robot.linearSlidesMotor1.getCurrentPosition() < -10) {
+            if (gamepad2.left_trigger > 0.1) {
+                if (robot.linearSlidesMotor1.getCurrentPosition() < -5 || robot.linearSlidesMotor2.getCurrentPosition() < -5) {
                     telemetry.addData("Direction", "INHIBIT DOWN");
                     robot.linearSlidesMotor1.setPower(0);
                     robot.linearSlidesMotor2.setPower(0);
                 } else {
                     telemetry.addData("Direction", "DOWN");
-                    robot.linearSlidesMotor1.setPower(-0.2);
-                    robot.linearSlidesMotor2.setPower(-0.2);
+                    robot.linearSlidesMotor1.setPower(-0.25 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor2.setPower(-0.25 * gamepad2.left_trigger);
                 }
-//                robot.linearSlidesMotor2.setPower(-gamepad1.left_trigger);
-            } else if (gamepad1.right_trigger > 0.1) {
+            } else if (gamepad2.right_trigger > 0.1) {
                 telemetry.addData("Direction", "UP");
-                robot.linearSlidesMotor1.setPower(0.5 * gamepad1.right_trigger);
-                robot.linearSlidesMotor2.setPower(0.5 * gamepad1.right_trigger);
-//                robot.linearSlidesMotor2.setPower(gamepad1.right_trigger);
+                robot.linearSlidesMotor1.setPower(0.5 * gamepad2.right_trigger);
+                robot.linearSlidesMotor2.setPower(0.5 * gamepad2.right_trigger);
             } else {
-                //TODO: find the power so that the slides don't slide down
                 telemetry.addData("Direction", "OFF");
                 if (slowRev) {
                     robot.linearSlidesMotor1.setPower(0.07);
                     robot.linearSlidesMotor2.setPower(0.07);
-                }else{
+                } else {
                     robot.linearSlidesMotor1.setPower(0);
                     robot.linearSlidesMotor2.setPower(0);
                 }
             }
-//            }else{
-//                robot.linearSlidesMotor1.setPower(-0.1);
-//                robot.linearSlidesMotor2.setPower(0.1);
-//            }
-
-            if (gamepad1.right_bumper) {
+            if (gamepad2.right_bumper) {
                 slowRev = true;
-            } else if (gamepad1.left_bumper) {
+            } else if (gamepad2.left_bumper) {
                 slowRev = false;
             }
-            telemetry.addData("slow rev", slowRev);
+            telemetry.addData("Hold Mode", slowRev);
             telemetry.update();
-
-
-//            if (et.time() - timeServo > servoDelay) {
-//                if (gamepad2.a) {
-//                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() + 0.05);
-//                    timeServo = et.time();
-////                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
-////                    telemetry.update();
-//                } else if (gamepad2.b) {
-//                    robot.servoClaw.setPosition(robot.servoClaw.getPosition() - 0.05);
-//                    timeServo = et.time();
-////                    telemetry.addData("Claw Servo Position", () -> robot.servoClaw.getPosition());
-////                    telemetry.update();
-//                }
-//            }
-        }
         }
     }
+}

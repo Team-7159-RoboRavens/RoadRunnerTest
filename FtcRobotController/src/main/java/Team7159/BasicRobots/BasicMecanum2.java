@@ -343,7 +343,11 @@ public class BasicMecanum2 {
 
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RBMotor.setPower(-power);
-
+            int target = LFMotor.getTargetPosition();
+            opMode.sleep(20);
+            while((LFMotor.isBusy() || (target > LFMotor.getCurrentPosition()-7 && target < LFMotor.getCurrentPosition()+7)) && opMode.opModeIsActive()){
+                opMode.sleep(20);
+            }
         } else if (direction == Direction.RIGHT) {
             int ticks = (int) (ticksStrafe * tiles);
             LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticksStrafe);
@@ -362,93 +366,32 @@ public class BasicMecanum2 {
 
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RBMotor.setPower(power);
-
+            int target = LFMotor.getTargetPosition();
+            opMode.sleep(20);
+            while((LFMotor.isBusy() || (target > LFMotor.getCurrentPosition()-7 && target < LFMotor.getCurrentPosition()+7)) && opMode.opModeIsActive()){
+                opMode.sleep(20);
+            }
         } else if (direction == Direction.FORWARDS) {
             int ticks = (int) (ticksExperimental * tiles);
+            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
+            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
+            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
+            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
 
-            int lfOrigin = LFMotor.getCurrentPosition();
-            int rfOrigin = RFMotor.getCurrentPosition();
-            int lbOrigin = LBMotor.getCurrentPosition();
-            int rbOrigin = RBMotor.getCurrentPosition();
+            LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            LBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            int lfEnd = LFMotor.getCurrentPosition() + ticks;
-            int rfEnd = RFMotor.getCurrentPosition() + ticks;
-            int lbEnd = LBMotor.getCurrentPosition() + ticks;
-            int rbEnd = RBMotor.getCurrentPosition() + ticks;
-//            LFMotor.setPower(power);
-//            RFMotor.setPower(power);
-//            LBMotor.setPower(power);
-//            RBMotor.setPower(power);
-//            TODO: Test slow stop
-//            int minusTicks = 100;
-//            while(power >= .1 && LFMotor.getCurrentPosition() < lfOrigin) {
-//                if (LFMotor.getCurrentPosition() >= (lfOrigin - minusTicks) && RFMotor.getCurrentPosition() >= (rfOrigin - minusTicks) && LBMotor.getCurrentPosition() >= (lbOrigin - minusTicks) && RBMotor.getCurrentPosition() >= (rbOrigin - minusTicks)) {
-//                    power = power * 0.5;
-//
-//                    LFMotor.setPower(power);
-//                    RFMotor.setPower(power);
-//                    LBMotor.setPower(power);
-//                    RBMotor.setPower(power);
-//
-//                    minusTicks -= 20;
-//                }
-//                else {
-//                    LFMotor.setPower(power);
-//                    RFMotor.setPower(power);
-//                    LBMotor.setPower(power);
-//                    RBMotor.setPower(power);
-//                }
-//            }
-//            LFMotor.setPower(0);
-//            RFMotor.setPower(0);
-//            LBMotor.setPower(0);
-//            RBMotor.setPower(0);
-
-//            double slope = (0 - power) / ((ticksExperimental) - 0);
-            double stupidMe = lfEnd - ticksExperimental;
-//
-//            while (power >= 0.01 && ((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20))) {
-//
-//                int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
-//                if (avgCurr >= stupidMe) {
-//
-//
-//                    // double z = (9928 - ((Math.floor(avgCurr / w)) * 1010));
-//                    power = (Math.sin(Math.PI * ((avgCurr - stupidMe) / (lfEnd - stupidMe))));
-//
-//
-//                    if (power < 0.1) {
-//                        if (power < 0.01) {
-//                            power = 0;
-//                            publicPower = power;
-//                            return;
-//                        } else power = 0.1;
-//                    }
-//                    publicPower = power;
-//                    LFMotor.setPower(power);
-//                    RFMotor.setPower(power);
-//                    LBMotor.setPower(power);
-//                    RBMotor.setPower(power);
-//                }
-//                System.out.println("Power: " + power);
-//                System.out.println();
-//            }
-            while (power > 0.1 && ((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) && opMode.opModeIsActive()) {
-                int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
-                power = topPower * (Math.sin(Math.PI * ((avgCurr - lfOrigin) / (lfEnd - lfOrigin))));
-                opMode.telemetry.addData("avgCurr", avgCurr);
-                opMode.telemetry.addData("Power", power);
-                opMode.telemetry.update();
-                LFMotor.setPower(power);
-                RFMotor.setPower(power);
-                LBMotor.setPower(power);
-                RBMotor.setPower(power);
+            RFMotor.setPower(power);
+            LFMotor.setPower(power);
+            RBMotor.setPower(power);
+            LBMotor.setPower(power);
+            int target = LFMotor.getTargetPosition();
+            opMode.sleep(20);
+            while((LFMotor.isBusy() || (target > LFMotor.getCurrentPosition()-7 && target < LFMotor.getCurrentPosition()+7)) && opMode.opModeIsActive()){
+                opMode.sleep(20);
             }
-            LFMotor.setPower(0);
-            RFMotor.setPower(0);
-            LBMotor.setPower(0);
-            RBMotor.setPower(0);
-
         } else if (direction == Direction.BACKWARDS) {
             int ticks = (int) (ticksExperimental * tiles);
             LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticks);
@@ -467,17 +410,22 @@ public class BasicMecanum2 {
 
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             RBMotor.setPower(-power);
+            int target = LFMotor.getTargetPosition();
+            opMode.sleep(20);
+            while((LFMotor.isBusy() || (target > LFMotor.getCurrentPosition()-7 && target < LFMotor.getCurrentPosition()+7)) && opMode.opModeIsActive()){
+                opMode.sleep(20);
+            }
         } else {
             //Throw an exception
         }
 
     }
-
+    //Encoder Turn
     public void rotateDegrees(Direction direction, int degrees, double power) {
-        int ticksExperimental = 1000;
+        int ticksExperimental = 950;
         int ticks = degrees * (int) ((double) ticksExperimental / 90);
 
-        if(direction == Direction.LEFT) {
+        if(direction == Direction.COUNTERCLOCKWISE) {
             LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticks);
             RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
             LBMotor.setTargetPosition(LBMotor.getCurrentPosition() - ticks);
@@ -492,8 +440,12 @@ public class BasicMecanum2 {
             LFMotor.setPower(-power);
             RBMotor.setPower(power);
             LBMotor.setPower(-power);
+            int target = LFMotor.getTargetPosition();
+            while((LFMotor.isBusy() || (target > LFMotor.getCurrentPosition()-7 && target < LFMotor.getCurrentPosition()+7)) && opMode.opModeIsActive()){
+                opMode.sleep(20);
+            }
         }
-        else if (direction == Direction.RIGHT) {
+        else if (direction == Direction.CLOCKWISE) {
             LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
             RFMotor.setTargetPosition(RFMotor.getCurrentPosition() - ticks);
             LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
@@ -508,6 +460,10 @@ public class BasicMecanum2 {
             LFMotor.setPower(power);
             RBMotor.setPower(-power);
             LBMotor.setPower(power);
+            int target = LFMotor.getTargetPosition();
+            while((LFMotor.isBusy() || (target > LFMotor.getCurrentPosition()-7 && target < LFMotor.getCurrentPosition()+7)) && opMode.opModeIsActive()){
+                opMode.sleep(20);
+            }
         }
     }
 
@@ -557,106 +513,6 @@ public class BasicMecanum2 {
                 LFMotor.setPower(-power);
                 RBMotor.setPower(-power);
                 LBMotor.setPower(power);
-            }
-        }
-    }
-
-    public void turnDegrees(Direction direction, int degrees, double power) {
-        if (degrees < 0) {
-            opMode.telemetry.addLine("ERROR: turnDegrees was given a negative target");
-            opMode.telemetry.update();
-            return;
-        }
-        double slowPower = 0.2;
-
-        Orientation o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        int elapsedDegrees = 0;
-        int lastAngle = (int) o.firstAngle;
-        if (direction == Direction.CLOCKWISE) {
-            RFMotor.setPower(-power);
-            LFMotor.setPower(power);
-            RBMotor.setPower(-power);
-            LBMotor.setPower(power);
-            while (opMode != null && opMode.opModeIsActive()) {
-                opMode.sleep(20);
-                o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                opMode.telemetry.addData("angle", o.firstAngle);
-                opMode.telemetry.addData("elapsed angle", elapsedDegrees);
-                opMode.telemetry.update();
-                //crude way to check rollover
-
-                if (o.firstAngle > 350 && lastAngle < 10) {
-                    elapsedDegrees += lastAngle - (o.firstAngle - 360);
-                }else {
-
-                    elapsedDegrees += lastAngle - o.firstAngle;
-                }
-                if (elapsedDegrees < degrees - 60) {
-                    RFMotor.setPower(-power);
-                    LFMotor.setPower(power);
-                    RBMotor.setPower(-power);
-                    LBMotor.setPower(power);
-                } else if (elapsedDegrees > degrees + 60) {
-                    RFMotor.setPower(power);
-                    LFMotor.setPower(-power);
-                    RBMotor.setPower(power);
-                    LBMotor.setPower(-power);
-                } else {
-                    slowPower = ((double) (degrees - elapsedDegrees) / 60) * power;
-                    //prevent from going too slow
-                    if (slowPower < 0.15 && slowPower > 0) slowPower = 0.15;
-                    else if (slowPower > -0.15 && slowPower < 0) slowPower = -0.15;
-                    RFMotor.setPower(-slowPower);
-                    LFMotor.setPower(slowPower);
-                    RBMotor.setPower(-slowPower);
-                    LBMotor.setPower(slowPower);
-                }
-                //tolerance: +-3 deg
-                if (elapsedDegrees >= degrees - 3 && elapsedDegrees <= degrees + 3) {
-                    return;
-                }
-            }
-        } else if (direction == Direction.COUNTERCLOCKWISE) {
-            RFMotor.setPower(power);
-            LFMotor.setPower(-power);
-            RBMotor.setPower(power);
-            LBMotor.setPower(-power);
-            while (opMode != null && opMode.opModeIsActive()) {
-                opMode.sleep(20);
-                o = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                opMode.telemetry.addData("angle", o.firstAngle);
-                opMode.telemetry.addData("elapsed angle", elapsedDegrees);
-                opMode.telemetry.update();
-                //crude way to check rollover
-                if (o.firstAngle < 10 && lastAngle > 350) {
-                    elapsedDegrees += (o.firstAngle + 360) - lastAngle;
-                } else {
-                    elapsedDegrees += o.firstAngle - lastAngle;
-                }
-                if (elapsedDegrees < degrees - 60) {
-                    RFMotor.setPower(power);
-                    LFMotor.setPower(-power);
-                    RBMotor.setPower(power);
-                    LBMotor.setPower(-power);
-                } else if (elapsedDegrees > degrees + 60) {
-                    RFMotor.setPower(-power);
-                    LFMotor.setPower(power);
-                    RBMotor.setPower(-power);
-                    LBMotor.setPower(power);
-                } else {
-                    slowPower = ((double) (degrees - elapsedDegrees) / 60) * power;
-                    //prevent from going too slow
-                    if (slowPower < 0.15 && slowPower > 0) slowPower = 0.15;
-                    else if (slowPower > -0.15 && slowPower < 0) slowPower = -0.15;
-                    RFMotor.setPower(slowPower);
-                    LFMotor.setPower(-slowPower);
-                    RBMotor.setPower(slowPower);
-                    LBMotor.setPower(-slowPower);
-                }
-                //tolerance: +-3 deg
-                if (elapsedDegrees >= degrees - 3 && elapsedDegrees <= degrees + 3) {
-                    return;
-                }
             }
         }
     }

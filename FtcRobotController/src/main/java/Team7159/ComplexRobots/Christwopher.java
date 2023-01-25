@@ -17,8 +17,9 @@ public class Christwopher extends BasicMecanum2 {
     public DcMotor linearSlidesMotor2;
     public Servo claw;
 
-    public double servoClawOpen = 0.85;
-    public double servoClawGrab = 0.6;
+    //TODO: find these
+    public double servoClawOpen = 0.35;
+    public double servoClawGrab = 0.65;
 
     //legacy support
     public Christwopher(){
@@ -59,7 +60,6 @@ public class Christwopher extends BasicMecanum2 {
         linearSlidesMotor1.setTargetPosition(position);
         linearSlidesMotor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         linearSlidesMotor1.setPower(power);
-
         linearSlidesMotor2.setTargetPosition(position);
         linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         linearSlidesMotor2.setPower(power);
