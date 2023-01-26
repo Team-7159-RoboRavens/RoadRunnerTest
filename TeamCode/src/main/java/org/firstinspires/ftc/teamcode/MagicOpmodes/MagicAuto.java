@@ -27,10 +27,6 @@ public class MagicAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-        robot.LFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.RFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.LBMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.RBMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         waitForStart();
 
 
@@ -49,20 +45,17 @@ public class MagicAuto extends LinearOpMode {
 //        robot.RBMotor.setPower(0.5);
 //        robot.LFMotor.setPower(0.5);
 //        robot.RFMotor.setPower(0.5);
-        robot.moveTiles(Direction.FORWARDS, 0.5, 1);
-        robot.rotateDegrees(Direction.RIGHT, 90, 0.7);
+        robot.moveTiles(Direction.FORWARDS, 0.8, 4);
+        robot.moveTiles(Direction.FORWARDS, 0.8, 2);
+//        robot.rotateDegrees(Direction.RIGHT, 90, 0.7);
         sleep(20);
-        while(robot.LBMotor.isBusy() && opModeIsActive()){
-            sleep(50);
-            telemetry.update();
-        }
         while(opModeIsActive()){
             telemetry.update();
 
-            telemetry.addData("LBMotor Start Pos: ", () -> robot.LBMotor.getCurrentPosition());
-            telemetry.addData("RBMotor Start Pos: ", () -> robot.RBMotor.getCurrentPosition());
-            telemetry.addData("LFMotor Start Pos: ", () -> robot.LFMotor.getCurrentPosition());
-            telemetry.addData("RFMotor Start Pos: ", () -> robot.RFMotor.getCurrentPosition());
+            telemetry.addData("LBMotor Start Pos: ", robot.LBMotor.getCurrentPosition());
+            telemetry.addData("RBMotor Start Pos: ", robot.RBMotor.getCurrentPosition());
+            telemetry.addData("LFMotor Start Pos: ", robot.LFMotor.getCurrentPosition());
+            telemetry.addData("RFMotor Start Pos: ", robot.RFMotor.getCurrentPosition());
 //            telemetry.addData("Power: ", () -> bm2.publicPower);
             telemetry.update();
 
