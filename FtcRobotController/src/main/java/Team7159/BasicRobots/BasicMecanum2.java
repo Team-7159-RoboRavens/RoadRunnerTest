@@ -374,10 +374,10 @@ public class BasicMecanum2 {
         } else if (direction == Direction.FORWARDS) {
             int ticks = (int) (ticksExperimental * tiles);
 
-            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticks);
-            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() - ticks);
-            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() - ticks);
-            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() - ticks);
+            LFMotor.setTargetPosition(LFMotor.getCurrentPosition() + ticks);
+            RFMotor.setTargetPosition(RFMotor.getCurrentPosition() + ticks);
+            LBMotor.setTargetPosition(LBMotor.getCurrentPosition() + ticks);
+            RBMotor.setTargetPosition(RBMotor.getCurrentPosition() + ticks);
 
             LFMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             LFMotor.setPower(power);
@@ -397,36 +397,36 @@ public class BasicMecanum2 {
             }
 
 //Slow stop
-//            int lfOrigin = LFMotor.getCurrentPosition();
-//            int rfOrigin = RFMotor.getCurrentPosition();
-//            int lbOrigin = LBMotor.getCurrentPosition();
-//            int rbOrigin = RBMotor.getCurrentPosition();
-//
-//            int lfEnd = LFMotor.getCurrentPosition() + ticks;
-//            int rfEnd = RFMotor.getCurrentPosition() + ticks;
-//            int lbEnd = LBMotor.getCurrentPosition() + ticks;
-//            int rbEnd = RBMotor.getCurrentPosition() + ticks;
-//            opMode.telemetry.addData("lforigin", lfOrigin);
-//            opMode.telemetry.addData("lfend", lfEnd);
-//            opMode.telemetry.update();
-//            opMode.sleep(1500);
-//            while (dynamicPower > 0 && ((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) && opMode.opModeIsActive()) {
-//                int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
-//                opMode.telemetry.addData("the thing that goes to pi and sin", (double) (avgCurr + 10.0 - lfOrigin) / (double)(lfEnd - lfOrigin));
-//                dynamicPower = topPower * (Math.sin(Math.PI * ((double)(avgCurr + 10 - lfOrigin) / (double)(lfEnd - lfOrigin))));
-//                opMode.telemetry.addData("avgCurr", avgCurr);
-//                opMode.telemetry.addData("Power", dynamicPower);
-//                opMode.telemetry.update();
-//                if(dynamicPower < 0.1 ) dynamicPower = 0.1;
-//                LFMotor.setPower(dynamicPower);
-//                RFMotor.setPower(dynamicPower);
-//                LBMotor.setPower(dynamicPower);
-//                RBMotor.setPower(dynamicPower);
-//            }
-//            LFMotor.setPower(0);
-//            RFMotor.setPower(0);
-//            LBMotor.setPower(0);
-//            RBMotor.setPower(0);
+            int lfOrigin = LFMotor.getCurrentPosition();
+            int rfOrigin = RFMotor.getCurrentPosition();
+            int lbOrigin = LBMotor.getCurrentPosition();
+            int rbOrigin = RBMotor.getCurrentPosition();
+
+            int lfEnd = LFMotor.getCurrentPosition() + ticks;
+            int rfEnd = RFMotor.getCurrentPosition() + ticks;
+            int lbEnd = LBMotor.getCurrentPosition() + ticks;
+            int rbEnd = RBMotor.getCurrentPosition() + ticks;
+            opMode.telemetry.addData("lforigin", lfOrigin);
+            opMode.telemetry.addData("lfend", lfEnd);
+            opMode.telemetry.update();
+            opMode.sleep(1500);
+            while (dynamicPower > 0 && ((LFMotor.getCurrentPosition() > lfEnd + 20) || (LFMotor.getCurrentPosition() < lfEnd - 20)) && opMode.opModeIsActive()) {
+                int avgCurr = (int) ((LFMotor.getCurrentPosition() + RFMotor.getCurrentPosition() + LBMotor.getCurrentPosition() + RBMotor.getCurrentPosition()) / 4);
+                opMode.telemetry.addData("the thing that goes to pi and sin", (double) (avgCurr + 10.0 - lfOrigin) / (double)(lfEnd - lfOrigin));
+                dynamicPower = topPower * (Math.sin(Math.PI * ((double)(avgCurr + 10 - lfOrigin) / (double)(lfEnd - lfOrigin))));
+                opMode.telemetry.addData("avgCurr", avgCurr);
+                opMode.telemetry.addData("Power", dynamicPower);
+                opMode.telemetry.update();
+                if(dynamicPower < 0.1 ) dynamicPower = 0.1;
+                LFMotor.setPower(dynamicPower);
+                RFMotor.setPower(dynamicPower);
+                LBMotor.setPower(dynamicPower);
+                RBMotor.setPower(dynamicPower);
+            }
+            LFMotor.setPower(0);
+            RFMotor.setPower(0);
+            LBMotor.setPower(0);
+            RBMotor.setPower(0);
         } else if (direction == Direction.BACKWARDS) {
             int ticks = (int) (ticksExperimental * tiles);
             LFMotor.setTargetPosition(LFMotor.getCurrentPosition() - ticks);
