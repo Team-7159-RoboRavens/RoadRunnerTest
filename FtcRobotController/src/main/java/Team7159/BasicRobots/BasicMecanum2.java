@@ -317,6 +317,66 @@ public class BasicMecanum2 {
             LBMotor.setPower(power);
         }
     }
+    public void slowStartSlowStop(Direction direction, double power,  double tiles){
+        double savedMotorPos = LFMotor.getCurrentPosition();
+        int ticks = 1015;
+        //these just make it so there's not an if statement for every direction
+        //true = forwards, false = backwards
+        //this just sets up for forward, saves an if statement and errors
+        boolean lfm = true;
+        boolean rfm = true;
+        boolean lbm = true;
+        boolean rbm = true;
+        if(direction == Direction.BACKWARDS){
+            lfm = false;
+            rfm = false;
+            lbm = false;
+            rbm = false;
+        }
+        if(direction == Direction.LEFT){
+            ticks = 1060;
+            lfm = false;
+            rbm = false;
+        }else if(direction == Direction.RIGHT){
+            ticks = 1060;
+            rfm = false;
+            lbm = false;
+        }
+
+        while (((LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos) >= 0) && ((LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos) < 0.2857)){
+            double tilesPercent = (LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos);
+            double function = 2 * ((0.5-0)/(0.2857-0)) * power * tilesPercent;
+            opMode.telemetry.addData("% Tiles", tilesPercent);
+            opMode.telemetry.addData("Power", function);
+            opMode.telemetry.update();
+            LFMotor.setPower(lfm ? function : -function);
+            RFMotor.setPower(rfm ? function : -function);
+            LBMotor.setPower(lbm ? function : -function);
+            RBMotor.setPower(rbm ? function : -function);
+        }
+        while (((LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos) >= 0.2857) && ((LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos) < 0.6)){
+            double tilesPercent = (LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos);
+            double function = power;
+            opMode.telemetry.addData("% Tiles", tilesPercent);
+            opMode.telemetry.addData("Power", function);
+            opMode.telemetry.update();
+            LFMotor.setPower(lfm ? function : -function);
+            RFMotor.setPower(rfm ? function : -function);
+            LBMotor.setPower(lbm ? function : -function);
+            RBMotor.setPower(rbm ? function : -function);
+        }
+        while (((LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos) >= 0.6) && ((LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos) < 1)){
+            double tilesPercent = (LFMotor.getCurrentPosition())/((ticks * tiles) + savedMotorPos);
+            double function = 2.5 * power * (tilesPercent - 1);
+            opMode.telemetry.addData("% Tiles", tilesPercent);
+            opMode.telemetry.addData("Power", function);
+            opMode.telemetry.update();
+            LFMotor.setPower(lfm ? function : -function);
+            RFMotor.setPower(rfm ? function : -function);
+            LBMotor.setPower(lbm ? function : -function);
+            RBMotor.setPower(rbm ? function : -function);
+        }
+    }
 
     public void moveTiles(Direction direction, double power, double tiles) {
         int ticksExperimental = 1015;
@@ -342,7 +402,7 @@ public class BasicMecanum2 {
             LBMotor.setPower(power);
 
             RBMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-             RBMotor.setPower(-power);
+            RBMotor.setPower(-power);
             int target = LFMotor.getTargetPosition();
             opMode.sleep(20);
             while(!(LFMotor.getCurrentPosition() > target-10 && LFMotor.getCurrentPosition() < target+10) && opMode.opModeIsActive()){
