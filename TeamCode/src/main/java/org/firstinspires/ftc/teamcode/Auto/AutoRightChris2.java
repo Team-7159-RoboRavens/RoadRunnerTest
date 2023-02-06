@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.CompVision.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.CompVision.SleeveDetection;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -12,12 +11,11 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
-import Team7159.ComplexRobots.Christopher;
 import Team7159.ComplexRobots.Christwopher;
 import Team7159.Enums.Direction;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto LEFT (ChrisTWOpher)", group="ChrisTWOpher")
-public class AutoLeftChris2 extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto RIGHT (ChrisTWOpher)", group="ChrisTWOpher")
+public class AutoRightChris2 extends LinearOpMode {
     private Christwopher robot = new Christwopher(this);
 
     OpenCvCamera camera;
@@ -62,10 +60,11 @@ public class AutoLeftChris2 extends LinearOpMode {
         });
         aprilTagDetectionPipeline.setDecimation(2);
         while (!isStarted()) {
+
             ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
             if(detections != null)
             {
-                telemetry.addLine("**Auto LEFT is ready**");
+                telemetry.addLine("**Auto RIGHT is ready**");
                 // If we don't see any tags
                 if(detections.size() == 0)
                 {
@@ -121,7 +120,7 @@ public class AutoLeftChris2 extends LinearOpMode {
         robot.slowStartSlowStop(Direction.BACKWARDS, 0.6, 2);
         sleep(200);
         //Rotate to align
-        robot.rotateDegrees(Direction.LEFT, 140, 0.4);
+        robot.rotateDegrees(Direction.RIGHT, 140, 0.4);
 
         //Setup for cone placement
         robot.setLinearSlidePosition(0.6, robot.highJunction);
@@ -142,12 +141,12 @@ public class AutoLeftChris2 extends LinearOpMode {
         robot.claw.setPosition(robot.servoClawGrab);
         sleep(200);
 
-        robot.rotateDegrees(Direction.RIGHT, 143, 0.4);
+        robot.rotateDegrees(Direction.LEFT, 143, 0.4);
         sleep(200);
 
         //Park (if not center)
         if(location == 1) {
-           robot.slowStartSlowStop(Direction.RIGHT, 0.5, 1);
+            robot.slowStartSlowStop(Direction.RIGHT, 0.5, 1);
         } else if(location == 3) {
             robot.slowStartSlowStop(Direction.LEFT, 0.5, 1);
         }
