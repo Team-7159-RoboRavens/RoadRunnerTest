@@ -111,6 +111,9 @@ public class AutoParkOnlyChris2 extends LinearOpMode {
         camera.closeCameraDevice();
 
         //PARKING ONLY AUTO
+        robot.setLinearSlidePosition(0.5, 100);
+        robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
+        sleep(150);
         if(location == 1) {
             robot.slowStartSlowStop(Direction.RIGHT, 0.5, 1);
             sleep(100);
@@ -126,10 +129,10 @@ public class AutoParkOnlyChris2 extends LinearOpMode {
             sleep(100);
             robot.slowStartSlowStop(Direction.BACKWARDS, 0.5, 1.2);
         }
-
+        robot.setLinearSlidePosition(0.5, 5);
         telemetry.addLine("Auto has completed. Thank you for choosing ChrisTWOpher.");
         telemetry.update();
-        sleep(2000);
+        sleep(3000);
     }
 
 

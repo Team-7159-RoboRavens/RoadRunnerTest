@@ -118,43 +118,56 @@ public class AutoLeftChris2 extends LinearOpMode {
         // Setup
         robot.claw.setPosition(robot.servoClawGrab);
         robot.setLinearSlidePosition(0.5, 100);
-        robot.slowStartSlowStop(Direction.BACKWARDS, 0.6, 2);
+        robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
+        sleep(150);
+        robot.slowStartSlowStop(Direction.LEFT, 0.4, 1);
+        sleep(150);
+        robot.slowStartSlowStop(Direction.BACKWARDS, 0.55, 2.0);
         sleep(200);
         //Rotate to align
-        robot.rotateDegrees(Direction.LEFT, 140, 0.4);
+        robot.rotateDegrees(Direction.RIGHT, 187, 0.4);
 
         //Setup for cone placement
+        sleep(200);
         robot.setLinearSlidePosition(0.6, robot.highJunction);
         int target = robot.linearSlidesMotor1.getTargetPosition();
+        robot.slowStartSlowStop(Direction.LEFT, 0.35, 0.49);
+
         //Wait for slides
         while(!(robot.linearSlidesMotor1.getCurrentPosition() > target-10 && robot.linearSlidesMotor1.getCurrentPosition() < target+10) && opModeIsActive()){
             sleep(20);
         }
-        robot.slowStartSlowStop(Direction.FORWARDS, 0.3, 0.2);
+
+        sleep(200);
+        robot.slowStartSlowStop(Direction.FORWARDS, 0.3, 0.08);
         sleep(300);
         // Cone placement
         robot.claw.setPosition(robot.servoClawOpen);
         sleep(300);
 
         //Retreat and turn back
-        robot.slowStartSlowStop(Direction.BACKWARDS, 0.3, 0.2);
-        robot.setLinearSlidePosition(0.3, 10);
+        robot.slowStartSlowStop(Direction.BACKWARDS, 0.3, 0.1);
+        robot.setLinearSlidePosition(0.3, 3);
+        target = robot.linearSlidesMotor1.getTargetPosition();
         robot.claw.setPosition(robot.servoClawGrab);
         sleep(200);
 
-        robot.rotateDegrees(Direction.RIGHT, 143, 0.4);
-        sleep(200);
-
-        //Park (if not center)
+        //Park
         if(location == 1) {
-           robot.slowStartSlowStop(Direction.RIGHT, 0.5, 1);
-        } else if(location == 3) {
-            robot.slowStartSlowStop(Direction.LEFT, 0.5, 1);
+           robot.slowStartSlowStop(Direction.LEFT, 0.5, 1.5);
+        }else if(location == 2){
+            robot.slowStartSlowStop(Direction.LEFT, 0.4, 0.5);
+        }else if(location == 3) {
+            robot.slowStartSlowStop(Direction.RIGHT, 0.4, 0.5);
         }
+
 
         telemetry.addLine("Auto has completed. Thank you for choosing ChrisTWOpher.");
         telemetry.update();
         sleep(2000);
+        while(!(robot.linearSlidesMotor1.getCurrentPosition() > target-10 && robot.linearSlidesMotor1.getCurrentPosition() < target+10) && opModeIsActive()){
+            sleep(20);
+        }
     }
 
 
