@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.CompVision.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.CompVision.SleeveDetection;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -12,12 +11,11 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
-import Team7159.ComplexRobots.Christopher;
 import Team7159.ComplexRobots.Christwopher;
 import Team7159.Enums.Direction;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto LEFT (ChrisTWOpher)", group="ChrisTWOpher")
-public class AutoLeftChris2 extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto RIGHT (ChrisTWOpher)", group="ChrisTWOpher")
+public class AutoRightChris2 extends LinearOpMode {
     private Christwopher robot = new Christwopher(this);
 
     OpenCvCamera camera;
@@ -62,10 +60,11 @@ public class AutoLeftChris2 extends LinearOpMode {
         });
         aprilTagDetectionPipeline.setDecimation(2);
         while (!isStarted()) {
+
             ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
             if(detections != null)
             {
-                telemetry.addLine("**Auto LEFT is ready**");
+                telemetry.addLine("**Auto RIGHT is ready**");
                 // If we don't see any tags
                 if(detections.size() == 0)
                 {
@@ -120,18 +119,18 @@ public class AutoLeftChris2 extends LinearOpMode {
         robot.setLinearSlidePosition(0.5, 100);
         robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         sleep(150);
-        robot.slowStartSlowStop(Direction.LEFT, 0.4, 1);
+        robot.slowStartSlowStop(Direction.RIGHT, 0.4, 1);
         sleep(150);
         robot.slowStartSlowStop(Direction.BACKWARDS, 0.55, 2.0);
         sleep(200);
         //Rotate to align
-        robot.rotateDegrees(Direction.RIGHT, 187, 0.4);
+        robot.rotateDegrees(Direction.LEFT, 187, 0.4);
 
         //Setup for cone placement
         sleep(200);
         robot.setLinearSlidePosition(0.6, robot.highJunction);
         int target = robot.linearSlidesMotor1.getTargetPosition();
-        robot.slowStartSlowStop(Direction.LEFT, 0.35, 0.49);
+        robot.slowStartSlowStop(Direction.RIGHT, 0.35, 0.49);
 
         //Wait for slides
         while(!(robot.linearSlidesMotor1.getCurrentPosition() > target-10 && robot.linearSlidesMotor1.getCurrentPosition() < target+10) && opModeIsActive()){
@@ -154,13 +153,18 @@ public class AutoLeftChris2 extends LinearOpMode {
 
         //Park
         if(location == 1) {
-           robot.slowStartSlowStop(Direction.LEFT, 0.5, 1.5);
-        }else if(location == 2){
             robot.slowStartSlowStop(Direction.LEFT, 0.4, 0.5);
-        }else if(location == 3) {
+            sleep(150);
+            robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
+        }else if(location == 2){
             robot.slowStartSlowStop(Direction.RIGHT, 0.4, 0.5);
+            sleep(150);
+            robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
+        }else if(location == 3) {
+            robot.slowStartSlowStop(Direction.RIGHT, 0.5, 1.5);
+            sleep(150);
+            robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         }
-
 
         telemetry.addLine("Auto has completed. Thank you for choosing ChrisTWOpher.");
         telemetry.update();

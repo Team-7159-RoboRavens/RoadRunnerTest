@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Auto;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.CompVision.AprilTagDetectionPipeline;
-import org.firstinspires.ftc.teamcode.CompVision.SleeveDetection;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -12,12 +11,11 @@ import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
-import Team7159.ComplexRobots.Christopher;
 import Team7159.ComplexRobots.Christwopher;
 import Team7159.Enums.Direction;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto LEFT (ChrisTWOpher)", group="ChrisTWOpher")
-public class AutoLeftChris2 extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name = "Auto PARKING ONLY (BACKUP) (Chris2)", group="ChrisTWOpher")
+public class AutoParkOnlyChris2 extends LinearOpMode {
     private Christwopher robot = new Christwopher(this);
 
     OpenCvCamera camera;
@@ -65,7 +63,7 @@ public class AutoLeftChris2 extends LinearOpMode {
             ArrayList<AprilTagDetection> detections = aprilTagDetectionPipeline.getDetectionsUpdate();
             if(detections != null)
             {
-                telemetry.addLine("**Auto LEFT is ready**");
+                telemetry.addLine("**Auto PARKING ONLY is ready**");
                 // If we don't see any tags
                 if(detections.size() == 0)
                 {
@@ -111,63 +109,30 @@ public class AutoLeftChris2 extends LinearOpMode {
 
         waitForStart();
         camera.closeCameraDevice();
-        telemetry.addData("Executing Parking Position", location);
-        telemetry.update();
 
-        //**ONE CONE AUTO**
-        // Setup
-        robot.claw.setPosition(robot.servoClawGrab);
+        //PARKING ONLY AUTO
         robot.setLinearSlidePosition(0.5, 100);
         robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         sleep(150);
-        robot.slowStartSlowStop(Direction.LEFT, 0.4, 1);
-        sleep(150);
-        robot.slowStartSlowStop(Direction.BACKWARDS, 0.55, 2.0);
-        sleep(200);
-        //Rotate to align
-        robot.rotateDegrees(Direction.RIGHT, 187, 0.4);
-
-        //Setup for cone placement
-        sleep(200);
-        robot.setLinearSlidePosition(0.6, robot.highJunction);
-        int target = robot.linearSlidesMotor1.getTargetPosition();
-        robot.slowStartSlowStop(Direction.LEFT, 0.35, 0.49);
-
-        //Wait for slides
-        while(!(robot.linearSlidesMotor1.getCurrentPosition() > target-10 && robot.linearSlidesMotor1.getCurrentPosition() < target+10) && opModeIsActive()){
-            sleep(20);
-        }
-
-        sleep(200);
-        robot.slowStartSlowStop(Direction.FORWARDS, 0.3, 0.08);
-        sleep(300);
-        // Cone placement
-        robot.claw.setPosition(robot.servoClawOpen);
-        sleep(300);
-
-        //Retreat and turn back
-        robot.slowStartSlowStop(Direction.BACKWARDS, 0.3, 0.1);
-        robot.setLinearSlidePosition(0.3, 3);
-        target = robot.linearSlidesMotor1.getTargetPosition();
-        robot.claw.setPosition(robot.servoClawGrab);
-        sleep(200);
-
-        //Park
         if(location == 1) {
-           robot.slowStartSlowStop(Direction.LEFT, 0.5, 1.5);
-        }else if(location == 2){
-            robot.slowStartSlowStop(Direction.LEFT, 0.4, 0.5);
-        }else if(location == 3) {
-            robot.slowStartSlowStop(Direction.RIGHT, 0.4, 0.5);
+            robot.slowStartSlowStop(Direction.RIGHT, 0.5, 1);
+            sleep(100);
+            robot.slowStartSlowStop(Direction.BACKWARDS, 0.5, 1.2);
         }
-
-
+        else if(location == 2) {
+            //Left Parking
+            robot.slowStartSlowStop(Direction.BACKWARDS, 0.5, 1.2);
+        }
+        else if(location == 3) {
+            //Right Parking
+            robot.slowStartSlowStop(Direction.LEFT, 0.5, 1);
+            sleep(100);
+            robot.slowStartSlowStop(Direction.BACKWARDS, 0.5, 1.2);
+        }
+        robot.setLinearSlidePosition(0.5, 5);
         telemetry.addLine("Auto has completed. Thank you for choosing ChrisTWOpher.");
         telemetry.update();
-        sleep(2000);
-        while(!(robot.linearSlidesMotor1.getCurrentPosition() > target-10 && robot.linearSlidesMotor1.getCurrentPosition() < target+10) && opModeIsActive()){
-            sleep(20);
-        }
+        sleep(3000);
     }
 
 
