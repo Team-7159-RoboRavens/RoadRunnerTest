@@ -32,6 +32,7 @@ public class AutoLeftChris2 extends LinearOpMode {
     public int lastTag = -1;
     public int location = 1;
 
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -119,22 +120,78 @@ public class AutoLeftChris2 extends LinearOpMode {
 
         telemetry.update();
         //NOTE: DIRECTIONS INVERTED
-        robot.moveTiles(Direction.FORWARDS, 0.5, 1);
-        robot.rotateDegrees(Direction.CLOCKWISE, 90, 0.5);
+//        robot.moveTiles(Direction.FORWARDS, 0.5, 1);
+//        robot.rotateDegrees(Direction.CLOCKWISE, 90, 0.5);
 
-//        if(location == 1) {
-//            robot.moveTiles(Direction.RIGHT, 0.5, 1);
-//            while(robot.LBMotor.isBusy()) sleep(20);
-//            robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
-//        }
-//        else if(location == 2) {
-//            robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
-//        }
-//        else if(location == 3) {
+        // Setup
+//        robot.claw.setPosition(robot.servoClawGrab);
+//        robot.setLinearSlidePosition(0.5, 100);
+//        robot.moveTiles(Direction.BACKWARDS, 0.5, 0.1);
+//
+//        //Orient
+//        robot.moveTiles(Direction.LEFT, 0.5, 1);
+//        robot.rotateDegrees(Direction.LEFT, 180, 0.5);
+//
+//        //Setup for cone placement
+//        robot.moveTiles(Direction.FORWARDS, 0.5, 2.5);
+//        robot.rotateDegrees(Direction.LEFT, 45, 0.5);
+//        robot.setLinearSlidePosition(0.5, robot.highJunction);
+//
+//        // Cone placement
+//        robot.moveTiles(Direction.FORWARDS, 0.5, 0.2);
+//        robot.claw.setPosition(robot.servoClawOpen);
+//
+//        // Retreat
+//        robot.moveTiles(Direction.BACKWARDS, 0.5, 0.2);
+//        robot.claw.setPosition(robot.servoClawGrab);
+//        robot.setLinearSlidePosition(0.5, 10);
+//        robot.rotateDegrees(Direction.RIGHT, 45, 0.5);
+//        robot.moveTiles(Direction.BACKWARDS, 0.5, 0.8);
+
+        // BACKUP FOR MEDIUM
+        // Setup
+//        robot.claw.setPosition(robot.servoClawGrab);
+//        robot.setLinearSlidePosition(0.5, 100);
+//        robot.moveTiles(Direction.BACKWARDS, 0.5, 0.2);
+//
+//        //Orient
+//        robot.moveTiles(Direction.LEFT, 0.5, 1);
+//        robot.rotateDegrees(Direction.LEFT, 180, 0.5);
+//
+//        //Setup for cone placement
+//        robot.moveTiles(Direction.FORWARDS, 0.5, 1.5);
+//        robot.rotateDegrees(Direction.RIGHT, 45, 0.5);
+//        robot.setLinearSlidePosition(0.5, robot.midJunction);
+//
+//        // Cone placement
+//        robot.moveTiles(Direction.FORWARDS, 0.5, 0.2);
+//        robot.claw.setPosition(robot.servoClawOpen);
+//
+//        // Retreat
+//        robot.moveTiles(Direction.BACKWARDS, 0.5, 0.2);
+//        robot.claw.setPosition(robot.servoClawGrab);
+//        robot.setLinearSlidePosition(0.5, 10);
+//        robot.rotateDegrees(Direction.LEFT, 45, 0.5);
+//        robot.moveTiles(Direction.BACKWARDS, 0.5, 0.2);
+
+        // Park
+        if(location == 1) {
+//            robot.moveTiles(Direction.LEFT, 0.5, 2);
+            robot.moveTiles(Direction.RIGHT, 0.5, 1);
+            robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
+        }
+        else if(location == 2) {
 //            robot.moveTiles(Direction.LEFT, 0.5, 1);
-//            while(robot.LBMotor.isBusy()) sleep(20);
-//            robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
-//        }
+            robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
+        }
+        else if(location == 3) {
+            robot.moveTiles(Direction.LEFT, 0.5, 1);
+            robot.moveTiles(Direction.BACKWARDS, 0.5, 1.2);
+        }
+
+        while(opModeIsActive()){
+            telemetry.update();
+        }
 
     }
 

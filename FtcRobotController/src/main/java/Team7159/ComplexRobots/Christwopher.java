@@ -21,6 +21,10 @@ public class Christwopher extends BasicMecanum2 {
     public double servoClawOpen = 0.35;
     public double servoClawGrab = 0.65;
 
+    public int lowJunction = 1280;
+    public int midJunction = 1970;
+    public int highJunction = 2850;
+
     //legacy support
     public Christwopher(){
         super();
@@ -63,6 +67,7 @@ public class Christwopher extends BasicMecanum2 {
         linearSlidesMotor2.setTargetPosition(position);
         linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         linearSlidesMotor2.setPower(power);
+        opMode.sleep(50);
     }
 
 }
