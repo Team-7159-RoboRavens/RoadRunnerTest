@@ -146,19 +146,25 @@ public class AutoLeftChris2 extends LinearOpMode {
         sleep(300);
 
         //Retreat and turn back
-        robot.slowStartSlowStop(Direction.BACKWARDS, 0.3, 0.1);
+        robot.slowStartSlowStop(Direction.BACKWARDS, 0.3, 0.12);
         robot.setLinearSlidePosition(0.3, 3);
         target = robot.linearSlidesMotor1.getTargetPosition();
-        robot.claw.setPosition(robot.servoClawGrab);
+//        robot.claw.setPosition(robot.servoClawGrab);
         sleep(200);
 
         //Park
         if(location == 1) {
            robot.slowStartSlowStop(Direction.LEFT, 0.5, 1.5);
+           sleep(150);
+           robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         }else if(location == 2){
             robot.slowStartSlowStop(Direction.LEFT, 0.4, 0.5);
+            sleep(150);
+            robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         }else if(location == 3) {
             robot.slowStartSlowStop(Direction.RIGHT, 0.4, 0.5);
+            sleep(150);
+            robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         }
 
 
