@@ -145,10 +145,10 @@ public class AutoRightChris2 extends LinearOpMode {
         sleep(300);
 
         //Retreat and turn back
-        robot.slowStartSlowStop(Direction.BACKWARDS, 0.3, 0.1);
+        robot.slowStartSlowStop(Direction.BACKWARDS, 0.3, 0.12);
         robot.setLinearSlidePosition(0.3, 3);
         target = robot.linearSlidesMotor1.getTargetPosition();
-        robot.claw.setPosition(robot.servoClawGrab);
+//        robot.claw.setPosition(robot.servoClawGrab);
         sleep(200);
 
         //Park
