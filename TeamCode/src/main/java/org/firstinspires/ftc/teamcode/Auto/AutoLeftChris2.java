@@ -122,7 +122,7 @@ public class AutoLeftChris2 extends LinearOpMode {
         sleep(150);
         robot.slowStartSlowStop(Direction.LEFT, 0.4, 1);
         sleep(150);
-        robot.slowStartSlowStop(Direction.BACKWARDS, 0.55, 2.0);
+        robot.slowStartSlowStop(Direction.BACKWARDS, 0.55, 1.95);
         sleep(200);
         //Rotate to align
         robot.rotateDegrees(Direction.RIGHT, 187, 0.4);
