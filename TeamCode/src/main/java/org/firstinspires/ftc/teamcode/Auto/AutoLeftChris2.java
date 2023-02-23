@@ -120,7 +120,7 @@ public class AutoLeftChris2 extends LinearOpMode {
         robot.setLinearSlidePosition(0.5, 100);
         robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         sleep(150);
-        robot.slowStartSlowStop(Direction.LEFT, 0.4, 1);
+        robot.slowStartSlowStop(Direction.LEFT, 0.4, 1.2);
         sleep(150);
         robot.slowStartSlowStop(Direction.BACKWARDS, 0.55, 1.95);
         sleep(200);
@@ -139,7 +139,7 @@ public class AutoLeftChris2 extends LinearOpMode {
         }
 
         sleep(200);
-        robot.slowStartSlowStop(Direction.FORWARDS, 0.3, 0.08);
+        robot.slowStartSlowStop(Direction.FORWARDS, 0.3, 0.12);
         sleep(300);
         // Cone placement
         robot.claw.setPosition(robot.servoClawOpen);
