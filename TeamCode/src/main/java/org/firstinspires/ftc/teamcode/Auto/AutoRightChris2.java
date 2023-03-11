@@ -36,6 +36,7 @@ public class AutoRightChris2 extends LinearOpMode {
         telemetry.addData("Status", "Initializing...");
         telemetry.update();
         robot.init(hardwareMap);
+        robot.claw.setPosition(robot.servoClawGrab);
         telemetry.addData("Status", "Ready");
         telemetry.update();
 

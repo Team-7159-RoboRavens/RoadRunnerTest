@@ -49,10 +49,10 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
                 if (gamepad2.a){
                     //OPEN
                     robot.claw.setPosition(robot.servoClawOpen);
-                }else if (gamepad2.b){
+                }/*else if (gamepad2.b){
                     //CLOSE
                     robot.claw.setPosition(robot.servoClawGrab);
-                } else if (gamepad2.y) {
+                }*/ else if (gamepad2.y) {
                     //CLOSE
                     robot.claw.setPosition(robot.claw.getPosition() + 0.05);
                     timeServo = et.time();
@@ -76,8 +76,8 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
                 }
             } else if (gamepad2.right_trigger > 0.1) {
                 telemetry.addData("LS Direction", "UP");
-                robot.linearSlidesMotor1.setPower(0.55 * gamepad2.right_trigger);
-                robot.linearSlidesMotor2.setPower(0.55 * gamepad2.right_trigger);
+                robot.linearSlidesMotor1.setPower(0.8 * gamepad2.right_trigger);
+                robot.linearSlidesMotor2.setPower(0.8 * gamepad2.right_trigger);
             } else {
                 telemetry.addData("LS Direction", "OFF");
                 if (slowRev) {
@@ -132,13 +132,13 @@ public class NoamKrishChrisTWOpherTeleOp extends LinearOpMode {
             }
 
             //Pivot turn
-            robot.pivotTurn(0.9, gamepad1.right_bumper, gamepad1.left_bumper);
+            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
             if(gamepad1.right_bumper || gamepad1.left_bumper) {
                 isPressed = true;
             }
 
             //Directional strafing with d pad
-            robot.octoStrafe(0.8, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+            robot.octoStrafe(0.85, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
             if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right){
                 isPressed = true;
             }
