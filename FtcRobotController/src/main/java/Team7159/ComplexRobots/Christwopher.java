@@ -57,7 +57,7 @@ public class Christwopher extends BasicMecanum2 {
 //        linearSlidesMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //        linearSlidesMotor2.setPower(0);
 
-        claw.setPosition(servoClawGrab);
+//        claw.setPosition(servoClawGrab);
     }
 
     public void setLinearSlidePosition(double power, int position){
