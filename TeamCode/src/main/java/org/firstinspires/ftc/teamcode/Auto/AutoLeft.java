@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.CompVision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -72,22 +73,44 @@ public class AutoLeft extends LinearOpMode {
         telemetry.addData("RFMotor Pos: ", robot.RFMotor.getCurrentPosition());
 
         strafe(Direction.RIGHT, 1.0, 0.1);
+        resetEncoders();
         rotate(Direction.RIGHT, 1.0, 5);
+        resetEncoders();
 
         if(location == 1) {
             strafe(Direction.FORWARDS, 1.0, 1);
+            resetEncoders();
             rotate(Direction.RIGHT, 1.0, 90);
+            resetEncoders();
             strafe(Direction.FORWARDS, 1.0, 1.3);
+            resetEncoders();
         }
         else if(location == 2) {
             rotate(Direction.RIGHT, 1.0, 90);
+            resetEncoders();
             strafe(Direction.FORWARDS, 1.0, 1.2);
+            resetEncoders();
         }
         else if(location == 3) {
             strafe(Direction.BACKWARDS, 1.0, 1);
+            resetEncoders();
             rotate(Direction.RIGHT, 1.0, 90);
+            resetEncoders();
             strafe(Direction.FORWARDS, 1.0, 1.3);
+            resetEncoders();
         }
+    }
+
+    private void resetEncoders(){
+        robot.LFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.RFMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.LBMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.RBMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.LFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.RFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.LBMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.RBMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     // Tile Version
