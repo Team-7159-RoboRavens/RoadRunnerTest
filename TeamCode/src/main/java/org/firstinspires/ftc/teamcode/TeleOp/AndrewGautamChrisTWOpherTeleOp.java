@@ -51,10 +51,10 @@ public class AndrewGautamChrisTWOpherTeleOp extends LinearOpMode {
                 if (gamepad2.a){
                     //OPEN
                     robot.claw.setPosition(robot.servoClawOpen);
-                }else if (gamepad2.b){
+                }/*else if (gamepad2.b){
                     //CLOSE
                     robot.claw.setPosition(robot.servoClawGrab);
-                } else if (gamepad2.y) {
+                }*/ else if (gamepad2.y) {
                     //CLOSE
                     robot.claw.setPosition(robot.claw.getPosition() + 0.05);
                     timeServo = et.time();
@@ -73,13 +73,13 @@ public class AndrewGautamChrisTWOpherTeleOp extends LinearOpMode {
                     robot.linearSlidesMotor2.setPower(0);
                 } else {
                     telemetry.addData("LS Direction", "DOWN");
-                    robot.linearSlidesMotor1.setPower(-0.3 * gamepad2.left_trigger);
-                    robot.linearSlidesMotor2.setPower(-0.3 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor1.setPower(-0.25 * gamepad2.left_trigger);
+                    robot.linearSlidesMotor2.setPower(-0.25 * gamepad2.left_trigger);
                 }
             } else if (gamepad2.right_trigger > 0.1) {
                 telemetry.addData("LS Direction", "UP");
-                robot.linearSlidesMotor1.setPower(0.7 * gamepad2.right_trigger);
-                robot.linearSlidesMotor2.setPower(0.7 * gamepad2.right_trigger);
+                robot.linearSlidesMotor1.setPower(0.8 * gamepad2.right_trigger);
+                robot.linearSlidesMotor2.setPower(0.8 * gamepad2.right_trigger);
             } else {
                 telemetry.addData("LS Direction", "OFF");
                 if (slowRev) {
@@ -138,8 +138,13 @@ public class AndrewGautamChrisTWOpherTeleOp extends LinearOpMode {
                 isPressed = true;
             }
 
-            robot.pivotTurn(0.9, gamepad1.right_bumper, gamepad1.left_bumper);
+            robot.pivotTurn(1, gamepad1.right_bumper, gamepad1.left_bumper);
             if(gamepad1.right_bumper || gamepad1.left_bumper) {
+                isPressed = true;
+            }
+
+            robot.octoStrafe(0.15, gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left, gamepad1.dpad_right);
+            if(gamepad1.dpad_up || gamepad1.dpad_down || gamepad1.dpad_left || gamepad1.dpad_right){
                 isPressed = true;
             }
 

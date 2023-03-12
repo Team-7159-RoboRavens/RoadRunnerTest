@@ -36,6 +36,7 @@ public class AutoRightChris2 extends LinearOpMode {
         telemetry.addData("Status", "Initializing...");
         telemetry.update();
         robot.init(hardwareMap);
+        robot.claw.setPosition(robot.servoClawGrab);
         telemetry.addData("Status", "Ready");
         telemetry.update();
 
@@ -119,7 +120,7 @@ public class AutoRightChris2 extends LinearOpMode {
         robot.setLinearSlidePosition(0.5, 100);
         robot.moveTiles(Direction.BACKWARDS, 0.2, 0.1);
         sleep(150);
-        robot.slowStartSlowStop(Direction.RIGHT, 0.4, 1);
+        robot.slowStartSlowStop(Direction.RIGHT, 0.4, 1.2);
         sleep(150);
         robot.slowStartSlowStop(Direction.BACKWARDS, 0.55, 2.0);
         sleep(200);
@@ -138,7 +139,7 @@ public class AutoRightChris2 extends LinearOpMode {
         }
 
         sleep(200);
-        robot.slowStartSlowStop(Direction.FORWARDS, 0.3, 0.08);
+        robot.slowStartSlowStop(Direction.FORWARDS, 0.3, 0.11);
         sleep(300);
         // Cone placement
         robot.claw.setPosition(robot.servoClawOpen);
