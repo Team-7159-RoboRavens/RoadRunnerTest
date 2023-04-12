@@ -2,6 +2,7 @@
 package Team7159.ComplexRobots;
 
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.*;
@@ -11,6 +12,7 @@ import Team7159.BasicRobots.BasicMecanum;
 import Team7159.BasicRobots.BasicMecanum2;
 import Team7159.Enums.Direction;
 
+@Config
 public class Christwopher extends BasicMecanum2 {
 
     public DcMotor linearSlidesMotor1;
@@ -18,8 +20,8 @@ public class Christwopher extends BasicMecanum2 {
     public Servo claw;
 
     //TODO: find these
-    public double servoClawOpen = 0.35;
-    public double servoClawGrab = 0.65;
+    public static double servoClawOpen = 0.35;
+    public static double servoClawGrab = 0.65;
 
     public int lowJunction = 1280;
     public int midJunction = 1970;
